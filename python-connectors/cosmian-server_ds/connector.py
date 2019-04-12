@@ -6,6 +6,7 @@ from __future__ import print_function
 from six.moves import xrange
 from dataiku.connector import Connector
 import requests
+import json
 from os import sys
 
 """
@@ -32,9 +33,9 @@ class CosmianDatasetConnector(Connector):
 
         # perform some more initialization
         self.server_url = str(self.config.get("server_url"))
+        if ~self.server_url.endswith("/"):
+            self.server_url += "/"
         self.dataset_id = str(self.config.get("dataset_id"))
-
-        raise ValueError("TO TO")
 
     def get_read_schema(self):
         """
@@ -63,19 +64,28 @@ class CosmianDatasetConnector(Connector):
         # attemp to establish simple connection to the root URL
         headers = {
             "Accept-Encoding": "gzip",
-            "Accept": "text/plain"
+            "Accept": "application/json"
         }
         params = {}
-        r = requests.get(
-            url=self.server_url,
-            params=params,
-            headers=headers
-        )
-        if r.status_code == 200:
-            raise ValueError("BLAH BLAH")
-            # raise ValueError("Cosmian Server Plugin:: Error in request to root (status code: %s, reason :%s)" % r.status_code, r.text)
-            # r.raise_for_status()
-            # sys.exit()
+        try:
+            r = requests.get(
+                url="%sdataset/%s" % (self.server_url, self.dataset_id),
+                params=params,
+                headers=headers
+            )
+            if r.status_code != 200:
+                raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
+                    self.dataset_id, r.status_code, r.text))
+
+            j = r.json()
+            schema = j["schema"]
+            response = {"columns": []}
+            for col in schema:
+                response["columns"].append({"name": col["name"], "type": cosmian_type_2_dataiku_type(col["available"])})
+            return response
+            # return {"columns": [{"name": "col1", "type": "string"}, {"name": "col2", "type": "float"}]}
+        except requests.ConnectionError:
+            raise ValueError("Failed connecting to Cosmian Server at: %s" % self.server_url)
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
                       partition_id=None, records_limit=-1):
@@ -143,3 +153,30 @@ class CustomDatasetWriter(object):
 
     def close(self):
         pass
+
+    # Int32,
+    # Int64,
+    # FixedPoint,
+    # Float,
+    # String,
+
+
+def cosmian_type_2_dataiku_type(ct):
+    if "Hashed" in ct:
+        return "string"
+    if "ClearText" in ct:
+        t = ct["ClearText"]
+        if t == "Int32":
+            return "int"
+        if t == "Int64":
+            return "int"
+        if t == "FixedPoint":
+            return "float"
+        if t == "String":
+            return "string"
+        return "object"
+    if "Ignore" in ct:
+        return "object"
+    if "Encrypted" in ct:
+        return "object"
+    return "object"
