@@ -1,8 +1,12 @@
 # This file is the actual code for the custom Python dataset cosmian-server_ds
 
 # import the base class for the custom dataset
+from __future__ import print_function
+from __future__ import print_function
 from six.moves import xrange
 from dataiku.connector import Connector
+import requests
+from os import sys
 
 """
 A custom Python dataset is a subclass of Connector.
@@ -12,7 +16,9 @@ specified in the connector.json file.
 
 Note: the name of the class itself is not relevant.
 """
-class MyConnector(Connector):
+
+
+class CosmianDatasetConnector(Connector):
 
     def __init__(self, config, plugin_config):
         """
@@ -25,7 +31,10 @@ class MyConnector(Connector):
         Connector.__init__(self, config, plugin_config)  # pass the parameters to the base class
 
         # perform some more initialization
-        self.theparam1 = self.config.get("parameter1", "defaultValue")
+        self.server_url = str(self.config.get("server_url"))
+        self.dataset_id = str(self.config.get("dataset_id"))
+
+        raise ValueError("TO TO")
 
     def get_read_schema(self):
         """
@@ -49,10 +58,27 @@ class MyConnector(Connector):
 
         # In this example, we don't specify a schema here, so DSS will infer the schema
         # from the columns actually returned by the generate_rows method
-        return None
+        # return None
+
+        # attemp to establish simple connection to the root URL
+        headers = {
+            "Accept-Encoding": "gzip",
+            "Accept": "text/plain"
+        }
+        params = {}
+        r = requests.get(
+            url=self.server_url,
+            params=params,
+            headers=headers
+        )
+        if r.status_code == 200:
+            raise ValueError("BLAH BLAH")
+            # raise ValueError("Cosmian Server Plugin:: Error in request to root (status code: %s, reason :%s)" % r.status_code, r.text)
+            # r.raise_for_status()
+            # sys.exit()
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
-                            partition_id=None, records_limit = -1):
+                      partition_id=None, records_limit=-1):
         """
         The main reading method.
 
@@ -61,12 +87,11 @@ class MyConnector(Connector):
 
         The dataset schema and partitioning are given for information purpose.
         """
-        for i in xrange(1,10):
-            yield { "first_col" : str(i), "my_string" : "Yes" }
-
+        for i in xrange(1, 10):
+            yield {"first_col": str(i), "my_string": "Yes"}
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
-                         partition_id=None):
+                   partition_id=None):
         """
         Returns a writer object to write in the dataset (or in a partition).
 
@@ -76,19 +101,16 @@ class MyConnector(Connector):
         """
         raise Exception("Unimplemented")
 
-
     def get_partitioning(self):
         """
         Return the partitioning schema that the connector defines.
         """
         raise Exception("Unimplemented")
 
-
     def list_partitions(self, partitioning):
         """Return the list of partitions for the partitioning scheme
         passed as parameter"""
         return []
-
 
     def partition_exists(self, partitioning, partition_id):
         """Return whether the partition passed as parameter exists
@@ -97,7 +119,6 @@ class MyConnector(Connector):
         in the connector definition
         """
         raise Exception("unimplemented")
-
 
     def get_records_count(self, partitioning=None, partition_id=None):
         """
