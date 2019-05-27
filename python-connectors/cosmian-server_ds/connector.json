@@ -16,9 +16,9 @@
             "defaultValue": "http://localhost:9999"
         },
         {
-            "name": "dataset_id",
-            "label": "Dataset ID",
-            "description": "The unique identifier for the Dataset on the Cosmian server",
+            "name": "dataset_name",
+            "label": "Dataset Name",
+            "description": "The unique name of the Dataset on the Cosmian server",
             "type": "STRING",
             "mandatory": true,
             "defaultValue": ""

@@ -6,8 +6,8 @@ from __future__ import print_function
 from six.moves import xrange
 from dataiku.connector import Connector
 import requests
-import json
-from os import sys
+# import json
+# from os import sys
 
 """
 A custom Python dataset is a subclass of Connector.
@@ -35,7 +35,26 @@ class CosmianDatasetConnector(Connector):
         self.server_url = str(self.config.get("server_url"))
         if ~self.server_url.endswith("/"):
             self.server_url += "/"
-        self.dataset_id = str(self.config.get("dataset_id"))
+        self.dataset_name = str(self.config.get("dataset_name"))
+        # attempt to create open a source to this dataset
+        headers = {
+            "Accept-Encoding": "gzip",
+            "Accept": "application/json"
+        }
+        params = {}
+        try:
+            r = requests.get(
+                url="%sdataset/%s/source" % (self.server_url, self.dataset_name),
+                params=params,
+                headers=headers
+            )
+            if r.status_code != 200:
+                raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
+                    self.dataset_name, r.status_code, r.text))
+            resp = r.json()
+            self.handle = resp["handle"]
+        except requests.ConnectionError:
+            raise ValueError("Failed establishing connection to Cosmian Server at: %s" % self.server_url)
 
     def get_read_schema(self):
         """
@@ -69,19 +88,17 @@ class CosmianDatasetConnector(Connector):
         params = {}
         try:
             r = requests.get(
-                url="%sdataset/%s" % (self.server_url, self.dataset_id),
+                url="%ssource/%s/schema" % (self.server_url, self.handle),
                 params=params,
                 headers=headers
             )
             if r.status_code != 200:
                 raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
-                    self.dataset_id, r.status_code, r.text))
-
-            j = r.json()
-            schema = j["schema"]
+                    self.dataset_name, r.status_code, r.text))
+            schema = r.json()
             response = {"columns": []}
             for col in schema:
-                response["columns"].append({"name": col["name"], "type": cosmian_type_2_dataiku_type(col["available"])})
+                response["columns"].append({"name": col["name"], "type": cosmian_type_2_dataiku_type(col["data_type"])})
             return response
             # return {"columns": [{"name": "col1", "type": "string"}, {"name": "col2", "type": "float"}]}
         except requests.ConnectionError:
@@ -162,21 +179,14 @@ class CustomDatasetWriter(object):
 
 
 def cosmian_type_2_dataiku_type(ct):
-    if "Hashed" in ct:
+    if ct == "hash":
         return "string"
-    if "ClearText" in ct:
-        t = ct["ClearText"]
-        if t == "Int32":
-            return "int"
-        if t == "Int64":
-            return "int"
-        if t == "FixedPoint":
-            return "float"
-        if t == "String":
-            return "string"
-        return "object"
-    if "Ignore" in ct:
-        return "object"
-    if "Encrypted" in ct:
-        return "object"
+    if ct == "int32":
+        return "int"
+    if ct == "int64":
+        return "int"
+    if ct == "float":
+        return "float"
+    if ct == "string":
+        return "string"
     return "object"
