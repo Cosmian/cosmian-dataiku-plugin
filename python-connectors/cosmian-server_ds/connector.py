@@ -3,9 +3,9 @@
 # import the base class for the custom dataset
 from __future__ import print_function
 from __future__ import print_function
-from six.moves import xrange
 from dataiku.connector import Connector
 import requests
+
 # import json
 # from os import sys
 
@@ -80,7 +80,7 @@ class CosmianDatasetConnector(Connector):
         # from the columns actually returned by the generate_rows method
         # return None
 
-        # attemp to establish simple connection to the root URL
+        # attempt to establish simple connection to the root URL
         headers = {
             "Accept-Encoding": "gzip",
             "Accept": "application/json"
@@ -114,8 +114,32 @@ class CosmianDatasetConnector(Connector):
 
         The dataset schema and partitioning are given for information purpose.
         """
-        for i in xrange(1, 10):
-            yield {"first_col": str(i), "my_string": "Yes"}
+
+        headers = {
+            "Accept-Encoding": "gzip",
+            "Accept": "application/json"
+        }
+        params = {}
+        i = 0
+        go_on = True
+        while (i < records_limit) & go_on:
+            try:
+                r = requests.get(
+                    url="%ssource/%s/next" % (self.server_url, self.handle),
+                    params=params,
+                    headers=headers
+                )
+                if r.status_code == 404:  # EOF
+                    break
+                if r.status_code == 200:
+                    yield r.json()
+                else:
+                    raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
+                        self.dataset_name, r.status_code, r.text))
+
+                # return {"columns": [{"name": "col1", "type": "string"}, {"name": "col2", "type": "float"}]}
+            except requests.ConnectionError:
+                raise ValueError("Failed querying Cosmian Server at: %s" % self.server_url)
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
                    partition_id=None):

@@ -2,7 +2,7 @@
     "meta": {
         "label": "Cosmian Server Dataset",
         "description": "Cosmian Server Dataset",
-        "icon": "icon-puzzle-piece"
+        "icon": "icon-lock"
     },
     "readable": true,
     "writable": false,
