@@ -13,9 +13,9 @@
     // Meta data for display purposes
     "meta" : {
         // Name of this plugin that appears in the interface.
-        "label" : "Plugin cosmian-server",
+        "label" : "Cosmian Trusted Server",
 
-        "description" : "Connects a Cosmian secure server as a data source",
+        "description" : "Connects a Cosmian Trusted Server as a data source",
         "author" : "admin",
 
         // The icon of a plugin must be one of the FontAwesome 3.1 icons
