@@ -43,7 +43,8 @@ class CosmianDatasetConnector(Connector):
         }
         params = {}
         try:
-            r = requests.get(
+            self.session = requests.Session()
+            r = self.session.get(
                 url="%sdataset/%s/source" % (self.server_url, self.dataset_name),
                 params=params,
                 headers=headers
@@ -87,7 +88,7 @@ class CosmianDatasetConnector(Connector):
         }
         params = {}
         try:
-            r = requests.get(
+            r = self.session.get(
                 url="%ssource/%s/schema" % (self.server_url, self.handle),
                 params=params,
                 headers=headers
@@ -124,7 +125,7 @@ class CosmianDatasetConnector(Connector):
         go_on = True
         while (i < records_limit) & go_on:
             try:
-                r = requests.get(
+                r = self.session.get(
                     url="%ssource/%s/next" % (self.server_url, self.handle),
                     params=params,
                     headers=headers
