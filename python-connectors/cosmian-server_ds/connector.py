@@ -6,6 +6,8 @@ from __future__ import print_function
 from dataiku.connector import Connector
 import requests
 
+# import logging
+
 # import json
 # from os import sys
 
@@ -29,13 +31,17 @@ class CosmianDatasetConnector(Connector):
         file settings.json at the root of the plugin directory are passed as a json
         object 'plugin_config' to the constructor
         """
-        Connector.__init__(self, config, plugin_config)  # pass the parameters to the base class
+        # Connector.__init__(self, config, plugin_config)  # pass the parameters to the base class
+
+        # logging.warn("******* CONFIG: %s", config)
+        # logging.warn("******* PLUGIN CONFIG: %s", plugin_config)
 
         # perform some more initialization
-        self.server_url = str(self.config.get("server_url"))
+        self.server_url = str(config.get("server_url"))
         if ~self.server_url.endswith("/"):
             self.server_url += "/"
-        self.dataset_name = str(self.config.get("dataset_name"))
+        self.view_name = str(config.get("view_name"))
+        self.sorted = bool(config.get("sorted"))
         # attempt to create open a source to this dataset
         headers = {
             "Accept-Encoding": "gzip",
@@ -43,19 +49,23 @@ class CosmianDatasetConnector(Connector):
         }
         params = {}
         try:
+            dataset_sort_path = "sorted_dataset" if self.sorted else "raw_dataset"
             self.session = requests.Session()
             r = self.session.get(
-                url="%sdataset/%s/source" % (self.server_url, self.dataset_name),
+                url="%sview/%s/%s" % (self.server_url, self.view_name, dataset_sort_path),
                 params=params,
                 headers=headers
             )
             if r.status_code != 200:
-                raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
-                    self.dataset_name, r.status_code, r.text))
+                raise ValueError("Cosmian Server:: Error querying view: %s, status code: %s, reason :%s" % (
+                    self.view_name, r.status_code, r.text))
             resp = r.json()
             self.handle = resp["handle"]
+            config["handle"] = self.handle
         except requests.ConnectionError:
-            raise ValueError("Failed establishing connection to Cosmian Server at: %s" % self.server_url)
+            raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % self.server_url)
+        Connector.__init__(self, config, plugin_config)  # pass the parameters to the base class
+
 
     def get_read_schema(self):
         """
@@ -89,16 +99,16 @@ class CosmianDatasetConnector(Connector):
         params = {}
         try:
             r = self.session.get(
-                url="%ssource/%s/schema" % (self.server_url, self.handle),
+                url="%sdataset/%s/schema" % (self.server_url, self.handle),
                 params=params,
                 headers=headers
             )
             if r.status_code != 200:
                 raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
-                    self.dataset_name, r.status_code, r.text))
+                    self.view_name, r.status_code, r.text))
             schema = r.json()
             response = {"columns": []}
-            for col in schema:
+            for col in schema["columns"]:
                 response["columns"].append({"name": col["name"], "type": cosmian_type_2_dataiku_type(col["data_type"])})
             return response
             # return {"columns": [{"name": "col1", "type": "string"}, {"name": "col2", "type": "float"}]}
@@ -126,7 +136,7 @@ class CosmianDatasetConnector(Connector):
         while (i < records_limit) & go_on:
             try:
                 r = self.session.get(
-                    url="%ssource/%s/next" % (self.server_url, self.handle),
+                    url="%sdataset/%s/next" % (self.server_url, self.handle),
                     params=params,
                     headers=headers
                 )
@@ -136,7 +146,7 @@ class CosmianDatasetConnector(Connector):
                     yield r.json()
                 else:
                     raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
-                        self.dataset_name, r.status_code, r.text))
+                        self.view_name, r.status_code, r.text))
 
                 # return {"columns": [{"name": "col1", "type": "string"}, {"name": "col2", "type": "float"}]}
             except requests.ConnectionError:
@@ -209,9 +219,9 @@ def cosmian_type_2_dataiku_type(ct):
     if ct == "int32":
         return "int"
     if ct == "int64":
-        return "int"
+        return "bigint"
     if ct == "float":
-        return "float"
-    if ct == "string":
+        return "double"
+    if ct == "string" or ct == "hash" or ct == "blurred" or ct == "encrypted":
         return "string"
     return "object"
