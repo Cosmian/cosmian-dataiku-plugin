@@ -48,15 +48,6 @@
             "required": true,
             "acceptsDataset": true
         }
-//        {
-//            "name": "errors_output",
-//            "label": "errors output displayed name",
-//            "description": "what errors output means",
-//            "arity": "UNARY",
-//            "required": false,
-//            "acceptsDataset": true
-//        }
-        // ...
     ],
 
     // The field "params" holds a list of all the params

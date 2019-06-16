@@ -37,33 +37,13 @@ class CosmianDatasetConnector(Connector):
         # logging.warn("******* CONFIG: %s", config)
         # logging.warn("******* PLUGIN CONFIG: %s", plugin_config)
 
-        # perform some more initialization
         self.server_url = str(config.get("server_url"))
         if not self.server_url.endswith("/"):
             self.server_url += "/"
         self.view_name = str(config.get("view_name"))
         self.sorted = bool(config.get("sorted"))
         self.session = requests.Session()
-        # attempt to get a dataset handle
-        headers = {
-            "Accept-Encoding": "gzip",
-            "Accept": "application/json"
-        }
-        params = {}
-        try:
-            dataset_sort_path = "sorted_dataset" if self.sorted else "raw_dataset"
-            r = self.session.get(
-                url="%sview/%s/%s" % (self.server_url, self.view_name, dataset_sort_path),
-                params=params,
-                headers=headers
-            )
-            if r.status_code != 200:
-                raise ValueError("Cosmian Server:: Error querying view: %s, status code: %s, reason :%s" % (
-                    self.view_name, r.status_code, r.text))
-            resp = r.json()
-            self.handle = resp["handle"]
-        except requests.ConnectionError:
-            raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % self.server_url)
+        self.handle = cosmian.get_dataset_handle(self.session, self.server_url, self.view_name, self.sorted)
 
     def get_read_schema(self):
         """
@@ -84,36 +64,8 @@ class CosmianDatasetConnector(Connector):
 
         Supported types are: string, int, bigint, float, double, date, boolean
         """
-
-        # In this example, we don't specify a schema here, so DSS will infer the schema
-        # from the columns actually returned by the generate_rows method
-        # return None
-
         cols = cosmian.get_schema(self.session, self.server_url, self.handle)
         return {"columns": cols}
-        # # attempt to establish simple connection to the root URL
-        # headers = {
-        #     "Accept-Encoding": "gzip",
-        #     "Accept": "application/json"
-        # }
-        # params = {}
-        # try:
-        #     r = self.session.get(
-        #         url="%sdataset/%s/schema" % (self.server_url, self.handle),
-        #         params=params,
-        #         headers=headers
-        #     )
-        #     if r.status_code != 200:
-        #         raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
-        #             self.view_name, r.status_code, r.text))
-        #     schema = r.json()
-        #     response = {"columns": []}
-        #     for col in schema["columns"]:
-        #         response["columns"].append({"name": col["name"], "type": cosmian_type_2_dataiku_type(col["data_type"])})
-        #     return response
-        #     # return {"columns": [{"name": "col1", "type": "string"}, {"name": "col2", "type": "float"}]}
-        # except requests.ConnectionError:
-        #     raise ValueError("Failed connecting to Cosmian Server at: %s" % self.server_url)
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
                       partition_id=None, records_limit=-1):
@@ -125,12 +77,6 @@ class CosmianDatasetConnector(Connector):
 
         The dataset schema and partitioning are given for information purpose.
         """
-
-        headers = {
-            "Accept-Encoding": "gzip",
-            "Accept": "application/json"
-        }
-        params = {}
         i = 0
         while i < records_limit:
             gen = cosmian.read_next_row(self.session, self.server_url, self.handle)
@@ -139,21 +85,6 @@ class CosmianDatasetConnector(Connector):
                 yield gen
             else:
                 return
-            # try:
-            #     r = self.session.get(
-            #         url="%sdataset/%s/next" % (self.server_url, self.handle),
-            #         params=params,
-            #         headers=headers
-            #     )
-            #     if r.status_code == 404:  # EOF
-            #         break
-            #     if r.status_code == 200:
-            #         yield r.json()
-            #     else:
-            #         raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
-            #             self.view_name, r.status_code, r.text))
-            # except requests.ConnectionError:
-            #     raise ValueError("Failed querying Cosmian Server at: %s" % self.server_url)
 
     def get_writer(self, dataset_schema=None, dataset_partitioning=None,
                    partition_id=None):

@@ -4,6 +4,29 @@
 import requests
 
 
+def get_dataset_handle(session, server_url, view, sorted):
+    # attempt to create open a source to this dataset
+    headers = {
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json"
+    }
+    params = {}
+    try:
+        dataset_sort_path = "sorted_dataset" if sorted else "raw_dataset"
+        r = session.get(
+            url="%sview/%s/%s" % (server_url, view, dataset_sort_path),
+            params=params,
+            headers=headers
+        )
+        if r.status_code != 200:
+            raise ValueError("Cosmian Server:: Error querying view: %s, status code: %s, reason :%s" % (
+                view, r.status_code, r.text))
+        resp = r.json()
+        return resp["handle"]
+    except requests.ConnectionError:
+        raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
+
+
 def get_inner_join_handle(session, server_url, left_view, right_view):
     # attempt to create open a source to this dataset
     headers = {

@@ -57,8 +57,8 @@ import logging
 import dataiku
 import requests
 import cosmian
-import pandas as pd, numpy as np
-from dataiku import pandasutils as pdu
+# import pandas as pd, numpy as np
+# from dataiku import pandasutils as pdu
 
 logging.warn("****RECIPE RESOURCE: %s", get_recipe_resource())
 
@@ -71,7 +71,7 @@ left_dataset = dataiku.Dataset(get_input_names_for_role('left')[0])
 # logging.warn("******** METADATA %s", metadata)
 # logging.warn("******** CONFIG %s", left_dataset.get_config())
 left_config = left_dataset.get_config()['params']['customConfig']
-logging.warn("******** LEFT COSMIAN SERVER CONFIG: %s", left_config)
+logging.debug("******** Cosmian: LEFT COSMIAN SERVER CONFIG: %s", left_config)
 left_view = left_config['view_name']
 left_sorted = left_config['sorted']
 left_server_url = left_config['server_url']
@@ -81,7 +81,7 @@ if not left_server_url.endswith("/"):
 # Fetch information for the right dataset
 right_dataset = dataiku.Dataset(get_input_names_for_role('right')[0])
 right_config = right_dataset.get_config()['params']['customConfig']
-logging.warn("******** RIGHT COSMIAN SERVER CONFIG: %s", right_config)
+logging.debug("******** Cosmian: RIGHT COSMIAN SERVER CONFIG: %s", right_config)
 right_view = right_config['view_name']
 right_sorted = right_config['sorted']
 right_server_url = right_config['server_url']
@@ -93,40 +93,16 @@ if left_server_url != right_server_url:
 server_url = left_server_url
 
 handle = cosmian.get_inner_join_handle(session, server_url, left_view, right_view)
-logging.warn("******** HANDLE: %s", handle)
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, server_url, handle)
+logging.info("******** Cosmian: HANDLE: %s, SCHEMA: %s", handle, output_schema)
 output_dataset.write_schema(output_schema)
 
-logging.warn("********** SCHEMA: %s", output_schema)
+# Stream entries and write them to the output
 with output_dataset.get_writer() as writer:
     while True:
         row = cosmian.read_next_row(session,server_url,handle)
         if row is None:
             break
         writer.write_row_dict(row)
-# Read recipe inputs
-# cs_ages = dataiku.Dataset("cs_ages")
-# cs_ages_df = cs_ages.get_dataframe()
-# cs_salaries = dataiku.Dataset("cs_salaries")
-# cs_salaries_df = cs_salaries.get_dataframe()
-#
-# i = 0
-# for my_row_as_dict in cs_ages.iter_rows():
-#     if i > 10:
-#         break
-#     i += 1
-#     print my_row_as_dict
-
-
-# Compute recipe outputs
-# TODO: Write here your actual code that computes the outputs
-# NB: DSS supports several kinds of APIs for reading and writing data. Please see doc.
-
-# cs_salaries_ages_df = ... # Compute a Pandas dataframe to write into cs_salaries_ages
-
-
-# Write recipe outputs
-# cs_salaries_ages = dataiku.Dataset("cs_salaries_ages")
-# cs_salaries_ages.write_with_schema(cs_salaries_ages_df)
