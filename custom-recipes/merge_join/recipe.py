@@ -11,7 +11,7 @@
 # Please also see the "recipe.json" file for more information.
 
 # import the classes for accessing DSS objects from the recipe
-import dataiku
+# import dataiku
 # Import the helpers for custom recipes
 from dataiku.customrecipe import *
 import logging
@@ -57,6 +57,7 @@ import logging
 import dataiku
 import requests
 import cosmian
+
 # import pandas as pd, numpy as np
 # from dataiku import pandasutils as pdu
 
@@ -102,7 +103,7 @@ output_dataset.write_schema(output_schema)
 # Stream entries and write them to the output
 with output_dataset.get_writer() as writer:
     while True:
-        row = cosmian.read_next_row(session,server_url,handle)
+        row = cosmian.read_next_row(session, server_url, handle)
         if row is None:
             break
         writer.write_row_dict(row)
