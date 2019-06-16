@@ -16,12 +16,21 @@
             "defaultValue": "http://localhost:9999"
         },
         {
-            "name": "dataset_name",
-            "label": "Dataset Name",
-            "description": "The unique name of the Dataset on the Cosmian server",
+            "name": "view_name",
+            "label": "View",
+            "description": "The unique name of the View exposing data on the Cosmian server",
             "type": "STRING",
             "mandatory": true,
             "defaultValue": ""
+        },
+        {
+            "name": "sorted",
+            "label": "Sorted",
+            "description": "Show the data sorted by its key (may not be available)",
+            "type": "BOOLEAN",
+            "mandatory": true,
+            "defaultValue": false
         }
+
     ]
 }

@@ -2,8 +2,8 @@
 {
     // Meta data for display purposes
     "meta" : {
-        "label" : "Custom recipe from recipe merge_join",
-        "description" : "Custom recipe",
+        "label" : "Cosmian inner join",
+        "description" : "Performs a secure inner join on two confidential datasets",
         "icon" : "icon-puzzle-piece"
     },
 
@@ -19,19 +19,19 @@
 
     "inputRoles" : [
         {
-            "name": "input_A_role",
-            "label": "input A displayed name",
-            "description": "what input A means",
+            "name": "left",
+            "label": "left",
+            "description": "Dataset to the left of the inner-join",
             "arity": "UNARY",
             "required": true,
             "acceptsDataset": true
         },
         {
-            "name": "input_B_role",
-            "label": "input B displayed name",
-            "description": "what input B means",
-            "arity": "NARY",
-            "required": false,
+            "name": "right",
+            "label": "right",
+            "description": "Dataset to the right of the inner-join",
+            "arity": "UNARY",
+            "required": true,
             "acceptsDataset": true
             // ,'mustBeSQL': true
             // ,'mustBeStrictlyType':'HDFS'
@@ -41,71 +41,71 @@
 
     "outputRoles" : [
         {
-            "name": "main_output",
-            "label": "main output displayed name",
-            "description": "what main output means",
+            "name": "output",
+            "label": "joined dataset",
+            "description": "Dataset which is the result of the inner-join",
             "arity": "UNARY",
-            "required": false,
-            "acceptsDataset": true
-        },
-        {
-            "name": "errors_output",
-            "label": "errors output displayed name",
-            "description": "what errors output means",
-            "arity": "UNARY",
-            "required": false,
+            "required": true,
             "acceptsDataset": true
         }
+//        {
+//            "name": "errors_output",
+//            "label": "errors output displayed name",
+//            "description": "what errors output means",
+//            "arity": "UNARY",
+//            "required": false,
+//            "acceptsDataset": true
+//        }
         // ...
     ],
 
     // The field "params" holds a list of all the params
-    // for wich the user will be prompted for values in the Settings tab of the recipe.
+    // for which the user will be prompted for values in the Settings tab of the recipe.
 
     // The available parameter types are:
     // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
 
     "params": [
-        {
-            "name": "parameter1",
-            "label" : "User-readable label",
-            "type": "STRING",
-            "description":"Some documentation for parameter1",
-            "mandatory" : true
-        },
-        {
-            "name": "parameter2",
-            "type": "INT",
-            "defaultValue" : 42
-            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-               int(get_recipe_config()['parameter2'])
-            */
-        },
+//        {
+//            "name": "parameter1",
+//            "label" : "User-readable label",
+//            "type": "STRING",
+//            "description":"Some documentation for parameter1",
+//            "mandatory" : true
+//        },
+//        {
+//            "name": "parameter2",
+//            "type": "INT",
+//            "defaultValue" : 42
+//            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
+//               int(get_recipe_config()['parameter2'])
+//            */
+//        },
 
         // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
-        {
-            "name": "parameter3",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "value": "val_x",
-                    "label": "display name for val_x"
-                },
-                {
-                    "value": "val_y",
-                    "label": "display name for val_y"
-                },
-            ]
-        },
+//        {
+//            "name": "parameter3",
+//            "type": "SELECT",
+//            "selectChoices": [
+//                {
+//                    "value": "val_x",
+//                    "label": "display name for val_x"
+//                },
+//                {
+//                    "value": "val_y",
+//                    "label": "display name for val_y"
+//                },
+//            ]
+//        },
 
         // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
         // To specify the input schema whose column names are used, use the "columnRole" field like below.
         // The column names will come from the schema of the first dataset associated to that role.
-        {
-            "name": "parameter4",
-            "type": "COLUMN",
-            "columnRole":"input_B_role"
-        }
+//        {
+//            "name": "parameter4",
+//            "type": "COLUMN",
+//            "columnRole":"input_B_role"
+//        }
 
         // The 'COLUMNS' type works in the same way, except that it is a list of strings.
     ],

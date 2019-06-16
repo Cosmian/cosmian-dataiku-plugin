@@ -13,10 +13,10 @@
     // Meta data for display purposes
     "meta" : {
         // Name of this plugin that appears in the interface.
-        "label" : "Cosmian Trusted Server",
+        "label" : "Cosmian Confidential Server",
 
-        "description" : "Connects a Cosmian Trusted Server as a data source",
-        "author" : "admin",
+        "description" : "Handles confidential computations on a Cosmian server",
+        "author" : "Bruno Grieder",
 
         // The icon of a plugin must be one of the FontAwesome 3.1 icons
         "icon" : "icon-lock",
