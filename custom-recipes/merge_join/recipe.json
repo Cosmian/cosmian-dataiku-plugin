@@ -59,10 +59,10 @@
     "params": [
         {
             "name": "inner_join_key",
-            "label" : "Inner Join Functional Key",
             "type": "STRING",
-            "defaultValue" : "",
+            "label" : "Inner Join Functional Key",
             "description":"This key is required when performing a join over encrypted data (MCFE setting). It is not needed in any other setting",
+            "defaultValue" : "",
             "mandatory" : false
         }
 //        {
