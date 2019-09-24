@@ -89,11 +89,15 @@ right_server_url = right_config['server_url']
 if not right_server_url.endswith("/"):
     right_server_url += "/"
 
+# The two dataset views must reside on the same Cosmian server
 if left_server_url != right_server_url:
     raise ValueError("The two datasets must be accessed from the same Cosmian server")
 server_url = left_server_url
 
-handle = cosmian.get_inner_join_handle(session, server_url, left_view, right_view)
+# For MCFE joins, retrieve the inner join key
+inner_join_key = get_recipe_config()['inner_join_key']
+
+handle = cosmian.get_inner_join_handle(session, server_url, left_view, right_view, inner_join_key)
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, server_url, handle)
