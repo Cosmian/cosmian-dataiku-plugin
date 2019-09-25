@@ -1,20 +1,24 @@
 // This file is the descriptor for the Custom code recipe merge_join_v2
+
 {
-  // Meta data for display purposes
-  "meta": {
-    "label": "Cosmian join",
-    "description": "Performs a secure join on multiple datasets",
-    "icon": "icon-puzzle-piece"
-  },
-  "kind": "PYTHON",
-  // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
-  // or more dataset to each input and output role.
+    // Meta data for display purposes
+    "meta" : {
+        "label" : "Custom recipe from recipe merge_join_v2",
+        "description" : "Custom recipe",
+        "icon" : "icon-puzzle-piece"
+    },
 
-  // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
-  // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
-  // associate no dataset with the role.
+    "kind" : "PYTHON",
+    
 
-  "inputRoles": [
+    // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
+    // or more dataset to each input and output role.
+
+    // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
+    // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
+    // associate no dataset with the role.
+
+      "inputRoles": [
     {
       "name": "datasets",
       "label": "Dataset",
@@ -110,5 +114,7 @@
   // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
   // screen.
 
-  "resourceKeys": []
+
+    "resourceKeys" : []
+
 }
