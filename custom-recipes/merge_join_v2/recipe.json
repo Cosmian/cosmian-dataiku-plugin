@@ -1,121 +1,114 @@
 // This file is the descriptor for the Custom code recipe merge_join_v2
 {
-    // Meta data for display purposes
-    "meta" : {
-        "label" : "Custom recipe from recipe merge_join_v2",
-        "description" : "Custom recipe",
-        "icon" : "icon-puzzle-piece"
+  // Meta data for display purposes
+  "meta": {
+    "label": "Cosmian join",
+    "description": "Performs a secure join on multiple datasets",
+    "icon": "icon-puzzle-piece"
+  },
+  "kind": "PYTHON",
+  // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
+  // or more dataset to each input and output role.
+
+  // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
+  // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
+  // associate no dataset with the role.
+
+  "inputRoles": [
+    {
+      "name": "datasets",
+      "label": "Dataset",
+      "description": "Dataset to join with",
+      "arity": "NARY",
+      "required": true,
+      "acceptsDataset": true
+    }, // ...
+  ],
+  "outputRoles": [
+    {
+      "name": "output",
+      "label": "joined dataset",
+      "description": "Dataset which is the result of the join",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  // The field "params" holds a list of all the params
+  // for which the user will be prompted for values in the Settings tab of the recipe.
+
+  // The available parameter types are:
+  // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
+
+  "params": [
+    {
+      "name": "join_type",
+      "type": "SELECT",
+      "label": "Type of join",
+      "description": "The type of join that will be performed",
+      "selectChoices": [
+        {
+          "value": "inner",
+          "label": "inner join"
+        },
+        {
+          "value": "full",
+          "label": "full outer join"
+        },
+        {
+          "value": "outer",
+          "label": "outer table n"
+        }
+      ],
+      "defaultValue": "inner",
+      "mandatory": true
     },
+    {
+      "name": "outer_join_index",
+      "type": "INT",
+      "label": "Outer table index",
+      "description": "The index of the table which is the outer table",
+      "defaultValue": "1",
+      "mandatory": false,
+      "visibilityCondition": "model.join_type=='outer'"
+    },
+    {
+      "name": "join_key",
+      "type": "STRING",
+      "label": "Join functional key",
+      "description": "This key is required to perform a join over encrypted data (MCFE setting only)",
+      "defaultValue": "",
+      "mandatory": false
+    }
 
-    "kind" : "PYTHON",
-    
+    //        {
+    //            "name": "parameter2",
+    //            "type": "INT",
+    //            "defaultValue" : 42
+    //            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
+    //               int(get_recipe_config()['parameter2'])
+    //            */
+    //        },
 
-    // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
-    // or more dataset to each input and output role.
+    // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
 
-    // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
-    // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
-    // associate no dataset with the role.
 
-    "inputRoles" : [
-        {
-            "name": "input_A_role",
-            "label": "input A displayed name",
-            "description": "what input A means",
-            "arity": "UNARY",
-            "required": true,
-            "acceptsDataset": true
-        },
-        {
-            "name": "input_B_role",
-            "label": "input B displayed name",
-            "description": "what input B means",
-            "arity": "NARY",
-            "required": false,
-            "acceptsDataset": true
-            // ,'mustBeSQL': true
-            // ,'mustBeStrictlyType':'HDFS'
-        }
-        // ...
-    ],
+    // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
+    // To specify the input schema whose column names are used, use the "columnRole" field like below.
+    // The column names will come from the schema of the first dataset associated to that role.
+    //        {
+    //            "name": "parameter4",
+    //            "type": "COLUMN",
+    //            "columnRole":"input_B_role"
+    //        }
 
-    "outputRoles" : [
-        {
-            "name": "main_output",
-            "label": "main output displayed name",
-            "description": "what main output means",
-            "arity": "UNARY",
-            "required": false,
-            "acceptsDataset": true
-        },
-        {
-            "name": "errors_output",
-            "label": "errors output displayed name",
-            "description": "what errors output means",
-            "arity": "UNARY",
-            "required": false,
-            "acceptsDataset": true
-        }
-        // ...
-    ],
+    // The 'COLUMNS' type works in the same way, except that it is a list of strings.
+  ],
+  // The field "resourceKeys" holds a list of keys that allows to limit the number
+  // of concurrent executions and activities triggered by this recipe.
+  //
+  // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
+  // screen.
 
-    // The field "params" holds a list of all the params
-    // for wich the user will be prompted for values in the Settings tab of the recipe.
-
-    // The available parameter types are:
-    // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
-
-    "params": [
-        {
-            "name": "parameter1",
-            "label" : "User-readable label",
-            "type": "STRING",
-            "description":"Some documentation for parameter1",
-            "mandatory" : true
-        },
-        {
-            "name": "parameter2",
-            "type": "INT",
-            "defaultValue" : 42
-            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-               int(get_recipe_config()['parameter2'])
-            */
-        },
-
-        // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
-        {
-            "name": "parameter3",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "value": "val_x",
-                    "label": "display name for val_x"
-                },
-                {
-                    "value": "val_y",
-                    "label": "display name for val_y"
-                },
-            ]
-        },
-
-        // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
-        // To specify the input schema whose column names are used, use the "columnRole" field like below.
-        // The column names will come from the schema of the first dataset associated to that role.
-        {
-            "name": "parameter4",
-            "type": "COLUMN",
-            "columnRole":"input_B_role"
-        }
-
-        // The 'COLUMNS' type works in the same way, except that it is a list of strings.
-    ],
-
-    // The field "resourceKeys" holds a list of keys that allows to limit the number
-    // of concurrent executions and activities triggered by this recipe.
-    //
-    // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
-    // screen.
-
-    "resourceKeys" : []
-
+  "resourceKeys": []
 }
