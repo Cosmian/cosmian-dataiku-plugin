@@ -77,7 +77,7 @@
     {
       "name": "outer_table_index",
       "type": "INT",
-      "label": "outer table index",
+      "label": "Outer table index",
       "description": "The index of the table which is the outer table",
       "defaultValue": "1",
       "mandatory": false,
