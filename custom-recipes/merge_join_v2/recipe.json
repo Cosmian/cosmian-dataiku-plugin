@@ -3,8 +3,8 @@
 {
   // Meta data for display purposes
   "meta": {
-    "label": "Dataset join",
-    "description": "Perform secure joins on datasets",
+    "label": "Secure join",
+    "description": "Perform secure joins on multiple datasets",
     "icon": "icon-puzzle-piece"
   },
   "kind": "PYTHON",
@@ -18,7 +18,7 @@
   "inputRoles": [
     {
       "name": "datasets",
-      "label": "Dataset",
+      "label": "Datasets",
       "description": "Dataset to join with",
       "arity": "NARY",
       "required": true,

@@ -14,6 +14,7 @@
 import dataiku
 # Import the helpers for custom recipes
 from dataiku.customrecipe import *
+import logging
 
 # Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
 # or more dataset to each input and output role.
@@ -53,23 +54,80 @@ my_variable = get_recipe_config().get('parameter_name', None)
 
 # -*- coding: utf-8 -*-
 import dataiku
-import pandas as pd, numpy as np
-from dataiku import pandasutils as pdu
+import requests
+import cosmian
 
-# Read recipe inputs
-ages = dataiku.Dataset("ages")
-ages_df = ages.get_dataframe()
-salaries = dataiku.Dataset("salaries")
-salaries_df = salaries.get_dataframe()
+# import pandas as pd, numpy as np
+# from dataiku import pandasutils as pdu
 
+logging.warn("****RECIPE RESOURCE: %s", get_recipe_resource())
 
-# Compute recipe outputs
-# TODO: Write here your actual code that computes the outputs
-# NB: DSS supports several kinds of APIs for reading and writing data. Please see doc.
+# an HTTP 1.1 session with keep-alive
+session = requests.Session()
 
-ages_salaries_v2_df = ... # Compute a Pandas dataframe to write into ages_salaries_v2
+dataset_names = get_input_names_for_role('datasets')
+datasets = [dataiku.Dataset(name) for name in dataset_names]
 
+# Fetch information for the left dataset
+left_dataset = dataiku.Dataset(get_input_names_for_role('left')[0])
+# metadata = left_dataset.read_metadata()
+# logging.warn("******** METADATA %s", metadata)
+# logging.warn("******** CONFIG %s", left_dataset.get_config())
+left_config = left_dataset.get_config()['params']['customConfig']
+logging.debug("******** Cosmian: LEFT COSMIAN SERVER CONFIG: %s", left_config)
+left_view = left_config['view_name']
+left_sorted = left_config['sorted']
+left_server_url = left_config['server_url']
+if not left_server_url.endswith("/"):
+    left_server_url += "/"
 
-# Write recipe outputs
-ages_salaries_v2 = dataiku.Dataset("ages_salaries_v2")
-ages_salaries_v2.write_with_schema(ages_salaries_v2_df)
+# Fetch information for the right dataset
+right_dataset = dataiku.Dataset(get_input_names_for_role('right')[0])
+right_config = right_dataset.get_config()['params']['customConfig']
+logging.debug("******** Cosmian: RIGHT COSMIAN SERVER CONFIG: %s", right_config)
+right_view = right_config['view_name']
+right_sorted = right_config['sorted']
+right_server_url = right_config['server_url']
+if not right_server_url.endswith("/"):
+    right_server_url += "/"
+
+# The two dataset views must reside on the same Cosmian server
+if left_server_url != right_server_url:
+    raise ValueError("The two datasets must be accessed from the same Cosmian server")
+server_url = left_server_url
+
+# Join parameters
+recipe_config = get_recipe_config()
+join_type = recipe_config['join_type']
+num_tables = 2  # FIXME hard-coded upper bound
+if join_type == 'outer':
+    outer_join_index = recipe_config['outer_join_index']
+    if outer_join_index < 0 or outer_join_index > num_tables:
+        raise ValueError(
+            "Invalid outer table index, it must be between 1 and " + str(num_tables)
+        )
+else:
+    outer_join_index = 0
+# For MCFE joins, retrieve the inner join key
+if 'join_key' in recipe_config:
+    join_key = recipe_config['join_key']
+else:
+    join_key = ''
+
+# REST request to inner join
+handle = cosmian.get_inner_join_handle(
+    session, server_url, left_view, right_view,
+    join_type, outer_join_index, join_key)
+
+output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
+output_schema = cosmian.get_schema(session, server_url, handle)
+logging.info("******** Cosmian: HANDLE: %s, SCHEMA: %s", handle, output_schema)
+output_dataset.write_schema(output_schema)
+
+# Stream entries and write them to the output
+with output_dataset.get_writer() as writer:
+    while True:
+        row = cosmian.read_next_row(session, server_url, handle)
+        if row is None:
+            break
+        writer.write_row_dict(row)
