@@ -95,10 +95,11 @@ if left_server_url != right_server_url:
 server_url = left_server_url
 
 # Join parameters
-join_type = get_recipe_config()['join_type']
+recipe_config = get_recipe_config()
+join_type = recipe_config['join_type']
 num_tables = 2  # FIXME hard-coded upper bound
 if join_type == 'outer':
-    outer_join_index = get_recipe_config()['outer_join_index']
+    outer_join_index = recipe_config['outer_join_index']
     if outer_join_index < 0 or outer_join_index > num_tables:
         raise ValueError(
             "Invalid outer table index, it must be between 1 and " + str(num_tables)
@@ -106,7 +107,10 @@ if join_type == 'outer':
 else:
     outer_join_index = 0
 # For MCFE joins, retrieve the inner join key
-join_key = get_recipe_config()['join_key']
+if 'join_key' in recipe_config:
+    join_key = recipe_config['join_key']
+else:
+    join_key = ''
 
 # REST request to inner join
 handle = cosmian.get_inner_join_handle(
