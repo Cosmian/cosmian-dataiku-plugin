@@ -63,31 +63,31 @@
           "label": "inner join"
         },
         {
-          "value": "outer",
+          "value": "full",
           "label": "full outer join"
         },
         {
-          "value": "table_n",
-          "label": "join using the ids in table n"
+          "value": "outer",
+          "label": "outer table n"
         }
       ],
       "defaultValue": "inner",
       "mandatory": true
     },
     {
-      "name": "table_n_join_index",
+      "name": "outer_table_index",
       "type": "INT",
-      "label": "Index of the table",
-      "description": "The index of the table which ids will be used for the join",
+      "label": "outer table index",
+      "description": "The index of the table which is the outer table",
       "defaultValue": "1",
       "mandatory": false,
-      "visibilityCondition": "model.join_type=='table_n'"
+      "visibilityCondition": "model.join_type=='outer'"
     },
     {
       "name": "join_key",
       "type": "STRING",
       "label": "Join functional key",
-      "description": "This key is required when performing a join over encrypted data (MCFE setting).\nIt is not needed in any other setting",
+      "description": "This key is required to perform a join over encrypted data (MCFE setting only)",
       "defaultValue": "",
       "mandatory": false
     }

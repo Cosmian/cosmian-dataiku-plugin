@@ -96,11 +96,11 @@ server_url = left_server_url
 
 # Join parameters
 join_type = get_recipe_config()['join_type']
-table_n_join_index = get_recipe_config()['table_n_join_index']
+outer_table_index = get_recipe_config()['outer_table_index']
 num_tables = 2  # FIXME hard-coded upper bound
-if table_n_join_index < 0 or table_n_join_index > num_tables:
+if outer_table_index < 0 or outer_table_index > num_tables:
     raise ValueError(
-        "Invalid index, it must be greater than zero and equal or lower than " + str(num_tables)
+        "Invalid outer table index, it must be between 1 and " + str(num_tables)
     )
 # For MCFE joins, retrieve the inner join key
 join_key = get_recipe_config()['join_key']
@@ -108,7 +108,7 @@ join_key = get_recipe_config()['join_key']
 # REST request to inner join
 handle = cosmian.get_inner_join_handle(
     session, server_url, left_view, right_view,
-    join_type, table_n_join_index, join_key)
+    join_type, outer_table_index, join_key)
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, server_url, handle)
