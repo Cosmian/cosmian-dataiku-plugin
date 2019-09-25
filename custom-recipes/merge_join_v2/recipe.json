@@ -20,14 +20,6 @@
 
     "inputRoles" : [
         {
-            "name": "input_A_role",
-            "label": "input A displayed name",
-            "description": "what input A means",
-            "arity": "UNARY",
-            "required": true,
-            "acceptsDataset": true
-        },
-        {
             "name": "input_B_role",
             "label": "input B displayed name",
             "description": "what input B means",
