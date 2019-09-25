@@ -75,7 +75,7 @@
       "mandatory": true
     },
     {
-      "name": "outer_table_index",
+      "name": "outer_join_index",
       "type": "INT",
       "label": "Outer table index",
       "description": "The index of the table which is the outer table",

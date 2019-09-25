@@ -1,0 +1,24 @@
+{
+  "content": {
+    "licensee": {
+      "firstName": "Bruno",
+      "lastName": "GRIEDER",
+      "email": "bruno.grieder@cosmian.com",
+      "company": "Cosmian"
+    },
+    "instanceId": "kioa8och",
+    "licenseKind": "PARTNER_NFR",
+    "licenseId": "d62QIZEAyDd20a7A",
+    "properties": {
+      "emittedBy": "cloudadmin (lmattioni)",
+      "features.engines.spark": "true",
+      "features.engines.sparkMLLib": "true",
+      "projectDescription": "NFR COSMIAN",
+      "emittedOn": "20190925"
+    },
+    "expiresOn": "20191225"
+  },
+  "r1Sig": "u1vY3B409NAQH+L/qArH1kAAKZObQEbsr9HOOLEz24grqMDcZvo9VTrD3ADIJzj16wMWfuVh/UfeS2RL7bhzBqAcwa97/4rldPHhrTDYmFKbGqY9iXbOvXZ9dO5ZV3nLUoJJV8tgDriIbEcIq11tPjSMq+elr+/XlAlE8tutT3Y\u003d",
+  "r1Pub": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDqyiqepcWLOnxAX+nuRvTeapLJ3sAWJ0DCtJjrraYnrTSwbVZJ5Xu5ZPukb99mxq45z3jux6ljlmdMlo0/hRwKLHEIjzK7B+XGSJYBcSfcUEe8ENcHV7ZW5PSpxYWWq2h+aA/xpsA3vvM1DWxdgSUErnY2kaZe2X2nStQHlpwBmwIDAQAB",
+  "r1PubSig": "OG7+Ke0UY+poOjCVj43krxo5uqHZ/Itrh27rIwlRhIzBsWvxjTGThDDaaNhwxTwDCjenX5rdCkYqrauD0ztE2Y7iBDSgO7PkzgVW+KFdRrYM+zsEr7nsGfhgdDVQnCUetD4kOxbaqCl7LDo0DXaT+bZGdiNjyiq3ByslIEA5QQ8\u003d"
+}

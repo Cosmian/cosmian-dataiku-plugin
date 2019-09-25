@@ -27,7 +27,7 @@ def get_dataset_handle(session, server_url, view, sorted):
         raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
 
 
-def get_inner_join_handle(session, server_url, left_view, right_view, join_type, table_n_join_index, join_key):
+def get_inner_join_handle(session, server_url, left_view, right_view, join_type, outer_join_index, join_key):
     # attempt to create open a source to this dataset
     headers = {
         "Accept-Encoding": "gzip",
@@ -35,7 +35,7 @@ def get_inner_join_handle(session, server_url, left_view, right_view, join_type,
     }
     params = {
         "join_type": join_type,
-        "table_n_join_index": table_n_join_index,
+        "outer_join_index": outer_join_index,
         "join_key": join_key
     }
     try:
