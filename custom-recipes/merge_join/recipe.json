@@ -86,8 +86,8 @@
     {
       "name": "join_key",
       "type": "STRING",
-      "label": "Join Functional Key",
-      "description": "This key is required when performing a join over encrypted data (MCFE setting). It is not needed in any other setting",
+      "label": "Join functional key",
+      "description": "This key is required when performing a join over encrypted data (MCFE setting).\nIt is not needed in any other setting",
       "defaultValue": "",
       "mandatory": false
     }
