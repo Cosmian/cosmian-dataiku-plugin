@@ -20,15 +20,13 @@
 
     "inputRoles" : [
         {
-            "name": "input_B_role",
-            "label": "input B displayed name",
-            "description": "what input B means",
-            "arity": "NARY",
-            "required": false,
-            "acceptsDataset": true
-            // ,'mustBeSQL': true
-            // ,'mustBeStrictlyType':'HDFS'
-        }
+      "name": "datasets",
+      "label": "Dataset",
+      "description": "Dataset to join with",
+      "arity": "NARY",
+      "required": true,
+      "acceptsDataset": true
+    }
         // ...
     ],
 
