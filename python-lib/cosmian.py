@@ -40,7 +40,7 @@ def get_inner_join_handle(session, server_url, left_view, right_view, join_type,
     }
     try:
         r = session.get(
-            url="%sinner_join/%s/%s" % (server_url, left_view, right_view),
+            url="%sjoin/%s/%s" % (server_url, left_view, right_view),
             params=params,
             headers=headers
         )
