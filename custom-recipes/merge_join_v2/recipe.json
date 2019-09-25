@@ -1,25 +1,22 @@
 // This file is the descriptor for the Custom code recipe merge_join_v2
 
 {
-    // Meta data for display purposes
-    "meta" : {
-        "label" : "Custom recipe from recipe merge_join_v2",
-        "description" : "Custom recipe",
-        "icon" : "icon-puzzle-piece"
-    },
+  // Meta data for display purposes
+  "meta": {
+    "label": "Dataset join",
+    "description": "Perform secure joins on datasets",
+    "icon": "icon-puzzle-piece"
+  },
+  "kind": "PYTHON",
+  // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
+  // or more dataset to each input and output role.
 
-    "kind" : "PYTHON",
-    
+  // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
+  // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
+  // associate no dataset with the role.
 
-    // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
-    // or more dataset to each input and output role.
-
-    // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
-    // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
-    // associate no dataset with the role.
-
-    "inputRoles" : [
-        {
+  "inputRoles": [
+    {
       "name": "datasets",
       "label": "Dataset",
       "description": "Dataset to join with",
@@ -27,10 +24,9 @@
       "required": true,
       "acceptsDataset": true
     }
-        // ...
-    ],
-
-   "outputRoles": [
+    // ...
+  ],
+  "outputRoles": [
     {
       "name": "output",
       "label": "joined dataset",
@@ -39,16 +35,15 @@
       "required": true,
       "acceptsDataset": true
     }
-        // ...
-    ],
+    // ...
+  ],
+  // The field "params" holds a list of all the params
+  // for wich the user will be prompted for values in the Settings tab of the recipe.
 
-    // The field "params" holds a list of all the params
-    // for wich the user will be prompted for values in the Settings tab of the recipe.
+  // The available parameter types are:
+  // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
 
-    // The available parameter types are:
-    // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
-
-     "params": [
+  "params": [
     {
       "name": "join_type",
       "type": "SELECT",
@@ -88,37 +83,12 @@
       "defaultValue": "",
       "mandatory": false
     }
-
-    //        {
-    //            "name": "parameter2",
-    //            "type": "INT",
-    //            "defaultValue" : 42
-    //            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-    //               int(get_recipe_config()['parameter2'])
-    //            */
-    //        },
-
-    // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
-
-
-    // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
-    // To specify the input schema whose column names are used, use the "columnRole" field like below.
-    // The column names will come from the schema of the first dataset associated to that role.
-    //        {
-    //            "name": "parameter4",
-    //            "type": "COLUMN",
-    //            "columnRole":"input_B_role"
-    //        }
-
-    // The 'COLUMNS' type works in the same way, except that it is a list of strings.
   ],
+  // The field "resourceKeys" holds a list of keys that allows to limit the number
+  // of concurrent executions and activities triggered by this recipe.
+  //
+  // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
+  // screen.
 
-    // The field "resourceKeys" holds a list of keys that allows to limit the number
-    // of concurrent executions and activities triggered by this recipe.
-    //
-    // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
-    // screen.
-
-    "resourceKeys" : []
-
+  "resourceKeys": []
 }
