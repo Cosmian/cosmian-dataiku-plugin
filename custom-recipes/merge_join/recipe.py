@@ -96,12 +96,15 @@ server_url = left_server_url
 
 # Join parameters
 join_type = get_recipe_config()['join_type']
-outer_join_index = get_recipe_config()['outer_join_index']
 num_tables = 2  # FIXME hard-coded upper bound
-if outer_join_index < 0 or outer_join_index > num_tables:
-    raise ValueError(
-        "Invalid outer table index, it must be between 1 and " + str(num_tables)
-    )
+if join_type == 'outer':
+    outer_join_index = get_recipe_config()['outer_join_index']
+    if outer_join_index < 0 or outer_join_index > num_tables:
+        raise ValueError(
+            "Invalid outer table index, it must be between 1 and " + str(num_tables)
+        )
+else:
+    outer_join_index = 0
 # For MCFE joins, retrieve the inner join key
 join_key = get_recipe_config()['join_key']
 
