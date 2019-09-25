@@ -2,8 +2,8 @@
 {
   // Meta data for display purposes
   "meta": {
-    "label": "Cosmian join",
-    "description": "Performs a secure join on multiple datasets",
+    "label": "Cosmian join v1",
+    "description": "Performs a secure join on 2 datasets",
     "icon": "icon-puzzle-piece"
   },
   "kind": "PYTHON",
@@ -16,19 +16,30 @@
 
   "inputRoles": [
     {
-      "name": "datasets",
-      "label": "Dataset",
-      "description": "Dataset to join with",
-      "arity": "NARY",
+      "name": "left",
+      "label": "left",
+      "description": "Dataset to the left of the inner-join",
+      "arity": "UNARY",
       "required": true,
       "acceptsDataset": true
-    }, // ...
+    },
+    {
+      "name": "right",
+      "label": "right",
+      "description": "Dataset to the right of the inner-join",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+      // ,'mustBeSQL': true
+      // ,'mustBeStrictlyType':'HDFS'
+    }
+    // ...
   ],
   "outputRoles": [
     {
       "name": "output",
       "label": "joined dataset",
-      "description": "Dataset which is the result of the join",
+      "description": "Dataset which is the result of the inner-join",
       "arity": "UNARY",
       "required": true,
       "acceptsDataset": true
