@@ -30,15 +30,15 @@
         // ...
     ],
 
-    "outputRoles" : [
-        {
-            "name": "main_output",
-            "label": "main output displayed name",
-            "description": "what main output means",
-            "arity": "UNARY",
-            "required": false,
-            "acceptsDataset": true
-        }
+   "outputRoles": [
+    {
+      "name": "output",
+      "label": "joined dataset",
+      "description": "Dataset which is the result of the join",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+    }
         // ...
     ],
 
