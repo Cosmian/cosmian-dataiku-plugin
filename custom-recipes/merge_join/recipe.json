@@ -1,125 +1,125 @@
 // This file is the descriptor for the Custom code recipe merge_join
 {
-    // Meta data for display purposes
-    "meta": {
-        "label": "Cosmian inner join",
-        "description": "Performs a secure inner join on two confidential datasets",
-        "icon": "icon-puzzle-piece"
+  // Meta data for display purposes
+  "meta": {
+    "label": "Cosmian join",
+    "description": "Performs a secure join on multiple datasets",
+    "icon": "icon-puzzle-piece"
+  },
+  "kind": "PYTHON",
+  // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
+  // or more dataset to each input and output role.
+
+  // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
+  // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
+  // associate no dataset with the role.
+
+  "inputRoles": [
+    {
+      "name": "left",
+      "label": "left",
+      "description": "Dataset to the left of the inner-join",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
     },
-    "kind": "PYTHON",
-    // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
-    // or more dataset to each input and output role.
+    {
+      "name": "right",
+      "label": "right",
+      "description": "Dataset to the right of the inner-join",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+      // ,'mustBeSQL': true
+      // ,'mustBeStrictlyType':'HDFS'
+    }
+    // ...
+  ],
+  "outputRoles": [
+    {
+      "name": "output",
+      "label": "joined dataset",
+      "description": "Dataset which is the result of the inner-join",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  // The field "params" holds a list of all the params
+  // for which the user will be prompted for values in the Settings tab of the recipe.
 
-    // The "arity" field indicates whether the user can associate several datasets to the role ('NARY')
-    // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
-    // associate no dataset with the role.
+  // The available parameter types are:
+  // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
 
-    "inputRoles": [
+  "params": [
+    {
+      "name": "join_type",
+      "type": "SELECT",
+      "label": "Type of join",
+      "description": "The type of join that will be performed",
+      "selectChoices": [
         {
-            "name": "left",
-            "label": "left",
-            "description": "Dataset to the left of the inner-join",
-            "arity": "UNARY",
-            "required": true,
-            "acceptsDataset": true
+          "value": "inner",
+          "label": "inner join"
         },
         {
-            "name": "right",
-            "label": "right",
-            "description": "Dataset to the right of the inner-join",
-            "arity": "UNARY",
-            "required": true,
-            "acceptsDataset": true
-            // ,'mustBeSQL': true
-            // ,'mustBeStrictlyType':'HDFS'
-        }
-        // ...
-    ],
-    "outputRoles": [
-        {
-            "name": "output",
-            "label": "joined dataset",
-            "description": "Dataset which is the result of the inner-join",
-            "arity": "UNARY",
-            "required": true,
-            "acceptsDataset": true
-        }
-    ],
-    // The field "params" holds a list of all the params
-    // for which the user will be prompted for values in the Settings tab of the recipe.
-
-    // The available parameter types are:
-    // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
-
-    "params": [
-        {
-            "name": "join_type",
-            "type": "SELECT",
-            "label": "Type of join",
-            "description": "The type of join that will be performed",
-            "selectChoices": [
-                {
-                    "value": "inner",
-                    "label": "inner join"
-                },
-                {
-                    "value": "outer",
-                    "label": "full outer join"
-                },
-                {
-                    "value": "table_n",
-                    "label": "join using the ids in table n"
-                }
-            ],
-            "defaultValue": "inner",
-            "mandatory": true
+          "value": "outer",
+          "label": "full outer join"
         },
         {
-            "name": "table_n_join_index",
-            "type": "INT",
-            "label": "Index of the table",
-            "description": "The index of the table which ids will be used for the join",
-            "defaultValue": "1",
-            "mandatory": false
-        },
-        {
-            "name": "join_key",
-            "type": "STRING",
-            "label": "Join Functional Key",
-            "description": "This key is required when performing a join over encrypted data (MCFE setting). It is not needed in any other setting",
-            "defaultValue": "",
-            "mandatory": false,
-            "visibilityCondition": "join_type.table_n"
+          "value": "table_n",
+          "label": "join using the ids in table n"
         }
+      ],
+      "defaultValue": "inner",
+      "mandatory": true
+    },
+    {
+      "name": "table_n_join_index",
+      "type": "INT",
+      "label": "Index of the table",
+      "description": "The index of the table which ids will be used for the join",
+      "defaultValue": "1",
+      "mandatory": false,
+      "visibilityCondition": "model.join_type=='table_n'"
+    },
+    {
+      "name": "join_key",
+      "type": "STRING",
+      "label": "Join Functional Key",
+      "description": "This key is required when performing a join over encrypted data (MCFE setting). It is not needed in any other setting",
+      "defaultValue": "",
+      "mandatory": false
+    }
 
-        //        {
-        //            "name": "parameter2",
-        //            "type": "INT",
-        //            "defaultValue" : 42
-        //            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-        //               int(get_recipe_config()['parameter2'])
-        //            */
-        //        },
+    //        {
+    //            "name": "parameter2",
+    //            "type": "INT",
+    //            "defaultValue" : 42
+    //            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
+    //               int(get_recipe_config()['parameter2'])
+    //            */
+    //        },
 
-        // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
+    // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
 
 
-        // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
-        // To specify the input schema whose column names are used, use the "columnRole" field like below.
-        // The column names will come from the schema of the first dataset associated to that role.
-        //        {
-        //            "name": "parameter4",
-        //            "type": "COLUMN",
-        //            "columnRole":"input_B_role"
-        //        }
+    // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
+    // To specify the input schema whose column names are used, use the "columnRole" field like below.
+    // The column names will come from the schema of the first dataset associated to that role.
+    //        {
+    //            "name": "parameter4",
+    //            "type": "COLUMN",
+    //            "columnRole":"input_B_role"
+    //        }
 
-        // The 'COLUMNS' type works in the same way, except that it is a list of strings.
-    ],
-    // The field "resourceKeys" holds a list of keys that allows to limit the number
-    // of concurrent executions and activities triggered by this recipe.
-    //
-    // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
-    // screen.
+    // The 'COLUMNS' type works in the same way, except that it is a list of strings.
+  ],
+  // The field "resourceKeys" holds a list of keys that allows to limit the number
+  // of concurrent executions and activities triggered by this recipe.
+  //
+  // Administrators can configure the limit per resource key in the Administration > Settings > Flow build
+  // screen.
 
-    "resourceKeys": []
+  "resourceKeys": []
 }
