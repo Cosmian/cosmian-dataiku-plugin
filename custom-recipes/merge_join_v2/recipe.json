@@ -48,50 +48,70 @@
     // The available parameter types are:
     // STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, COLUMN, COLUMNS, TEXTAREA
 
-    "params": [
+     "params": [
+    {
+      "name": "join_type",
+      "type": "SELECT",
+      "label": "Type of join",
+      "description": "The type of join that will be performed",
+      "selectChoices": [
         {
-            "name": "parameter1",
-            "label" : "User-readable label",
-            "type": "STRING",
-            "description":"Some documentation for parameter1",
-            "mandatory" : true
+          "value": "inner",
+          "label": "inner join"
         },
         {
-            "name": "parameter2",
-            "type": "INT",
-            "defaultValue" : 42
-            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
-               int(get_recipe_config()['parameter2'])
-            */
+          "value": "full",
+          "label": "full outer join"
         },
-
-        // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
         {
-            "name": "parameter3",
-            "type": "SELECT",
-            "selectChoices": [
-                {
-                    "value": "val_x",
-                    "label": "display name for val_x"
-                },
-                {
-                    "value": "val_y",
-                    "label": "display name for val_y"
-                },
-            ]
-        },
-
-        // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
-        // To specify the input schema whose column names are used, use the "columnRole" field like below.
-        // The column names will come from the schema of the first dataset associated to that role.
-        {
-            "name": "parameter4",
-            "type": "COLUMN",
-            "columnRole":"input_B_role"
+          "value": "outer",
+          "label": "outer table n"
         }
+      ],
+      "defaultValue": "inner",
+      "mandatory": true
+    },
+    {
+      "name": "outer_join_index",
+      "type": "INT",
+      "label": "Outer table index",
+      "description": "The index of the table which is the outer table",
+      "defaultValue": "1",
+      "mandatory": false,
+      "visibilityCondition": "model.join_type=='outer'"
+    },
+    {
+      "name": "join_key",
+      "type": "STRING",
+      "label": "Join functional key",
+      "description": "This key is required to perform a join over encrypted data (MCFE setting only)",
+      "defaultValue": "",
+      "mandatory": false
+    }
 
-        // The 'COLUMNS' type works in the same way, except that it is a list of strings.
-    ],
+    //        {
+    //            "name": "parameter2",
+    //            "type": "INT",
+    //            "defaultValue" : 42
+    //            /* Note that standard json parsing will return it as a double in Python (instead of an int), so you need to write
+    //               int(get_recipe_config()['parameter2'])
+    //            */
+    //        },
+
+    // A "SELECT" parameter is a multi-choice selector. Choices are specified using the selectChoice field
+
+
+    // A 'COLUMN' parameter is a string, whose value is a column name from an input schema.
+    // To specify the input schema whose column names are used, use the "columnRole" field like below.
+    // The column names will come from the schema of the first dataset associated to that role.
+    //        {
+    //            "name": "parameter4",
+    //            "type": "COLUMN",
+    //            "columnRole":"input_B_role"
+    //        }
+
+    // The 'COLUMNS' type works in the same way, except that it is a list of strings.
+  ],
 
     // The field "resourceKeys" holds a list of keys that allows to limit the number
     // of concurrent executions and activities triggered by this recipe.
