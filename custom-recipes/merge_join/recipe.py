@@ -100,7 +100,7 @@ table_n_join_index = get_recipe_config()['table_n_join_index']
 num_tables = 2  # FIXME hard-coded upper bound
 if table_n_join_index < 0 or table_n_join_index > num_tables:
     raise ValueError(
-        "Invalid index, it must be greater tha zero and equal or lower to ", num_tables
+        "Invalid index, it must be greater than zero and equal or lower than " + str(num_tables)
     )
 # For MCFE joins, retrieve the inner join key
 join_key = get_recipe_config()['join_key']
