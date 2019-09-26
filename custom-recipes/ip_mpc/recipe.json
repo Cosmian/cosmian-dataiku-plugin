@@ -1,0 +1,32 @@
+// This file is the descriptor for the Custom code recipe ip_mpc
+{
+  "meta": {
+    "label": "IP identification via MPC",
+    "description": "Implements a custom designed MPC program that joins IP addresses, aggregates them and filter them",
+    "icon": "icon-puzzle-piece"
+  },
+  "kind": "PYTHON",
+  "inputRoles": [
+    {
+      "name": "datasets",
+      "label": "Datasets",
+      "description": "Dataset to join with",
+      "arity": "NARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  "outputRoles": [
+    {
+      "name": "output",
+      "label": "results",
+      "description": "Results of the MPC program",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  "params": [
+  ],
+  "resourceKeys": []
+}

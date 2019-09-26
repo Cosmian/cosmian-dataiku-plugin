@@ -1,4 +1,4 @@
-# Code for custom code recipe testest (imported from a Python recipe)
+# Code for custom code recipe ip_mpc (imported from a Python recipe)
 
 # To finish creating your custom recipe from your original PySpark recipe, you need to:
 #  - Declare the input and output roles in recipe.json
