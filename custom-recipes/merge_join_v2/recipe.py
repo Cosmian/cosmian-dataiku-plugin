@@ -34,7 +34,7 @@ views = []
 # views must all be from the same server
 for dataset in datasets:
     config = dataset.get_config()['params']['customConfig']
-    logging.debug("******** Cosmian: Dataset Config: %s", config)
+    logging.warn("******** Cosmian: Dataset Config: %s", config)
     view = config['view_name']
     # sorted = config['sorted']
     server_url = config['server_url']
@@ -50,15 +50,6 @@ for dataset in datasets:
 # Join parameters
 recipe_config = get_recipe_config()
 join_type = recipe_config['join_type']
-num_tables = 2  # FIXME hard-coded upper bound
-if join_type == 'outer':
-    outer_join_index = recipe_config['outer_join_index']
-    if outer_join_index < 0 or outer_join_index > num_tables:
-        raise ValueError(
-            "Invalid outer table index, it must be between 1 and " + str(num_tables)
-        )
-else:
-    outer_join_index = 0
 # For MCFE joins, retrieve the inner join key
 if 'join_key' in recipe_config:
     join_key = recipe_config['join_key']
@@ -68,7 +59,7 @@ else:
 # REST request to inner join
 handle = cosmian.get_join_handle(
     session, url, views,
-    join_type, outer_join_index, join_key)
+    join_type, join_key)
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, url, handle)

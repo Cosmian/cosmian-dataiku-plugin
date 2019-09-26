@@ -60,20 +60,11 @@
         },
         {
           "value": "outer",
-          "label": "outer table n"
+          "label": "outer join on first table"
         }
       ],
       "defaultValue": "inner",
       "mandatory": true
-    },
-    {
-      "name": "outer_join_index",
-      "type": "INT",
-      "label": "Outer table index",
-      "description": "The index of the table which is the outer table",
-      "defaultValue": "1",
-      "mandatory": false,
-      "visibilityCondition": "model.join_type=='outer'"
     },
     {
       "name": "join_key",
