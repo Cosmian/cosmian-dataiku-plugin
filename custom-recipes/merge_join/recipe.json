@@ -5,7 +5,7 @@
   "meta": {
     "label": "Secure join",
     "description": "Perform secure joins on multiple datasets",
-    "icon": "icon-code-merge",
+    "icon": "icon-code-branch",
     "iconColor": "purple"
   },
   "kind": "PYTHON",
