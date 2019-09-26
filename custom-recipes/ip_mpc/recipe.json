@@ -19,7 +19,7 @@
   "outputRoles": [
     {
       "name": "output",
-      "label": "results",
+      "label": "Results",
       "description": "Results of the MPC program",
       "arity": "UNARY",
       "required": true,
