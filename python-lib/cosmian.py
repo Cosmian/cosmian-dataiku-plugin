@@ -2,6 +2,7 @@
 # In your IDE it should be sym-linked to libs ot the python Env.
 
 import requests
+import json
 
 
 def get_dataset_handle(session, server_url, view, sorted):
@@ -59,7 +60,7 @@ def get_join_handle(session, server_url, views, join_type, join_key):
         "Accept": "application/json"
     }
     params = {
-        'views': views,
+        'views': json.dumps(views),
         "join_type": join_type,
         "join_key": join_key
     }
