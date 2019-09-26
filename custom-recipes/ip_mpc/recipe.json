@@ -3,7 +3,8 @@
   "meta": {
     "label": "IP identification via MPC",
     "description": "Implements a custom designed MPC program that joins IP addresses, aggregates them and filter them",
-    "icon": "icon-puzzle-piece"
+    "icon": "icon-cogs",
+    "iconColor": "purple"
   },
   "kind": "PYTHON",
   "inputRoles": [

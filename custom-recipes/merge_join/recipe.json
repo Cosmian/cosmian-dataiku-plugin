@@ -5,7 +5,8 @@
   "meta": {
     "label": "Secure join",
     "description": "Perform secure joins on multiple datasets",
-    "icon": "icon-puzzle-piece"
+    "icon": "icon-code-merge",
+    "iconColor": "purple"
   },
   "kind": "PYTHON",
   // Inputs and outputs are defined by roles. In the recipe's I/O tab, the user can associate one
