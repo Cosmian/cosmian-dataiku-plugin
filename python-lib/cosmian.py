@@ -27,7 +27,7 @@ def get_dataset_handle(session, server_url, view, sorted):
         raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
 
 
-def get_inner_join_handle(session, server_url, left_view, right_view, join_type, outer_join_index, join_key):
+def get_join_v1_handle(session, server_url, left_view, right_view, join_type, outer_join_index, join_key):
     # attempt to create open a source to this dataset
     headers = {
         "Accept-Encoding": "gzip",
@@ -47,6 +47,32 @@ def get_inner_join_handle(session, server_url, left_view, right_view, join_type,
         if r.status_code != 200:
             raise ValueError("Cosmian Server:: Error querying inner join: %s/%s, status code: %s, reason :%s" % (
                 left_view, right_view, r.status_code, r.text))
+        resp = r.json()
+        return resp["handle"]
+    except requests.ConnectionError:
+        raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
+
+
+def get_join_handle(session, server_url, views, join_type, outer_join_index, join_key):
+    headers = {
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json"
+    }
+    params = {
+        'views': views,
+        "join_type": join_type,
+        "outer_join_index": outer_join_index,
+        "join_key": join_key
+    }
+    try:
+        r = session.get(
+            url="%sjoin_many" % server_url,
+            params=params,
+            headers=headers
+        )
+        if r.status_code != 200:
+            raise ValueError("Cosmian Server:: Error querying join on  %s, status code: %s, reason :%s" % (
+                views, r.status_code, r.text))
         resp = r.json()
         return resp["handle"]
     except requests.ConnectionError:

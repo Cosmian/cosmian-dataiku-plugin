@@ -113,7 +113,7 @@ else:
     join_key = ''
 
 # REST request to inner join
-handle = cosmian.get_inner_join_handle(
+handle = cosmian.get_join_v1_handle(
     session, server_url, left_view, right_view,
     join_type, outer_join_index, join_key)
 
