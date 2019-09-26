@@ -5,7 +5,7 @@
   "meta": {
     "label": "Secure join",
     "description": "Perform secure joins on multiple datasets",
-    "icon": "icon-file",
+    "icon": "icon-fileimport",
     "iconColor": "purple"
   },
   "kind": "PYTHON",
