@@ -164,7 +164,7 @@ def deploy_python_code(session, server_url, hostname, algo_name, python_code):
             'code': python_code
         }
         r = session.post(
-            url="%enclave/code_update" % server_url,
+            url="%senclave/code_update" % server_url,
             json=data,
             headers=headers
         )
