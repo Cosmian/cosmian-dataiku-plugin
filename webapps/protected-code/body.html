@@ -1,43 +1,42 @@
-<link rel="stylesheet" href="/static/public/styles/1.0.0/dku-styles.css" />
+<link rel="stylesheet" href="/static/public/styles/1.0.0/dku-styles.css"/>
 
 <h1>Cosmian Protected Code Deployer</h1>
 
 <div class="main">
-<form id="form-python-code" class="main-form" novalidate>
-    <h3>Remote Cosmian Server</h3>
+    <form id="form-python-code" class="main-form" novalidate>
+        <h3>Remote Cosmian Server</h3>
 
-    <p>Enter the ip addresd and port of the remote Cosmian Server to deploy code to</p>
-    <section class="remote-hostname-form">
-        <div class="field">
-            <label for="remote-hostname">Hostname and port</label>
-            <input type="text" name="dataset-to-fetch" placeholder="123.456.789.123:9999" id="remote-hostname"/>
-        </div>
-    </section>
-
-    <h3>Python Code</h3>    
-    <p>
-        Deploy the following python code. The code will be encrypted
-        before being pushed to the remote Cosmian server
-    </p>
-    <section class="python-code-form">
-        <div class="field algo-name">
-            <label for="algo-name">Algo.&nbsp;Name</label>
-            <div>
-                <input type="text" name="algo-name" placeholder="my algo" id="algo-name"/>
-                <span/>
+        <p>Enter the ip address or server name and port of the remote Cosmian Server to deploy code to</p>
+        <section class="remote-hostname-form">
+            <div class="field">
+                <label for="remote-hostname">Hostname and port</label>
+                <input type="text" name="dataset-to-fetch" placeholder="123.456.789.123:9999" id="remote-hostname"/>
             </div>
-        </div>
-        <div class="field">
-            <label for="python-code">Python Code</label>
-            <textarea id="python-code" name="python-code" rows="15" cols="35">
-</textarea>
-        </div>
-        <div class="deploy-button">
-            <button type="button" class="main-blue-button" id="connect-button">Deploy</button>
-            <span id="deploy-result"></span>
-        </div>            
-    </section>
-</form>    
+        </section>
+
+        <h3>Python Code</h3>
+        <p>
+            Deploy the following python code. The code will be encrypted
+            before being pushed to the remote Cosmian server
+        </p>
+        <section class="python-code-form">
+            <div class="field algo-name">
+                <label for="algo-name">Algo.&nbsp;Name</label>
+                <div>
+                    <input type="text" name="algo-name" placeholder="my algo" id="algo-name"/>
+                    <span></span>
+                </div>
+            </div>
+            <div class="field">
+                <label for="python-code">Python Code</label>
+                <textarea id="python-code" name="python-code" rows="15" cols="35"></textarea>
+            </div>
+            <div class="deploy-button">
+                <button type="button" class="main-blue-button" id="connect-button">Deploy</button>
+                <span id="deploy-result"></span>
+            </div>
+        </section>
+    </form>
 </div>
 
 <!--
