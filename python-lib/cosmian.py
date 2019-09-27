@@ -151,6 +151,32 @@ def read_next_row(session, server_url, handle):
         raise ValueError("Failed querying Cosmian Server at: %s" % server_url)
 
 
+def deploy_python_code(session, server_url, hostname, algo_name, python_code):
+    try:
+        headers = {
+            "Accept-Encoding": "gzip",
+            "Accept": "application/json",
+            "Content-type": "application/json"
+        }
+        data = {
+            'hostname': hostname,
+            'algo_name': algo_name,
+            'code': python_code
+        }
+        r = session.post(
+            url="%enclave/code_update" % server_url,
+            json=data,
+            headers=headers
+        )
+        if r.status_code == 200:
+            return
+        else:
+            raise ValueError("Cosmian Server:: Error deploying protected code to: %s, status code: %s, reason :%s" % (
+                hostname, r.status_code, r.text))
+    except requests.ConnectionError:
+        raise ValueError("Failed querying Cosmian Server at: %s" % server_url)
+
+
 def cosmian_type_2_dataiku_type(ct):
     if ct == "hash":
         return "string"
@@ -185,6 +211,6 @@ def recover_datasets_info(datasets):
             if url != server_url:
                 raise ValueError("All datasets must be accessed from the same Cosmian server")
         views.append(view)
-    result['url'] = url    
+    result['url'] = url
     result['views'] = views
     return result
