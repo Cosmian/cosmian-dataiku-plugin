@@ -168,6 +168,7 @@ def cosmian_type_2_dataiku_type(ct):
 def recover_datasets_info(datasets):
     url = ''
     views = []
+    result = {}
     # process the list of datasets
     # collect the views which will be passed as parameter to the call
     # views must all be from the same server
@@ -184,7 +185,6 @@ def recover_datasets_info(datasets):
             if url != server_url:
                 raise ValueError("All datasets must be accessed from the same Cosmian server")
         views.append(view)
-    return {
-        url: url,
-        views: views
-    }
+    result['url'] = url    
+    result['views'] = views
+    return result
