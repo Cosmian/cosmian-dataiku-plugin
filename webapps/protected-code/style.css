@@ -26,13 +26,13 @@ label {
 .python-code-form {
     min-width: 300px;
     height: 100%;
-    flex-basis:100%;
+    flex-basis: 100%;
 }
 
 .algo-name {
     display: flex;
     flex-direction: column;
-    flex-grow: 0;    
+    flex-grow: 0;
 }
 
 .algo-name div {
@@ -42,26 +42,27 @@ label {
     max-width: 300px;
 }
 
-.algo-name div>input {    
-    flex-grow:0
+.algo-name div > input {
+    flex-grow: 0
 }
-.algo-name div>span {
-    flex-grow:1
+
+.algo-name div > span {
+    flex-grow: 1
 }
 
 .python-code {
     display: flex;
-    width: 100%;   
+    width: 100%;
 }
 
 .deploy-button {
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     align-items: center;
 }
 
 .deploy-button input {
-    flex-grow: 0
+    flex-grow: 0;
 }
 
 .deploy-button span {
@@ -69,41 +70,23 @@ label {
     flex-grow: 1
 }
 
-
-
-
-/*
-.fetch-dataset-container {
-    display: flex;
-    width: 100%;
+.deploy-button .spinner {
+    flex-grow: 0;
+    flex-basis: 40px;
 }
 
-.fetch-dataset-container section, .fetch-dataset-container form {
-    height: 100%;
-    overflow: auto;
+.button-disable {
+    cursor: not-allowed;
+    pointer-events: none;
+
+    /*Button disabled - CSS color class*/
+    color: #c0c0c0 !important;
+    background-color: #ffffff !important;
 }
 
-.error-message {
-    color: var(--error-red);
-    font-size: 16px;
-    font-weight: bold;
+.hide {
+    display: none;
 }
 
-.fetch-dataset-form {
-    min-width: 300px;
-}
 
-.fetch-dataset-results {
-    margin-top: 20px;
-    border: 3px solid var(--border-color);
-    width: 100%;
-    font-size: 16px;
-    background-color: var(--grey-background);
-    color: var(--grey);
-    min-height: 300px;
-}
 
-#message{
-    white-space: pre-wrap;
-}
-*/

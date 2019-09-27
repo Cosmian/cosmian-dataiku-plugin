@@ -7,72 +7,71 @@
  * https://doc.dataiku.com/dss/latest/api/js/index.html
  */
 
-let exportButton = document.getElementById('export-button');
 
-exportButton.addEventListener('click', function (event) {
-    let analysisName = document.getElementById('analysis-name');
-    let analysisValue = analysisName.value || '(no analysis name typed)';
-    let datasetName = document.getElementById('dataset-name');
-    let datasetValue = datasetName.value || '(no dataset chosen)';
-    let datasetColumn = document.getElementById('dataset-column');
-    let columnValue = datasetColumn.value || '(no column chosen)';
-    let rowsLimitValue = document.getElementById('rows-limit').checked;
-    let exportValue = document.querySelector('input[name="export"]:checked').value || '(no export format typed)';
-
-    alert('Now YOU should code something if you really want an export. For now, your parameters are: ' + analysisValue + ' / ' + datasetValue  + ' / ' + columnValue + ' / ' + rowsLimitValue + ' / ' + exportValue);
-    event.preventDefault();
+$(function () {
+    displayMessage('ready',dataiku.getWebAppConfig()['server_url']);
+    console.log(dataiku.getWebAppConfig()['server_url']);
 });
 
-/* Fetch dataset sample */
-let fetchButton = document.getElementById('fetch-button');
-let datasetName = document.getElementById('dataset-name');
-let messageContainer = document.getElementById('message');
-let selectedDataset = {};
 
-function displayMessage(messageText, messageClassname) {
-    messageContainer.innerHTML = messageText;
-    messageContainer.className = '';
-    if (messageClassname && messageClassname.length > 0) {
-        messageContainer.className = messageClassname;
+let deployButton = document.getElementById('deploy-button');
+
+deployButton.addEventListener('click', function (event) {
+    let hostnameEL = document.getElementById('remote-hostname');
+    let hostnameValue = hostnameEL.value || '';
+    let algoNameEl = document.getElementById('algo-name');
+    let algoNameValue = algoNameEl.value || '';
+    let pythonCodeEl = document.getElementById('python-code');
+    let pythonCodeValue = pythonCodeEl.value || '';
+    event.preventDefault();
+    displayMessage('wait', 'deploying code...');
+
+    $.ajax({
+        url: getWebAppBackendUrl('/deploy_code'),
+        method: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        processData: false,
+        data: JSON.stringify({
+            hostname: hostnameValue,
+            algo_name: algoNameValue,
+            python_code: pythonCodeValue
+        })
+    }).done(data => {
+        console.log(data);
+        if (data['status'] === 'ok') {
+            displayMessage('success', data['msg']);
+        } else {
+            displayMessage('error', data['msg']);
+        }
+    }).fail(err => {
+        displayMessage('error', 'ERROR: ' + err.responseText)
+    }).then(_ => {
+    })
+});
+
+function displayMessage(type, msg) {
+    let deployResultEl = $("#deploy-result");
+    if (type === 'wait') {
+        $("#deploy-button").addClass('button-disable');
+        $(".spinner").removeClass('hide');
+        deployResultEl.html(msg || '');
+        deployResultEl.css('color', 'blue');
+    } else if (type === 'error') {
+        $("#deploy-button").removeClass('button-disable');
+        $(".spinner").addClass('hide');
+        deployResultEl.html(msg || '');
+        deployResultEl.css('color', 'red');
+    } else if (type === 'success') {
+        $("#deploy-button").removeClass('button-disable');
+        $(".spinner").addClass('hide');
+        deployResultEl.html(msg || '');
+        deployResultEl.css('color', 'green');
+    } else {
+        $("#deploy-button").removeClass('button-disable');
+        $(".spinner").addClass('hide');
+        deployResultEl.html(msg || '');
+        deployResultEl.css('color', 'black');
     }
 }
 
-function clearMessage() {
-    displayMessage('');
-}
-
-function displayFailure() {
-    displayMessage('The dataset cannot be retrieved. Please check the dataset name or the API Key\'s permissions in the "Settings" tab of the webapp.', 'error-message');
-}
-
-function displayDataFrame(dataFrame) {
-    let columnsNames = dataFrame.getColumnNames();
-    let line = '------------------------------';
-    let text = selectedDataset.name + '\n'
-        + line + '\n'
-        + dataFrame.getNbRows() + ' Rows\n'
-        + columnsNames.length + ' Columns\n'
-        + '\n' + line + '\n'
-        + 'Columns names: \n';
-    columnsNames.forEach(function(columnName) {
-        text += columnName + ', ';
-    });
-    displayMessage(text);
-}
-
-fetchButton.addEventListener('click', function(event) {
-    clearMessage();
-    selectedDataset.name = document.getElementById('dataset-to-fetch').value;
-    dataiku.fetch(selectedDataset.name, function(dataFrame) {
-        selectedDataset.dataFrame = dataFrame;
-        displayDataFrame(dataFrame);
-    }, function() {
-        displayFailure();
-    });
-    return false;
-});
-$.getJSON(getWebAppBackendUrl('/first_api_call'), function(data) {
-    console.log('Received data from backend', data)
-    const output = $('<pre />').text('Backend reply: ' + JSON.stringify(data));
-    $('body').append(output)
-});
