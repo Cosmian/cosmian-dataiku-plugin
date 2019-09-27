@@ -9,8 +9,7 @@
 
 
 $(function () {
-    displayMessage('ready',dataiku.getWebAppConfig()['server_url']);
-    console.log(dataiku.getWebAppConfig()['server_url']);
+    displayMessage();
 });
 
 
@@ -33,6 +32,7 @@ deployButton.addEventListener('click', function (event) {
         dataType: 'json',
         processData: false,
         data: JSON.stringify({
+            server_url: dataiku.getWebAppConfig()['server_url'],
             hostname: hostnameValue,
             algo_name: algoNameValue,
             python_code: pythonCodeValue
