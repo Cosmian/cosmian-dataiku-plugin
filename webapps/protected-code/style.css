@@ -1,0 +1,109 @@
+/*
+    This imports default colors, you can use them with the syntax `var(--variable-name)`.
+    Example:
+        border: 3px solid var(--border-color);
+*/
+@import '/static/public/styles/1.0.0/variables.css';
+
+/*
+label {
+    display:block;
+}
+*/
+
+.main {
+    display: flex;
+    flex: 0 1 100%;
+    border: red 5px;
+}
+
+.remote-hostname-form {
+    display: flex;
+    flex-grow: 0;
+    min-width: 300px;
+}
+
+.python-code-form {
+    min-width: 300px;
+    height: 100%;
+    flex-basis:100%;
+}
+
+.algo-name {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;    
+}
+
+.algo-name div {
+    display: flex;
+    flex-direction: row;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.algo-name div>input {    
+    flex-grow:0
+}
+.algo-name div>span {
+    flex-grow:1
+}
+
+.python-code {
+    display: flex;
+    width: 100%;   
+}
+
+.deploy-button {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+}
+
+.deploy-button input {
+    flex-grow: 0
+}
+
+.deploy-button span {
+    padding-left: 1em;
+    flex-grow: 1
+}
+
+
+
+
+/*
+.fetch-dataset-container {
+    display: flex;
+    width: 100%;
+}
+
+.fetch-dataset-container section, .fetch-dataset-container form {
+    height: 100%;
+    overflow: auto;
+}
+
+.error-message {
+    color: var(--error-red);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.fetch-dataset-form {
+    min-width: 300px;
+}
+
+.fetch-dataset-results {
+    margin-top: 20px;
+    border: 3px solid var(--border-color);
+    width: 100%;
+    font-size: 16px;
+    background-color: var(--grey-background);
+    color: var(--grey);
+    min-height: 300px;
+}
+
+#message{
+    white-space: pre-wrap;
+}
+*/
