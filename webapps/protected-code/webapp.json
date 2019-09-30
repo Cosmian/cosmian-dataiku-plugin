@@ -1,42 +1,50 @@
 // This file is the descriptor for webapp protected-code
 {
-    "meta": {
-        "label": "Cosmian protected code deployer",
-        "description": "Deploy protected code to a remote Cosmian server",
-        "icon": "icon-code"
+  "meta": {
+    "label": "Cosmian protected code deployer",
+    "description": "Deploy protected code to a remote Cosmian server",
+    "icon": "icon-code"
+  },
+  "baseType": "STANDARD",
+  // WARNING: once set, do not change
+  "hasBackend": "true",
+  "standardWebAppLibraries": [
+    "jquery",
+    "dataiku"
+  ],
+  /* The field "params" holds a list of all the params
+     for which the user will be prompted for values:
+
+     The available parameter types are:
+     STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, TEXTAREA,
+     DATASET, DATASETS, SAVED_MODEL, MANAGED_FOLDER,
+     API_SERVICE, API_SERVICE_VERSION, BUNDLE, VISUAL_ANALYSIS
+     DATASET_COLUMN, DATASET_COLUMNS
+  */
+  "params": [
+    {
+      "name": "local_server_url",
+      "type": "STRING",
+      "label": "Your Cosmian Server URL",
+      "description": "The URL of your Cosmian Server",
+      "mandatory": true
     },
+    {
+      "name": "remote_server_url",
+      "type": "STRING",
+      "label": "Remote Cosmian Server URL",
+      "description": "The URL of the Remote Cosmian Server",
+      "mandatory": true
+    }
+  ],
+  /* roles define where this webapp will appear in DSS GUI. They are used to pre-fill a macro parameter with context.
 
-    "baseType": "STANDARD", // WARNING: once set, do not change
-    "hasBackend": "true",
-    "standardWebAppLibraries": ["jquery","dataiku"],
-
-    /* The field "params" holds a list of all the params
-       for which the user will be prompted for values:
-
-       The available parameter types are:
-       STRING, INT, DOUBLE, BOOLEAN, PASSWORD, SELECT, MAP, TEXTAREA,
-       DATASET, DATASETS, SAVED_MODEL, MANAGED_FOLDER,
-       API_SERVICE, API_SERVICE_VERSION, BUNDLE, VISUAL_ANALYSIS
-       DATASET_COLUMN, DATASET_COLUMNS
-    */
-    "params": [
-        {
-            "name": "server_url",
-            "type": "STRING",
-            "label": "Cosmian Server URL",
-            "description": "The URL of your Cosmian Server",
-            "mandatory": true
-        }
-    ],
-
-    /* roles define where this webapp will appear in DSS GUI. They are used to pre-fill a macro parameter with context.
-
-       Each role consists of:
-        - type: where the macro will be shown
-            * DATASET, DATASETS, SAVED_MODEL, MANAGED_FOLDER (a button to create webapps will be shown in the corresponding "action" menu)
-        - targetParamsKey(s): name of the parameter(s) that will be filled with the selected object
-    */
-    "roles": [
-        //{"type": "DATASET", "targetParamsKey": "input_dataset"}
-    ]
+     Each role consists of:
+      - type: where the macro will be shown
+          * DATASET, DATASETS, SAVED_MODEL, MANAGED_FOLDER (a button to create webapps will be shown in the corresponding "action" menu)
+      - targetParamsKey(s): name of the parameter(s) that will be filled with the selected object
+  */
+  "roles": [
+    //{"type": "DATASET", "targetParamsKey": "input_dataset"}
+  ]
 }

@@ -19,21 +19,21 @@ def deploy_code():
     print("************************ YEAH")
     data = request.json
     # check inputs
-    if 'server_url' in data:
-        server_url = data['server_url']
+    if 'local_server_url' in data:
+        local_server_url = data['local_server_url']
     else:
-        server_url = ''
-    if server_url.strip() == '':
+        local_server_url = ''
+    if local_server_url.strip() == '':
         return json.dumps({'status': 'error', 'msg': 'Please provide your Cosmian server URL'})
-    if not server_url.endswith("/"):
-        server_url += "/"
+    if not local_server_url.endswith("/"):
+        local_server_url += "/"
 
-    if 'hostname' in data:
-        hostname = data['hostname']
+    if 'remote_server_url' in data:
+        remote_server_url = data['remote_server_url']
     else:
-        hostname = ''
-    if hostname.strip() == '':
-        return json.dumps({'status': 'error', 'msg': 'Please provide the remote host name'})
+        remote_server_url = ''
+    if remote_server_url.strip() == '':
+        return json.dumps({'status': 'error', 'msg': 'Please provide the remote server url'})
 
     if 'algo_name' in data:
         algo_name = data['algo_name']
@@ -50,8 +50,8 @@ def deploy_code():
         return json.dumps({'status': 'error', 'msg': 'Please provide python code'})
 
     try:
-        cosmian.deploy_python_code(session, server_url, hostname, algo_name, python_code)
-        return json.dumps({'status': 'ok', 'msg': 'Deployed "'+algo_name+'" to '+hostname})
+        cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
+        return json.dumps({'status': 'ok', 'msg': 'Deployed "' + algo_name + '" to ' + remote_server_url})
     except ValueError as e:
         return json.dumps({'status': 'error', 'msg': str(e)})
 

@@ -32,8 +32,8 @@ deployButton.addEventListener('click', function (event) {
         dataType: 'json',
         processData: false,
         data: JSON.stringify({
-            server_url: dataiku.getWebAppConfig()['server_url'],
-            hostname: hostnameValue,
+            local_server_url: dataiku.getWebAppConfig()['local_server_url'],
+            remote_server_url: dataiku.getWebAppConfig()['remote_server_url'],
             algo_name: algoNameValue,
             python_code: pythonCodeValue
         })

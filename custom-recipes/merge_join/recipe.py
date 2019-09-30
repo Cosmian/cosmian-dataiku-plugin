@@ -25,27 +25,7 @@ session = requests.Session()
 
 dataset_names = get_input_names_for_role('datasets')
 datasets = [dataiku.Dataset(name) for name in dataset_names]
-
-url = ''
-views = []
-
-# process the list of datasets
-# collect the views which will be passed as parameter to the call
-# views must all be from the same server
-for dataset in datasets:
-    config = dataset.get_config()['params']['customConfig']
-    logging.warn("******** Cosmian: Dataset Config: %s", config)
-    view = config['view_name']
-    # sorted = config['sorted']
-    server_url = config['server_url']
-    if not server_url.endswith("/"):
-        server_url += "/"
-    if url == '':
-        url = server_url
-    else:
-        if url != server_url:
-            raise ValueError("All datasets must be accessed from the same Cosmian server")
-    views.append(view)
+url, views = cosmian.recover_datasets_info(datasets)
 
 # Join parameters
 recipe_config = get_recipe_config()
