@@ -9,6 +9,8 @@
 
 
 $(function () {
+    $('#local_server_url').html(dataiku.getWebAppConfig()['local_server_url']);
+    $('#remote_server_url').html(dataiku.getWebAppConfig()['remote_server_url']);
     displayMessage();
 });
 

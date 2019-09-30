@@ -1,10 +1,16 @@
 <link rel="stylesheet" href="/static/public/styles/1.0.0/dku-styles.css"/>
+<link rel="stylesheet" href="style.css"/>
 
 <h1>Cosmian Protected Code Deployer</h1>
 
 <div class="main">
     <form id="form-python-code" class="main-form" novalidate>
-<!--        <h3>Remote Cosmian Server</h3>-->
+        <h3>Deployment</h3>
+        <div class="deployment">
+            <div id="local_server_url">http://blah.com</div>
+            <div>&nbsp;=>&nbsp;</div>
+            <div id="remote_server_url">http://reblah.com</div>
+        </div>
 
 <!--        <p>Enter the IP address or server name and port of the remote Cosmian Server to deploy code to</p>-->
 <!--        <section class="remote-hostname-form">-->
@@ -27,7 +33,7 @@
                     <span></span>
                 </div>
             </div>
-            <div class="field">
+            <div class="field python-code">
                 <label for="python-code">Python Code</label>
                 <textarea id="python-code" name="python-code" rows="15" cols="35"></textarea>
             </div>

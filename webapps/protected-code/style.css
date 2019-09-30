@@ -17,10 +17,9 @@ label {
     border: red 5px;
 }
 
-.remote-hostname-form {
+.deployment {
     display: flex;
-    flex-grow: 0;
-    min-width: 300px;
+    flex-direction: row;
 }
 
 .python-code-form {
@@ -52,7 +51,8 @@ label {
 
 .python-code {
     display: flex;
-    width: 100%;
+    flex-direction: column;
+    flex-grow: 0;
 }
 
 .deploy-button {
