@@ -1,0 +1,41 @@
+// This file is the descriptor for the Custom code recipe protected_code_runner
+{
+  // Meta data for display purposes
+  "meta": {
+    "label": "Protected Algorithm Runner",
+    "description": "Run protected algorithm code delivered by a remote algorithm provider",
+    "icon": "icon-puzzle-piece"
+  },
+  "kind": "PYTHON",
+  "inputRoles": [
+    {
+      "name": "datasets",
+      "label": "Datasets",
+      "description": "Dataset to run the algorithm on",
+      "arity": "NARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  "outputRoles": [
+    {
+      "name": "output",
+      "label": "Results",
+      "description": "Results of the protected algorithm",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  "params": [
+    {
+      "name": "algo_name",
+      "type": "STRING",
+      "label": "Algorithm name",
+      "description": "The name of the protected algorithm which has been deployed",
+      "defaultValue": "",
+      "mandatory": true
+    }
+  ],
+  "resourceKeys": []
+}

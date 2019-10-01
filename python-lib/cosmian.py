@@ -153,7 +153,6 @@ def read_next_row(session, server_url, handle):
 
 
 def deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code):
-
     # FIXME: later on we want to pass the remote server url directly without parsing
     parsed_remote = urlparse(remote_server_url)
     if parsed_remote.netloc == '':
@@ -183,6 +182,31 @@ def deploy_python_code(session, local_server_url, remote_server_url, algo_name, 
                 remote_server_url, r.status_code, r.text))
     except requests.ConnectionError:
         raise ValueError("Failed querying Cosmian Server at: %s" % local_server_url)
+
+
+def run_protected_algorithm(session, server_url, views, algo_name):
+    headers = {
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json",
+        "Content-type": "application/json"
+    }
+    data = {
+        'views': views,
+        'algo_name': algo_name,
+    }
+    try:
+        r = session.post(
+            url="%senclave/run_protected_algorithm" % server_url,
+            json=data,
+            headers=headers
+        )
+        if r.status_code != 200:
+            raise ValueError("Cosmian Server:: Error running algorithm: %s, status code: %s, reason :%s" % (
+               algo_name, r.status_code, r.text))
+        resp = r.json()
+        return resp["handle"]
+    except requests.ConnectionError:
+        raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
 
 
 def cosmian_type_2_dataiku_type(ct):
