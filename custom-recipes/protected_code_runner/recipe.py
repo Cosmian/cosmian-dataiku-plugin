@@ -16,8 +16,7 @@ url, views = cosmian.recover_datasets_info(datasets)
 
 # Join parameters
 recipe_config = get_recipe_config()
-algo_name = recipe_config['algo_name']
-# For MCFE joins, retrieve the inner join key
+# revover the mandatory algo name
 if 'algo_name' in recipe_config:
     algo_name = recipe_config['algo_name']
 else:
