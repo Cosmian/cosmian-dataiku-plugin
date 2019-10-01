@@ -18,8 +18,6 @@ $(function () {
 let deployButton = document.getElementById('deploy-button');
 
 deployButton.addEventListener('click', function (event) {
-    let hostnameEL = document.getElementById('remote-hostname');
-    let hostnameValue = hostnameEL.value || '';
     let algoNameEl = document.getElementById('algo-name');
     let algoNameValue = algoNameEl.value || '';
     let pythonCodeEl = document.getElementById('python-code');
