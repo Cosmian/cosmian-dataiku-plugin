@@ -1,0 +1,49 @@
+// This file is the descriptor for the Custom code recipe mpc
+{
+  "meta": {
+    "label": "Multi Party Computation",
+    "description": "Perform a Multi Party Computation (MPC) between 2 or more data providers",
+    "icon": "icon-cogs",
+    "iconColor": "purple"
+  },
+  "kind": "PYTHON",
+  "inputRoles": [
+    {
+      "name": "datasets",
+      "label": "Datasets",
+      "description": "Dataset to join with",
+      "arity": "NARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  "outputRoles": [
+    {
+      "name": "output",
+      "label": "Results",
+      "description": "Results of the MPC program",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  "params": [
+    {
+      "name": "computation",
+      "label": "Multi Party Computation to run",
+      "type": "SELECT",
+      "selectChoices": [
+        {
+          "value": "linear_regression",
+          "label": "Linear Regression"
+        },
+        {
+          "value": "ip_identification",
+          "label": "Suspect IPs Identification"
+        },
+      ],
+      "mandatory": true
+    }
+  ],
+  "resourceKeys": []
+}

@@ -9,16 +9,22 @@ import requests
 
 logging.warn("****Starting IP MPC")
 
-# an HTTP 1.1 session with keep-alive
-session = requests.Session()
+# Join parameters
+recipe_config = get_recipe_config()
+computation = recipe_config['computation']
 
-# recover inoput datasets
+# recover input datasets
 dataset_names = get_input_names_for_role('datasets')
 datasets = [dataiku.Dataset(name) for name in dataset_names]
 url, views = cosmian.recover_datasets_info(datasets)
 
+# an HTTP 1.1 session with keep-alive
+session = requests.Session()
 # REST request to inner join
-handle = cosmian.run_ip_mpc(session, url, views)
+if computation == 'ip_identification':
+    handle = cosmian.run_ip_mpc(session, url, views)
+else:
+    raise ValueError("Not implemented yet")
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, url, handle)
