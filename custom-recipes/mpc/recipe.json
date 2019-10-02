@@ -44,7 +44,7 @@
         {
           "value": "ip_identification",
           "label": "Suspect IPs Identification"
-        },
+        }
       ],
       "mandatory": true
     }
