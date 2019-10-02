@@ -35,11 +35,11 @@
       "selectChoices": [
         {
           "value": "linear_regression_stack",
-          "label": "Linear Regression (stack)",
+          "label": "Linear Regression (stack)"
         },
         {
           "value": "linear_regression_join",
-          "label": "Linear Regression (join)",
+          "label": "Linear Regression (join)"
         },
         {
           "value": "ip_identification",
