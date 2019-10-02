@@ -97,8 +97,33 @@ def run_ip_mpc(session, server_url, views):
             headers=headers
         )
         if r.status_code != 200:
-            raise ValueError("Cosmian Server:: Error querying join on  %s, status code: %s, reason :%s" % (
+            raise ValueError("Cosmian Server:: Error run mpc on %s, status code: %s, reason :%s" % (
                 views, r.status_code, r.text))
+        resp = r.json()
+        return resp["handle"]
+    except requests.ConnectionError:
+        raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
+
+
+def run_linear_regression(session, server_url, views):
+    headers = {
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json"
+    }
+    params = {
+        'views': json.dumps(views),
+        "columns": json.dumps(['Prices', 'Sales'])
+    }
+    try:
+        r = session.get(
+            url="%slinear_regression" % server_url,
+            params=params,
+            headers=headers
+        )
+        if r.status_code != 200:
+            raise ValueError(
+                "Cosmian Server:: Error running MPC linear regression on %s, status code: %s, reason :%s" % (
+                    views, r.status_code, r.text))
         resp = r.json()
         return resp["handle"]
     except requests.ConnectionError:
@@ -202,7 +227,7 @@ def run_protected_algorithm(session, server_url, views, algo_name):
         )
         if r.status_code != 200:
             raise ValueError("Cosmian Server:: Error running algorithm: %s, status code: %s, reason :%s" % (
-               algo_name, r.status_code, r.text))
+                algo_name, r.status_code, r.text))
         resp = r.json()
         return resp["handle"]
     except requests.ConnectionError:

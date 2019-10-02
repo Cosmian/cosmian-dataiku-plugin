@@ -24,7 +24,7 @@ session = requests.Session()
 if computation == 'ip_identification':
     handle = cosmian.run_ip_mpc(session, url, views)
 else:
-    raise ValueError("Not implemented yet")
+    handle = cosmian.run_linear_regression(session, url, views)
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, url, handle)
