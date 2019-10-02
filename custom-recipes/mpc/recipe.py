@@ -23,8 +23,12 @@ session = requests.Session()
 # REST request to inner join
 if computation == 'ip_identification':
     handle = cosmian.run_ip_mpc(session, url, views)
+elif computation == 'linear_regression_stack':
+    handle = cosmian.run_linear_regression(session, url, views, 'stack')
+elif computation == 'linear_regression_join':
+    handle = cosmian.run_linear_regression(session, url, views, 'join')
 else:
-    handle = cosmian.run_linear_regression(session, url, views)
+    raise ValueError("unknown algorithm: {%s}" % computation)
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, url, handle)

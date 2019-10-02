@@ -105,7 +105,11 @@ def run_ip_mpc(session, server_url, views):
         raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
 
 
-def run_linear_regression(session, server_url, views):
+def run_linear_regression(session, server_url, views, s_mode):
+    if s_mode == 'stack':
+        mode = 'aggregate_datasets'
+    else:
+        mode = 'split_dimensions'
     headers = {
         "Accept-Encoding": "gzip",
         "Accept": "application/json"
@@ -113,7 +117,7 @@ def run_linear_regression(session, server_url, views):
     params = {
         'views': json.dumps(views),
         'columns': json.dumps(['Prices', 'Sales']),
-        'mode': 'aggregate_datasets',
+        'mode': mode,
         'range_start': 100.0,
         'range_end': 200.0,
     }
