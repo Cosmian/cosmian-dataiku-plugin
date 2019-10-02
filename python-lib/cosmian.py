@@ -112,7 +112,10 @@ def run_linear_regression(session, server_url, views):
     }
     params = {
         'views': json.dumps(views),
-        "columns": json.dumps(['Prices', 'Sales'])
+        'columns': json.dumps(['Prices', 'Sales']),
+        'mode': 'aggregate_datasets',
+        'range_start': 100.0,
+        'range_end': 200.0,
     }
     try:
         r = session.get(
