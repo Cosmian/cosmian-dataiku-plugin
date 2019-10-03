@@ -181,7 +181,7 @@ def read_next_row(session, server_url, handle):
             raise ValueError("Cosmian Server:: Error querying dataset: %s, status code: %s, reason :%s" % (
                 handle, r.status_code, r.text))
     except requests.ConnectionError as e:
-        raise ValueError("Read next row: failed querying Cosmian Server at: %s, error: %s" % server_url % e)
+        raise ValueError("Read next row: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
 
 
 def deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code):
