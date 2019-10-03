@@ -66,7 +66,7 @@
       "mandatory": true
     },
     {
-      "name": "join_key",
+      "name": "compute_key",
       "type": "STRING",
       "label": "Join functional key",
       "description": "This key is required to perform a join over encrypted data (MCFE setting only)",

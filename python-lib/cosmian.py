@@ -55,7 +55,7 @@ def get_join_v1_handle(session, server_url, left_view, right_view, join_type, ou
         raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
 
 
-def get_join_handle(session, server_url, views, join_type, join_key):
+def get_join_handle(session, server_url, views, join_type, compute_key):
     headers = {
         "Accept-Encoding": "gzip",
         "Accept": "application/json"
@@ -63,7 +63,7 @@ def get_join_handle(session, server_url, views, join_type, join_key):
     params = {
         'views': json.dumps(views),
         "join_type": join_type,
-        "join_key": join_key
+        "compute_key": compute_key
     }
     try:
         r = session.get(

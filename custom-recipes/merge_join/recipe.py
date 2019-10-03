@@ -31,15 +31,15 @@ url, views = cosmian.recover_datasets_info(datasets)
 recipe_config = get_recipe_config()
 join_type = recipe_config['join_type']
 # For MCFE joins, retrieve the inner join key
-if 'join_key' in recipe_config:
-    join_key = recipe_config['join_key']
+if 'compute_key' in recipe_config:
+    compute_key = recipe_config['compute_key']
 else:
-    join_key = ''
+    compute_key = ''
 
 # REST request to inner join
 handle = cosmian.get_join_handle(
     session, url, views,
-    join_type, join_key)
+    join_type, compute_key)
 
 output_dataset = dataiku.Dataset(get_output_names_for_role('output')[0])
 output_schema = cosmian.get_schema(session, url, handle)
