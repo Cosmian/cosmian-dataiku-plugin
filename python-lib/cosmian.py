@@ -216,7 +216,7 @@ def deploy_python_code(session, local_server_url, remote_server_url, algo_name, 
         raise ValueError("Failed querying Cosmian Server at: %s" % local_server_url)
 
 
-def run_protected_algorithm(session, server_url, views, algo_name):
+def run_protected_algorithm(session, server_url, views, algo_name, output_name):
     headers = {
         "Accept-Encoding": "gzip",
         "Accept": "application/json",
@@ -224,11 +224,11 @@ def run_protected_algorithm(session, server_url, views, algo_name):
     }
     data = {
         'views': views,
-        'algo_name': algo_name,
+        'output_name': output_name
     }
     try:
         r = session.post(
-            url="%senclave/run_protected_algorithm" % server_url,
+            url="%senclave/run_code/%s" % (server_url, algo_name),
             json=data,
             headers=headers
         )
