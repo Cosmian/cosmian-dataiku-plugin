@@ -4,7 +4,7 @@
   "meta": {
     "label": "Protected Algorithm Runner",
     "description": "Run protected algorithm code delivered by a remote algorithm provider",
-    "icon": "icon-box"
+    "icon": "icon-eye-close"
   },
   "kind": "PYTHON",
   "selectableFromDataset": "datasets",
