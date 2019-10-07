@@ -223,6 +223,7 @@ def run_protected_algorithm(session, server_url, views, algo_name, output_name):
         "Content-type": "application/json"
     }
     data = {
+        'server_url': server_url,
         'views': views,
         'output_name': output_name
     }
