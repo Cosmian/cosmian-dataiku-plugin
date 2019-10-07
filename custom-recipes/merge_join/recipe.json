@@ -16,6 +16,8 @@
   // or at most one ('UNARY'). The "required" field indicates whether the user is allowed to
   // associate no dataset with the role.
 
+  "selectableFromDataset": "datasets",
+
   "inputRoles": [
     {
       "name": "datasets",
