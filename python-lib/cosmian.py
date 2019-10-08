@@ -237,7 +237,7 @@ def run_protected_algorithm(session, server_url, views, algo_name, output_name):
             raise ValueError("Cosmian Server:: Error running algorithm: %s, status code: %s, reason :%s" % (
                 algo_name, r.status_code, r.text))
         resp = r.json()
-        return resp["handle"]
+        print("Run Code Response: ", resp)
     except requests.ConnectionError:
         raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
 
