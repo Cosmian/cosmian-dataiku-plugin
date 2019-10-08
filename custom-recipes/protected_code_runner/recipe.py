@@ -37,7 +37,6 @@ output_schema = cosmian.get_schema(session, url, handle)
 output_dataset.write_schema(output_schema)
 
 # Stream entries and write them to the output
-output_dataset.get_writer().
 with output_dataset.get_writer() as writer:
     while True:
         row = cosmian.read_next_row(session, url, handle)
