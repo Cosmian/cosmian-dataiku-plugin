@@ -31,7 +31,10 @@ cosmian.run_protected_algorithm(
     session, url, views,
     algo_name, output_name)
 
-output_dataset = dataiku.Dataset(output_name+"-"+time.time())
+
+dss_ds_name = "%s-%s" % (output_name,time.time())
+print("Dataiku Dastaset Name: ", dss_ds_name)
+output_dataset = dataiku.Dataset(dss_ds_name)
 handle = cosmian.get_dataset_handle(session, url, output_name, False)
 output_schema = cosmian.get_schema(session, url, handle)
 output_dataset.write_schema(output_schema)
