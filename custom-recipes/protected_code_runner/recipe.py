@@ -5,6 +5,7 @@ from dataiku.customrecipe import *
 # import logging
 import cosmian
 import requests
+import time
 
 # an HTTP 1.1 session with keep-alive
 session = requests.Session()
@@ -30,12 +31,13 @@ cosmian.run_protected_algorithm(
     session, url, views,
     algo_name, output_name)
 
-output_dataset = dataiku.Dataset(output_name)
+output_dataset = dataiku.Dataset(output_name+"-"+time.time())
 handle = cosmian.get_dataset_handle(session, url, output_name, False)
 output_schema = cosmian.get_schema(session, url, handle)
 output_dataset.write_schema(output_schema)
 
 # Stream entries and write them to the output
+output_dataset.get_writer().
 with output_dataset.get_writer() as writer:
     while True:
         row = cosmian.read_next_row(session, url, handle)
