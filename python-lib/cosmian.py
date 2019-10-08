@@ -6,7 +6,7 @@ import json
 from urlparse import urlparse
 
 
-def get_dataset_handle(session, server_url, view, sorted):
+def get_dataset_handle(session, server_url, view, sort_ds):
     # attempt to create open a source to this dataset
     headers = {
         "Accept-Encoding": "gzip",
@@ -14,7 +14,7 @@ def get_dataset_handle(session, server_url, view, sorted):
     }
     params = {}
     try:
-        dataset_sort_path = "sorted_dataset" if sorted else "raw_dataset"
+        dataset_sort_path = "sorted_dataset" if sort_ds else "raw_dataset"
         r = session.get(
             url="%sview/%s/%s" % (server_url, view, dataset_sort_path),
             params=params,

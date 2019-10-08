@@ -26,11 +26,12 @@ if algo_name == '':
     raise ValueError("Please provide an algorithm name")
 
 # REST request to run the protected algorith
-handle = cosmian.run_protected_algorithm(
+cosmian.run_protected_algorithm(
     session, url, views,
     algo_name, output_name)
 
 output_dataset = dataiku.Dataset(output_name)
+handle = cosmian.get_dataset_handle(session, url, output_name, False)
 output_schema = cosmian.get_schema(session, url, handle)
 output_dataset.write_schema(output_schema)
 
