@@ -63,6 +63,11 @@ label {
     flex-grow: 0;
 }
 
+.python-code #python-code {
+    border: solid 1px black;
+}
+
+/*
 .code-mirror {
     display: flex;
     flex-direction: column;
@@ -74,6 +79,7 @@ label {
     height: 250px;
     flex-grow: 1;
 }
+*/
 
 
 .deploy-button {
