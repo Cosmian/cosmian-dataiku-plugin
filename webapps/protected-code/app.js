@@ -8,7 +8,7 @@
  */
 
 
-var code_mirror = void 0;
+let code_mirror = void 0;
 
 $(function () {
     // code_mirror= CodeMirror(document.getElementById('code-mirror'), {
@@ -40,7 +40,7 @@ deployButton.addEventListener('click', function (event) {
     let algoNameValue = algoNameEl.value || '';
     // let pythonCodeEl = document.getElementById('python-code');
     // let pythonCodeValue = pythonCodeEl.value || '';
-    pythonCodeValue = code_mirror.getValue()
+    let pythonCodeValue = code_mirror.getValue();
     
     event.preventDefault();
     displayMessage('wait', 'deploying code...');
