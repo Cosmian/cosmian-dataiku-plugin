@@ -8,7 +8,13 @@
  */
 
 
+var code_mirror = void 0;
+
 $(function () {
+    code_mirror= CodeMirror(document.getElementById('python-code'), {
+       value: "import cosmian\n",
+       mode: "python"
+    });
     $('#local_server_url').html(dataiku.getWebAppConfig()['local_server_url']);
     $('#remote_server_url').html(dataiku.getWebAppConfig()['remote_server_url']);
     displayMessage();
