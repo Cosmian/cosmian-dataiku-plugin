@@ -13,7 +13,7 @@
       "name": "datasets",
       "label": "Datasets",
       "description": "Dataset to join with",
-      "arity": "NARY",
+      "arity": "UNARY",
       "required": true,
       "acceptsDataset": true
     }
