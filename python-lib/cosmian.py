@@ -101,11 +101,11 @@ def run_ip_mpc(session, server_url, views):
                 views, r.status_code, r.text))
         resp = r.json()
         return resp["handle"]
-    except requests.ConnectionError:
-        raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
+    except requests.ConnectionError as e:
+        raise ValueError("IP Identification: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
 
 
-def run_linear_regression(session, server_url, views, s_mode):
+def run_linear_regression(session, server_url, views, s_mode, columns, range_start, range_end):
     if s_mode == 'stack':
         mode = 'aggregate_datasets'
     else:
@@ -116,11 +116,12 @@ def run_linear_regression(session, server_url, views, s_mode):
     }
     params = {
         'views': json.dumps(views),
-        'columns': json.dumps(['Prices', 'Sales']),
+        'columns': json.dumps(columns),
         'mode': mode,
-        'range_start': 100.0,
-        'range_end': 200.0,
+        'range_start': range_start,
+        'range_end': range_end,
     }
+    print("Linear regression params: ", params)
     try:
         r = session.get(
             url="%slinear_regression" % server_url,
@@ -133,8 +134,8 @@ def run_linear_regression(session, server_url, views, s_mode):
                     views, r.status_code, r.text))
         resp = r.json()
         return resp["handle"]
-    except requests.ConnectionError:
-        raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
+    except requests.ConnectionError as e:
+        raise ValueError("Linear Regression: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
 
 
 def get_schema(session, server_url, handle):

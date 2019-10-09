@@ -20,13 +20,22 @@ url, views = cosmian.recover_datasets_info(datasets)
 
 # an HTTP 1.1 session with keep-alive
 session = requests.Session()
-# REST request to inner join
+
 if computation == 'ip_identification':
     handle = cosmian.run_ip_mpc(session, url, views)
+
 elif computation == 'linear_regression_stack':
-    handle = cosmian.run_linear_regression(session, url, views, 'stack')
+    columns = [recipe_config['column_1'], recipe_config['column_2']]
+    range_start = recipe_config['range_start']
+    range_end = recipe_config['range_end']
+    handle = cosmian.run_linear_regression(session, url, views, 'stack', columns, range_start, range_end)
+
 elif computation == 'linear_regression_join':
-    handle = cosmian.run_linear_regression(session, url, views, 'join')
+    columns = [recipe_config['column_1'], recipe_config['column_2']]
+    range_start = recipe_config['range_start']
+    range_end = recipe_config['range_end']
+    handle = cosmian.run_linear_regression(session, url, views, 'join', columns, range_start, range_end)
+
 else:
     raise ValueError("unknown algorithm: {%s}" % computation)
 
