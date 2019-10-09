@@ -69,6 +69,12 @@ label {
     flex-grow: 1;
 }
 
+.code-mirror #code-mirror{
+    border: solid 1px black;
+    height: 250px
+    flex-grow: 1;
+}
+
 
 .deploy-button {
     display: flex;
