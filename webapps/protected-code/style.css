@@ -71,7 +71,7 @@ label {
 
 .code-mirror #code-mirror{
     border: solid 1px black;
-    height: 250px
+    height: 250px;
     flex-grow: 1;
 }
 
