@@ -16,7 +16,7 @@ $(function () {
     //   mode: "python"
     //});
     code_mirror = CodeMirror.fromTextArea(document.getElementById('python-code'));
-    $("CodeMirror").addClass('grey-border');
+    $(".CodeMirror").addClass('grey-border');
     $('#local_server_url').html(dataiku.getWebAppConfig()['local_server_url']);
     $('#remote_server_url').html(dataiku.getWebAppConfig()['remote_server_url']);
     displayMessage();
