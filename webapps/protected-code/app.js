@@ -11,10 +11,11 @@
 var code_mirror = void 0;
 
 $(function () {
-    code_mirror= CodeMirror(document.getElementById('code-mirror'), {
-       value: "import cosmian\n",
-       mode: "python"
-    });
+    // code_mirror= CodeMirror(document.getElementById('code-mirror'), {
+    //   value: "import cosmian\n",
+    //   mode: "python"
+    //});
+    code_mirror = CodeMirror.fromTextArea(document.getElementById('python-code'));
     $('#local_server_url').html(dataiku.getWebAppConfig()['local_server_url']);
     $('#remote_server_url').html(dataiku.getWebAppConfig()['remote_server_url']);
     displayMessage();
@@ -26,8 +27,9 @@ let deployButton = document.getElementById('deploy-button');
 deployButton.addEventListener('click', function (event) {
     let algoNameEl = document.getElementById('algo-name');
     let algoNameValue = algoNameEl.value || '';
-    let pythonCodeEl = document.getElementById('python-code');
-    let pythonCodeValue = pythonCodeEl.value || '';
+    //let pythonCodeEl = document.getElementById('python-code');
+    //let pythonCodeValue = pythonCodeEl.value || '';
+    
     event.preventDefault();
     displayMessage('wait', 'deploying code...');
 
