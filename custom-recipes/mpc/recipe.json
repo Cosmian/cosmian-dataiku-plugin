@@ -51,15 +51,31 @@
     },
     {
       "name": "column_1",
-      "label": "first column of the regression",
+      "label": "First column of the regression",
       "type": "COLUMN",
-      "columnRole": "datasets"
+      "columnRole": "datasets",
+      "visibilityCondition" : "model.computation == 'linear_regression_stack'"
     },
     {
       "name": "column_2",
-      "label": "second column of the regression",
+      "label": "Second column of the regression",
       "type": "COLUMN",
-      "columnRole": "datasets"
+      "columnRole": "datasets",
+      "visibilityCondition" : "model.computation == 'linear_regression_stack'"
+    },
+     {
+      "name": "column_3",
+      "label": "First column of the regression",
+      "type": "COLUMN",
+      "columnRole": "datasets",
+      "visibilityCondition" : "model.computation == 'linear_regression_join'"
+    },
+    {
+      "name": "column_4",
+      "label": "Second column of the regression",
+      "type": "COLUMN",
+      "columnRole": "datasets",
+      "visibilityCondition" : "model.computation == 'linear_regression_join'"
     }
   ],
   "resourceKeys": []
