@@ -50,32 +50,43 @@
       "mandatory": true
     },
     {
-      "name": "column_1",
-      "label": "First column of the regression",
+      "name": "column_s1",
+      "label": "First column",
       "type": "COLUMN",
+      "defaultValue": "Prices",
       "columnRole": "datasets",
-      "visibilityCondition" : "model.computation == 'linear_regression_stack'"
+      "visibilityCondition": "model.computation == 'linear_regression_stack'"
     },
     {
-      "name": "column_2",
-      "label": "Second column of the regression",
+      "name": "column_s2",
+      "label": "Second column",
       "type": "COLUMN",
+      "defaultValue": "Sales",
       "columnRole": "datasets",
-      "visibilityCondition" : "model.computation == 'linear_regression_stack'"
-    },
-     {
-      "name": "column_3",
-      "label": "First column of the regression",
-      "type": "COLUMN",
-      "columnRole": "datasets",
-      "visibilityCondition" : "model.computation == 'linear_regression_join'"
+      "visibilityCondition": "model.computation == 'linear_regression_stack'"
     },
     {
-      "name": "column_4",
-      "label": "Second column of the regression",
+      "name": "range_start_s",
+      "label": "Range start",
+      "defaultValue": "1.0",
+      "type": "DOUBLE",
+      "visibilityCondition": "model.computation == 'linear_regression_stack' || model.computation == 'linear_regression_join'"
+    },
+    {
+      "name": "column_j1",
+      "label": "First column",
       "type": "COLUMN",
+      "defaultValue": "Prices",
       "columnRole": "datasets",
-      "visibilityCondition" : "model.computation == 'linear_regression_join'"
+      "visibilityCondition": "model.computation == 'linear_regression_join'"
+    },
+    {
+      "name": "column_j2",
+      "label": "Second column",
+      "type": "COLUMN",
+      "defaultValue": "Sales",
+      "columnRole": "datasets",
+      "visibilityCondition": "model.computation == 'linear_regression_join'"
     }
   ],
   "resourceKeys": []
