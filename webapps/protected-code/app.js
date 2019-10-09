@@ -21,6 +21,12 @@ $(function () {
         lineNumers: true
     });
     $(".CodeMirror").addClass('grey-border');
+    $('.CodeMirror').resizable({
+      resize: function() {
+          code_mirror.setSize($(this).width(), $(this).height());
+          code_mirror.refresh();
+      }
+    });
     $('#local_server_url').html(dataiku.getWebAppConfig()['local_server_url']);
     $('#remote_server_url').html(dataiku.getWebAppConfig()['remote_server_url']);
     displayMessage();
