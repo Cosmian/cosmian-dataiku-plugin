@@ -63,8 +63,8 @@ label {
     flex-grow: 0;
 }
 
-.python-code #python-code {
-    border: solid 1px black;
+.CodeMirror #python-code {
+    border: solid 1px black !important;
 }
 
 /*
