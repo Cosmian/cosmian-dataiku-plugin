@@ -16,8 +16,9 @@ $(function () {
     //   mode: "python"
     //});
     code_mirror = CodeMirror.fromTextArea(document.getElementById('python-code'), {
-       value: "import cosmian\n",
-       mode: "python"
+        value: "import cosmian\n",
+        mode: "python",
+        lineNumers: true
     });
     $(".CodeMirror").addClass('grey-border');
     $('#local_server_url').html(dataiku.getWebAppConfig()['local_server_url']);
