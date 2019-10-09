@@ -48,6 +48,18 @@
         }
       ],
       "mandatory": true
+    },
+    {
+      "name": "column_1",
+      "label": "first column of the regression",
+      "type": "COLUMN",
+      "columnRole": "datasets"
+    },
+    {
+      "name": "column_2",
+      "label": "second column of the regression",
+      "type": "COLUMN",
+      "columnRole": "datasets"
     }
   ],
   "resourceKeys": []
