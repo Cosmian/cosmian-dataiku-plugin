@@ -63,6 +63,13 @@ label {
     flex-grow: 0;
 }
 
+.code-mirror {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+
 .deploy-button {
     display: flex;
     flex-direction: row;
