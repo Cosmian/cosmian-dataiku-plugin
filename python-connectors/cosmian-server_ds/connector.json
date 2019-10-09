@@ -1,0 +1,36 @@
+{
+    "meta": {
+        "label": "Cosmian Server Dataset",
+        "description": "Cosmian Server Dataset",
+        "icon": "icon-lock"
+    },
+    "readable": true,
+    "writable": false,
+    "params": [
+        {
+            "name": "server_url",
+            "label": "Cosmian server URL",
+            "type": "STRING",
+            "description": "The base URL of the Cosmian server",
+            "mandatory": true,
+            "defaultValue": "http://localhost:9999"
+        },
+        {
+            "name": "view_name",
+            "label": "View",
+            "description": "The unique name of the View exposing data on the Cosmian server",
+            "type": "STRING",
+            "mandatory": true,
+            "defaultValue": ""
+        },
+        {
+            "name": "sorted",
+            "label": "Sorted",
+            "description": "Show the data sorted by its key (may not be available)",
+            "type": "BOOLEAN",
+            "mandatory": true,
+            "defaultValue": false
+        }
+
+    ]
+}
