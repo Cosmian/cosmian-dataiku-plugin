@@ -27,8 +27,8 @@ let deployButton = document.getElementById('deploy-button');
 deployButton.addEventListener('click', function (event) {
     let algoNameEl = document.getElementById('algo-name');
     let algoNameValue = algoNameEl.value || '';
-    //let pythonCodeEl = document.getElementById('python-code');
-    //let pythonCodeValue = pythonCodeEl.value || '';
+    let pythonCodeEl = document.getElementById('python-code');
+    let pythonCodeValue = pythonCodeEl.value || '';
     
     event.preventDefault();
     displayMessage('wait', 'deploying code...');
