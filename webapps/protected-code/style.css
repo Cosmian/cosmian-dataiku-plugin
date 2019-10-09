@@ -63,7 +63,7 @@ label {
     flex-grow: 0;
 }
 
-.CodeMirror #python-code {
+.grey-border {
     border: solid 1px black !important;
 }
 
