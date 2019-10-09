@@ -15,7 +15,10 @@ $(function () {
     //   value: "import cosmian\n",
     //   mode: "python"
     //});
-    code_mirror = CodeMirror.fromTextArea(document.getElementById('python-code'));
+    code_mirror = CodeMirror.fromTextArea(document.getElementById('python-code'), {
+       value: "import cosmian\n",
+       mode: "python"
+    });
     $(".CodeMirror").addClass('grey-border');
     $('#local_server_url').html(dataiku.getWebAppConfig()['local_server_url']);
     $('#remote_server_url').html(dataiku.getWebAppConfig()['remote_server_url']);
