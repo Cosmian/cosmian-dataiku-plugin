@@ -11,7 +11,7 @@
 var code_mirror = void 0;
 
 $(function () {
-    code_mirror= CodeMirror(document.getElementById('python-code'), {
+    code_mirror= CodeMirror(document.getElementById('code-mirror'), {
        value: "import cosmian\n",
        mode: "python"
     });
