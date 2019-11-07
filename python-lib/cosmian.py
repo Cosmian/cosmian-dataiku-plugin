@@ -232,7 +232,7 @@ def run_protected_algorithm(session, server_url, views, algo_name, output_name):
     try:
         r = session.post(
             url="%senclave/run_code/%s" % (server_url, algo_name),
-            json={params: params},
+            json={'params': params},
             headers=headers
         )
         if r.status_code != 200:
