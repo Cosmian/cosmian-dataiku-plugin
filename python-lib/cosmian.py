@@ -217,7 +217,28 @@ def deploy_python_code(session, local_server_url, remote_server_url, algo_name, 
         raise ValueError("Failed querying Cosmian Server at: %s" % local_server_url)
 
 
+def delete_view(session, server_url, view_name):
+    headers = {
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json",
+        "Content-type": "application/json",
+        "x-http-method-override": "DELETE"
+    }
+    try:
+        r = session.get(
+            url="%sview/%s" % (server_url, view_name),
+            headers=headers
+        )
+        if r.status_code != 200 and r.status_code != 404:
+            raise ValueError("Cosmian Server:: Error Deleting View: %s, status code: %s, reason :%s" % (
+                view_name, r.status_code, r.text))
+    except requests.ConnectionError as e:
+        raise ValueError("Read next row: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
+
+
 def run_protected_algorithm(session, server_url, views, algo_name, output_name):
+    # first delete an existing output view
+    delete_view(session,server_url,output_name)
     headers = {
         "Accept-Encoding": "gzip",
         "Accept": "application/json",
@@ -240,8 +261,8 @@ def run_protected_algorithm(session, server_url, views, algo_name, output_name):
                 algo_name, r.status_code, r.text))
         resp = r.json()
         print("Run Code Response: ", resp)
-    except requests.ConnectionError:
-        raise ValueError("Failed establishing connection to the Cosmian Server at: %s" % server_url)
+    except requests.ConnectionError as e:
+        raise ValueError("Read next row: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
 
 
 def cosmian_type_2_dataiku_type(ct):
