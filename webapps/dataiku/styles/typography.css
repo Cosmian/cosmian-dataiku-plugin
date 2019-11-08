@@ -1,0 +1,49 @@
+@import '/static/public/styles/1.0.0/variables.css';
+
+body {
+    font-family: 'SourceSansPro';
+    font-size: 14px;
+}
+
+/* Headers */
+.dku-ui.extralarge, h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.dku-ui.large, h2 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.dku-ui.medium, h3 {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.dku-ui.small, h4 {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.dku-ui.section, section, p, form {
+    padding: 8px;
+}
+
+.dku-ui.divider, hr {
+    margin: 20px 0;
+    border: 0;
+    border-top-color: currentcolor;
+    border-top-style: none;
+    border-top-width: 0px;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: 0px;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--white);
+}

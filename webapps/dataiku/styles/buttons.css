@@ -1,0 +1,167 @@
+@import '/static/public/styles/1.0.0/variables.css';
+
+:root {
+    --button-padding: 12px 16px;
+
+    --button-background: var(--white);
+    --button-color: var(--grey-lighten-1);
+    --button-border-color: var(--grey-lighten-5);
+    --button-hover-background: var(--grey-lighten-7);
+    --button-active-background: var(--grey-lighten-6);
+
+    --main-background: var(--grey-lighten-2);
+    --main-color: var(--white);
+    --main-border-color: var(--grey-lighten-2);
+    --main-hover-background: var(--grey-lighten-1);
+    --main-active-background: var(--grey);
+
+    --blue-background: var(--white);
+    --blue-color: var(--blue);
+    --blue-border-color: var(--blue);
+    --blue-hover-background: var(--blue-lighten-5);
+    --blue-active-background: var(--blue-lighten-4);
+
+    --blue-main-background: #03a9f4;
+    --blue-main-color: var(--white);
+    --blue-main-border-color: transparent;
+    --blue-main-hover-background: #22b8fc; /* 15% lighten */
+    --blue-main-active-background: #0083CE;  /* 15% darken */
+}
+
+/* DEFAULT BUTTON */
+button {
+    cursor: pointer;
+    display: inline-block;
+    background: var(--button-background) none;
+    color: var(--button-color);
+    border: 1px solid var(--button-border-color);
+    padding: var(--button-padding);
+    text-transform: uppercase;
+    min-height: 1em;
+    outline: none;
+    border-radius: 3px;
+    vertical-align: baseline;
+    margin: 0em 0.25em 0em 0em;
+    text-shadow: none;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1em;
+    font-style: normal;
+    text-align: center;
+    text-decoration: none;
+    -webkit-box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+            box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    -webkit-transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+    transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+    transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease, -webkit-box-shadow 0.1s ease;
+    will-change: '';
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+    background-color: var(--button-hover-background);
+    color: var(--button-color);
+    background-image: none;
+}
+
+button:active {
+    background-color: var(--button-active-background);
+    color: var(--button-color);
+    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
+}
+
+/* Blue version */
+button.blue-button {
+    background: var(--blue-background) none;
+    color: var(--blue-color);
+    border: 1px solid var(--blue-border-color);
+}
+
+button.blue-button:hover {
+    background-color: var(--blue-hover-background);
+    color: var(--blue-color);
+    background-image: none;
+}
+
+button.blue-button:active {
+    background-color: var(--blue-active-background);
+    color: var(--blue-color);
+}
+
+/* MAIN BUTTON */
+button.main-button {
+    color: var(--main-color);
+    background-color: var(--main-background);
+    border-color: var(--main-border-color);
+}
+
+button.main-button:hover {
+    background-color: var(--main-hover-background);
+    color: var(--main-color);
+    background-image: none;
+}
+
+button.main-button:active {
+    background-color: var(--main-active-background);
+    color: var(--main-color);
+}
+
+/* Blue version */
+button.main-blue-button {
+    background: var(--blue-main-background) none;
+    color: var(--blue-main-color);
+    border: 1px solid var(--blue-main-border-color);
+}
+
+button.main-blue-button:hover {
+    background-color: var(--blue-main-hover-background);
+    color: var(--blue-main-color);
+    background-image: none;
+}
+
+button.main-blue-button:active {
+    background-color: var(--blue-main-active-background);
+    color: var(--blue-main-color);
+}
+
+/* TEXT BUTTON */
+button.text-button {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+button.text-button:hover {
+    background-color: var(--button-hover-background);
+    border-color: transparent;
+}
+
+button.text-button:active {
+    background-color: var(--button-active-background);
+    border-color: transparent;
+}
+
+/* Blue version */
+button.text-blue-button {
+    color: var(--blue-color);
+    background-color: transparent;
+    border-color: transparent;
+}
+
+button.text-blue-button:hover {
+    color: var(--blue-color);
+    background-color: var(--blue-hover-background);
+    border-color: transparent;
+}
+
+button.text-blue-button:active {
+    color: var(--blue-color);
+    background: var(--blue-active-background);
+    border-color: transparent;
+}

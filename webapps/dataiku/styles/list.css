@@ -1,0 +1,58 @@
+/* List */
+
+ul,
+ol,
+.dku-ui.list {
+    list-style-type: disc;
+    margin: 1em 8px;
+    padding: 0;
+}
+ul:first-child,
+ol:first-child,
+.dku-ui.list:first-child {
+    margin-top: 0em;
+    padding-top: 0em;
+}
+ul.dku-ui.list:last-child,
+ol.dku-ui.list:last-child,
+.dku-ui.list:last-child {
+    margin-bottom: 0em;
+    padding-bottom: 0em;
+}
+
+/* List Item */
+ul li,
+ol li,
+.dku-ui.list > .item,
+.dku-ui.list .list > .item {
+    display: list-item;
+    table-layout: fixed;
+    list-style-type: disc;
+    list-style-position: inside;
+    padding: 0.21428571em 0em;
+    line-height: 1.14285714em;
+    font-size: 14px;
+    font-weight : 400;
+}
+ul > li:first-child:after,
+ol > li:first-child:after,
+.dku-ui.list > .list > .item,
+.dku-ui.list > .item:after {
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+ul li:first-child,
+ol li:first-child,
+.dku-ui.list .list > .item:first-child,
+.dku-ui.list > .item:first-child {
+    padding-top: 0em;
+}
+ul li:last-child,
+ol li:last-child,
+.dku-ui.list .list > .item:last-child,
+.dku-ui.list > .item:last-child {
+    padding-bottom: 0em;
+}

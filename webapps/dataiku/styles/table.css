@@ -1,0 +1,93 @@
+@import '/static/public/styles/1.0.0/variables.css';
+
+table {
+    width: 100%;
+    background: var(--white);
+    margin: 1em 0em;
+    border: 1px solid var(--border-color);
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    text-align: left;
+    color: var(--grey-lighten-1);
+    border-collapse: separate;
+    border-spacing: 0px;
+}
+table:first-child {
+    margin-top: 0em;
+}
+table:last-child {
+    margin-bottom: 0em;
+}
+/* Table Content */
+table th,
+table td {
+    -webkit-transition: background 0.1s ease, color 0.1s ease;
+    transition: background 0.1s ease, color 0.1s ease;
+}
+
+/* Headers */
+table thead {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+table thead th {
+    cursor: auto;
+    background: #F9F9F9;
+    border-bottom: 2px solid var(--grey-lighten-5);
+    text-align: inherit;
+    color: var(--grey-lighten-2);
+    padding: 0.92857143em 0.78571429em;
+    vertical-align: inherit;
+    font-style: none;
+    font-weight: bold;
+    text-transform: none;
+    border-left: none;
+}
+table thead tr > th:first-child {
+    border-left: none;
+}
+
+/* Footer */
+table tfoot {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+}
+
+table tfoot th {
+    cursor: auto;
+    border-top: 1px solid var(--grey-lighten-3);
+    background: #F9F9F9;
+    text-align: inherit;
+    color: var(--grey-lighten-2);
+    padding: 0.78571429em 0.78571429em;
+    vertical-align: middle;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+}
+
+table tfoot tr > th:first-child {
+    border-left: none;
+}
+
+/* Table Row */
+table tr td {
+    border-top: 1px solid var(--border-color);
+}
+table tr:first-child td {
+    border-top: none;
+}
+
+/* Table Cells */
+table td {
+    padding: 0.78571429em 0.78571429em;
+    text-align: inherit;
+}
+
+/* Icons */
+table > .icon {
+    vertical-align: baseline;
+}
+table > .icon:only-child {
+    margin: 0em;
+}
