@@ -1,8 +1,26 @@
-<link rel="stylesheet" href="/static/public/styles/1.0.0/dku-styles.css" />
-<link rel="stylesheet" href="./style.css" />
-<link rel="stylesheet" href="../dataiku/dku-styles.css" />
+<link rel="stylesheet" href="/static/public/styles/1.0.0/dku-styles.css"/>
+<link rel="stylesheet" href="./style.css"/>
 
-<h1>Welcome to your webapp</h1>
+<!-- //Used for dev outside dss -->
+<link rel="stylesheet" href="../dataiku/dku-styles.css"/>
+<link rel="stylesheet" href="../dataiku/fonts/SourceSansPro-Bold.woff">
+<!-- Used for dev outside dss// -->
+
+<h1>Manage Views</h1>
+
+
+<div class="views-widget">
+    <ul class="views-list">
+        <li>View1</li>
+        <li>View2</li>
+        <li>View3</li>
+        <li>View4</li>
+    </ul>
+    <div class="views-buttons">
+        <button id="btn-delete-view">-</button>
+        <button id="btn-add-view">+</button>
+    </div>
+</div>
 
 <h2>This webapp template will inspire you</h2>
 <section>
@@ -13,8 +31,13 @@
     </ul>
     For more guidance:
     <p>
-        <a href="https://doc.dataiku.com/dss/latest/webapps/index.html" target="_blank"><button>Webapps documentation</button></a>
-        <a href="https://www.dataiku.com/learn/guide/#refinements=%5B%7B%22tags%22%3A%22Webapp%22%7D%5D" target="_blank"><button class="blue-button">Webapps tutorials</button></a>
+        <a href="https://doc.dataiku.com/dss/latest/webapps/index.html" target="_blank">
+            <button>Webapps documentation</button>
+        </a>
+        <a href="https://www.dataiku.com/learn/guide/#refinements=%5B%7B%22tags%22%3A%22Webapp%22%7D%5D"
+           target="_blank">
+            <button class="blue-button">Webapps tutorials</button>
+        </a>
     </p>
 </section>
 
@@ -23,13 +46,13 @@
     <p>
         This webapp probably needs to get a dataset from Dataiku DSS. You can do that using
         the <a href="https://doc.dataiku.com/dss/latest/api/js/index.html">Javascript API</a>.
-        <br />If you want to use more advanced features, you can even use the
+        <br/>If you want to use more advanced features, you can even use the
         <a href="https://doc.dataiku.com/dss/latest/publicapi/rest.html">REST API</a> directly.
     </p>
     <p>
         To interact with Dataiku, the webapp must identify itself. To do that, we created an
         <a href="https://doc.dataiku.com/dss/latest/publicapi/keys.html">API key</a>.
-        <br /> For security reasons, this API key is not allowed to do much by default.
+        <br/> For security reasons, this API key is not allowed to do much by default.
         Before you can fetch a dataset, you must explicitly allow it in the settings tab of the webapp editor.
     </p>
 
@@ -56,7 +79,7 @@
     <form id="form-sample" novalidate>
         <div class="field">
             <label for="analysis-name">Analysis title</label>
-            <input type="text" name="analysis-name" placeholder="Churn Analysis" id="analysis-name" />
+            <input type="text" name="analysis-name" placeholder="Churn Analysis" id="analysis-name"/>
         </div>
         <div class="field">
             <label for="dataset-name">Dataset Name</label>
@@ -85,17 +108,17 @@
         </div>
         <div class="field">
             <div class="checkbox">
-                <input type="checkbox" name="rows-limit" id="rows-limit" />
+                <input type="checkbox" name="rows-limit" id="rows-limit"/>
                 <label for="rows-limit">Display only 100 rows</label>
             </div>
         </div>
         <div class="field">
             <div class="radio">
-                <input type="radio" name="export" value="json" id="json" checked="checked" />
+                <input type="radio" name="export" value="json" id="json" checked="checked"/>
                 <label for="json">Export as JSON</label>
             </div>
             <div class="radio">
-                <input type="radio" name="export" value="csv" id="csv" />
+                <input type="radio" name="export" value="csv" id="csv"/>
                 <label for="csv">Export as CSV</label>
             </div>
         </div>
@@ -108,26 +131,38 @@
 <section>
     <table>
         <thead>
-            <tr>
-                <th>Title</th><th>Author</th><th>Write duration</th>
-            </tr>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Write duration</th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Lord of the Rings</td><td>J. R. R. Tolkien</td><td>16 years</td>
-            </tr>
-            <tr>
-                <td>Harry Potter and the Philosopher's stone</td><td>J. K. Rowling</td><td>6 years</td>
-            </tr>
-            <tr>
-                <td>To Kill a Mockingbird</td><td>Harper Lee</td><td>2.5 years</td>
-            </tr>
-            <tr>
-                <td>The Little Prince</td><td>Antoine de Saint-Exupery</td><td>6 months</td>
-            </tr>
-            <tr>
-                <td>On the road</td><td>Jack Kerouac</td><td>3 weeks</td>
-            </tr>
+        <tr>
+            <td>Lord of the Rings</td>
+            <td>J. R. R. Tolkien</td>
+            <td>16 years</td>
+        </tr>
+        <tr>
+            <td>Harry Potter and the Philosopher's stone</td>
+            <td>J. K. Rowling</td>
+            <td>6 years</td>
+        </tr>
+        <tr>
+            <td>To Kill a Mockingbird</td>
+            <td>Harper Lee</td>
+            <td>2.5 years</td>
+        </tr>
+        <tr>
+            <td>The Little Prince</td>
+            <td>Antoine de Saint-Exupery</td>
+            <td>6 months</td>
+        </tr>
+        <tr>
+            <td>On the road</td>
+            <td>Jack Kerouac</td>
+            <td>3 weeks</td>
+        </tr>
         </tbody>
     </table>
 </section>

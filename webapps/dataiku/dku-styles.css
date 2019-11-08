@@ -5,3 +5,27 @@
 @import './styles/table.css';
 @import './styles/buttons.css';
 @import './styles/forms.css';
+
+@font-face {
+  font-family: SourceSansPro;
+  src: url(fonts/SourceSansPro-Regular.otf);
+}
+
+@font-face {
+  font-family: SourceSansPro;
+  font-weight: bold;
+  src: url(fonts/SourceSansPro-Bold.woff);
+}
+
+@font-face {
+  font-family: SourceSansPro;
+  font-weight: 500;
+  src: url(fonts/SourceSansPro-Bold.woff);
+}
+
+@font-face {
+  font-family: SourceSansPro;
+  font-weight: 700;
+  src: url(fonts/SourceSansPro-Bold.woff);
+}
+

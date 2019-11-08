@@ -5,6 +5,46 @@
 */
 @import '/static/public/styles/1.0.0/variables.css';
 
+@import '../dataiku/styles/variables.css';
+
+
+
+.views-widget {
+    display: flex;
+    flex-direction: column;
+}
+
+.views-list {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.views-list li {
+    list-style-type: none;
+    cursor: pointer;
+}
+
+.views-list li:hover {
+    background-color: rgb(59, 153, 252);
+    color: white;
+}
+
+.views-list-selected {
+    background-color: rgb(59, 153, 252);
+    color: white;
+}
+
+.views-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.views-buttons button {
+    padding: 5px 10px !important;
+}
+
+
 .fetch-dataset-container {
     display: flex;
     width: 100%;
@@ -35,6 +75,6 @@
     min-height: 300px;
 }
 
-#message{
+#message {
     white-space: pre-wrap;
 }
