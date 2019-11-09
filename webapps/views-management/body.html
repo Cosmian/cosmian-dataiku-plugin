@@ -4,23 +4,31 @@
 <!-- //Used for dev outside dss -->
 <link rel="stylesheet" href="../dataiku/dku-styles.css"/>
 <link rel="stylesheet" href="../dataiku/fonts/SourceSansPro-Bold.woff">
+<link rel="script" href="app.js"/>
 <!-- Used for dev outside dss// -->
 
-<h1>Manage Views</h1>
+<div class="views-main">
 
+    <h1>Manage Views</h1>
 
-<div class="views-widget">
-    <ul class="views-list">
-        <li>View1</li>
-        <li>View2</li>
-        <li>View3</li>
-        <li>View4</li>
-    </ul>
-    <div class="views-buttons">
-        <button id="btn-add-view">+</button>
-        <button id="btn-delete-view">-</button>
-        <button id="btn-edit-view">Edit</button>
+    <div class="views-widget">
+        <ul class="views-list">
+            <li>View1</li>
+            <li>View2</li>
+            <li>View3</li>
+            <li>View4</li>
+        </ul>
+        <div class="views-buttons">
+            <button class="blue-button" id="btn-add-view">+</button>
+            <button class="blue-button" id="btn-delete-view">-</button>
+            <button class="blue-button" id="btn-edit-view">Edit</button>
+        </div>
     </div>
+
+    <div class="upload-dataset">
+        <button id="btn-upload-dataset" class="main-blue-button">Upload Dataset</button>
+    </div>
+
 </div>
 
 <h2>This webapp template will inspire you</h2>
