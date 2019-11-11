@@ -6,3 +6,4 @@ pyenv/
 .ts
 .git
 .idea
+node_modules/
