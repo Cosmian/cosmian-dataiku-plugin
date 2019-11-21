@@ -45,7 +45,13 @@ def update_view(view):
         return json.dumps({'status': 'error', 'msg': str(e)}), 500
 
 
-@app.route('/view/json_schema', methods=['GET'])
+@app.route('/views', methods=['GET'])
+def list_views():
+    print("LIST VIEWS %s" % json.dumps(list(views.keys())))
+    return json.dumps(list(views.keys()))
+
+
+@app.route('/views/json_schema', methods=['GET'])
 def json_schema():
     # ignored for now
     return json.dumps({})
@@ -79,14 +85,6 @@ def retrieve_view(view_name):
         return views[view_name]
     except ValueError as e:
         return json.dumps({'status': 'error', 'msg': str(e)}), 500
-
-
-@app.route('/views', methods=['GET'])
-def list_views():
-    print("LIST VIEWS %s" % json.dumps(list(views.keys())))
-    return json.dumps(list(views.keys()))
-
-
 
 
 SAMPLE_VIEW = """{
