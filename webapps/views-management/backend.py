@@ -46,7 +46,7 @@ def update_view(view):
 
 
 @app.route('/view/json_schema', methods=['GET'])
-def list_views():
+def json_schema():
     # ignored for now
     return json.dumps({})
 
