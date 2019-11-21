@@ -2,7 +2,7 @@ import dataiku
 import pandas as pd
 import logging
 import cosmian
-from flask import request
+from flask import request, jsonify
 import json
 import requests
 
@@ -25,36 +25,36 @@ def create_or_update_view():
 
 def create_view(view):
     if view.name in views:
-        return json.dumps({'status': 'error', 'msg': 'create view falied: ' + view.name + ', already exists'}), 400
+        return jsonify({'status': 'error', 'msg': 'create view falied: ' + view.name + ', already exists'}), 400
     try:
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
-        return json.dumps({'status': 'ok', 'msg': 'Added: ' + view.name})
+        return jsonify({'status': 'ok', 'msg': 'Added: ' + view.name})
     except ValueError as e:
-        return json.dumps({'status': 'error', 'msg': str(e)}), 500
+        return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 def update_view(view):
     if view.name not in views:
-        return json.dumps({'status': 'error', 'msg': 'update view failed: ' + view.name + ', does not exist'}), 400
+        return jsonify({'status': 'error', 'msg': 'update view failed: ' + view.name + ', does not exist'}), 400
     try:
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
-        return json.dumps({'status': 'ok', 'msg': 'Updated: ' + view.name})
+        return jsonify({'status': 'ok', 'msg': 'Updated: ' + view.name})
     except ValueError as e:
-        return json.dumps({'status': 'error', 'msg': str(e)}), 500
+        return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 @app.route('/views', methods=['GET'])
 def list_views():
-    print("LIST VIEWS %s" % json.dumps(list(views.keys())))
-    return json.dumps(list(views.keys()))
+    print("LIST VIEWS %s" % jsonify(list(views.keys())))
+    return jsonify(list(views.keys()))
 
 
 @app.route('/views/json_schema', methods=['GET'])
 def json_schema():
     # ignored for now
-    return json.dumps({})
+    return jsonify({})
 
 
 @app.route('/view/<string:view_name>', methods=['GET'])
@@ -68,23 +68,23 @@ def retrieve_or_delete_view(view_name):
 
 def delete_view(view_name):
     if view_name not in views:
-        return json.dumps({'status': 'error', 'msg': 'delete view failed: ' + view_name + ', does not exist'}), 404
+        return jsonify({'status': 'error', 'msg': 'delete view failed: ' + view_name + ', does not exist'}), 404
     try:
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         del views[view_name]
-        return json.dumps({'status': 'ok', 'msg': 'Deleted: ' + view_name})
+        return jsonify({'status': 'ok', 'msg': 'Deleted: ' + view_name})
     except ValueError as e:
-        return json.dumps({'status': 'error', 'msg': str(e)}), 500
+        return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 def retrieve_view(view_name):
     if view_name not in views:
-        return json.dumps({'status': 'error', 'msg': 'get view failed: ' + view_name + ', does not exist'}), 404
+        return jsonify({'status': 'error', 'msg': 'get view failed: ' + view_name + ', does not exist'}), 404
     try:
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         return views[view_name]
     except ValueError as e:
-        return json.dumps({'status': 'error', 'msg': str(e)}), 500
+        return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 SAMPLE_VIEW = """{
