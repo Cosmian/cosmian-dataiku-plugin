@@ -88,7 +88,7 @@ def retrieve_view(view_name):
 
 
 SAMPLE_VIEW = """{
-    "name": ${NAME},
+    "name": "${NAME}",
     "data_source": {
         "url": "file://${ROOT_DIR}/data/${NAME}.csv",
         "meta_data": {
