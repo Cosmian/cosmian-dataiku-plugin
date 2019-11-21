@@ -26,7 +26,7 @@ def create_or_update_view():
 def create_view(view):
     try:
         view_json = json.loads(view)
-        if view.name in view_json:
+        if view_json.name in views:
             return jsonify({'status': 'error', 'msg': 'create view failed: ' + view.name + ', already exists'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
@@ -38,7 +38,7 @@ def create_view(view):
 def update_view(view):
     try:
         view_json = json.loads(view)
-        if view.name not in view_json:
+        if view_json.name not in views:
             return jsonify({'status': 'error', 'msg': 'update view failed: ' + view.name + ', does not exist'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
