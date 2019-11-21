@@ -39,6 +39,7 @@ def update_view(view):
     try:
         view_json = json.loads(view)
         print(view_json)
+        print(view_json['name'])
         if view_json.name not in views:
             return jsonify({'status': 'error', 'msg': 'update view failed: ' + view.name + ', does not exist'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
