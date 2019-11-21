@@ -19,14 +19,14 @@ def create_or_update_view():
     override = request.headers.get_all("X-HTTP-Method-Override")
     method = "POST" if len(override) == 0 else override[0]
     if method == "POST":
-        return create_view(request.json)
-    return update_view(request.json)
+        return create_view(request.data)
+    return update_view(request.data)
 
 
 def create_view(view):
-    print(view)
     try:
-        if view.name in views:
+        view_json = json.loads(view)
+        if view.name in view_json:
             return jsonify({'status': 'error', 'msg': 'create view failed: ' + view.name + ', already exists'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
@@ -37,7 +37,8 @@ def create_view(view):
 
 def update_view(view):
     try:
-        if view.name not in views:
+        view_json = json.loads(view)
+        if view.name not in view_json:
             return jsonify({'status': 'error', 'msg': 'update view failed: ' + view.name + ', does not exist'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
