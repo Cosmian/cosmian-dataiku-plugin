@@ -77,6 +77,7 @@ def retrieve_view(view_name):
 
 @app.route('/views', methods=['GET'])
 def list_views():
+    print("LIST VIEWS %s" % json.dumps(list(views.keys())))
     return json.dumps(list(views.keys()))
 
 
