@@ -56,8 +56,8 @@ def retrieve_or_delete_view(view_name):
     override = request.headers.get_all("X-HTTP-Method-Override")
     method = "GET" if len(override) == 0 else override[0]
     if method == "DELETE":
-        return delete_view(request.json)
-    return retrieve_view(request.json)
+        return delete_view(view_name)
+    return retrieve_view(view_name)
 
 
 def delete_view(view_name):
