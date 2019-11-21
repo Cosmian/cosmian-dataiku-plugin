@@ -24,9 +24,10 @@ def create_or_update_view():
 
 
 def create_view(view):
-    if view.name in views:
-        return jsonify({'status': 'error', 'msg': 'create view falied: ' + view.name + ', already exists'}), 400
+    print(view)
     try:
+        if view.name in views:
+            return jsonify({'status': 'error', 'msg': 'create view failed: ' + view.name + ', already exists'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
         return jsonify({'status': 'ok', 'msg': 'Added: ' + view.name})
@@ -35,9 +36,9 @@ def create_view(view):
 
 
 def update_view(view):
-    if view.name not in views:
-        return jsonify({'status': 'error', 'msg': 'update view failed: ' + view.name + ', does not exist'}), 400
     try:
+        if view.name not in views:
+            return jsonify({'status': 'error', 'msg': 'update view failed: ' + view.name + ', does not exist'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view.name] = view
         return jsonify({'status': 'ok', 'msg': 'Updated: ' + view.name})
@@ -67,9 +68,9 @@ def retrieve_or_delete_view(view_name):
 
 
 def delete_view(view_name):
-    if view_name not in views:
-        return jsonify({'status': 'error', 'msg': 'delete view failed: ' + view_name + ', does not exist'}), 404
     try:
+        if view_name not in views:
+            return jsonify({'status': 'error', 'msg': 'delete view failed: ' + view_name + ', does not exist'}), 404
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         del views[view_name]
         return jsonify({'status': 'ok', 'msg': 'Deleted: ' + view_name})
@@ -78,9 +79,9 @@ def delete_view(view_name):
 
 
 def retrieve_view(view_name):
-    if view_name not in views:
-        return jsonify({'status': 'error', 'msg': 'get view failed: ' + view_name + ', does not exist'}), 404
     try:
+        if view_name not in views:
+            return jsonify({'status': 'error', 'msg': 'get view failed: ' + view_name + ', does not exist'}), 404
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         return jsonify(json.loads(views[view_name]))
     except ValueError as e:
