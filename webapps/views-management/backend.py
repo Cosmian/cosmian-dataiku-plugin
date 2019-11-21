@@ -88,69 +88,69 @@ def retrieve_view(view_name):
 
 
 SAMPLE_VIEW = """{
-    'name'        '${NAME}',
-    'data_source': {
-        'url'       'file://${ROOT_DIR}/data/sample_data.csv',
-        'meta_data': {
-            'decimal_separator':     46, // .
-            'delimiter':             44, // ,
-            'headers_on_first_line': false
+    "name": ${NAME},
+    "data_source": {
+        "url": "file://${ROOT_DIR}/data/${NAME}.csv",
+        "meta_data": {
+            "decimal_separator": 46,
+            "delimiter": 44,
+            "headers_on_first_line": false
         },
-        'sorted':    false
+        "sorted": false
     },
-    'schema':      {
-        'columns': [
+    "schema": {
+        "columns": [
             {
-                'name'      'id',
-                'data_type': PrivateDataType.String,
-                'export':    {
-                    'function' 'as_is',
-                },
+                "name": "id",
+                "data_type": "string",
+                "export": {
+                    "function": "as_is"
+                }
             },
             {
-                'name'      'fe_cmp_hash',
-                'data_type': PrivateDataType.FeCmpHashSorted,
-                'export':    {
-                    'function' 'as_is',
-                },
+                "name": "fe_cmp_hash",
+                "data_type": "fe_cmp_hash_sorted",
+                "export": {
+                    "function": "as_is"
+                }
             },
             {
-                'name'      'float',
-                'data_type': PrivateDataType.Float,
-                'export':    {
-                    'function' 'as_is',
-                },
+                "name": "float",
+                "data_type": "float",
+                "export": {
+                    "function": "as_is"
+                }
             },
             {
-                'name'      'int32',
-                'data_type': PrivateDataType.Int32,
-                'export':    {
-                    'function' 'as_is',
-                },
+                "name": "int32",
+                "data_type": "int32",
+                "export": {
+                    "function": "as_is"
+                }
             },
             {
-                'name'      'int64',
-                'data_type': PrivateDataType.Int64,
-                'export':    {
-                    'function' 'as_is',
-                },
+                "name": "int64",
+                "data_type": "int64",
+                "export": {
+                    "function": "as_is"
+                }
             },
             {
-                'name'      'ip_v4',
-                'data_type': PrivateDataType.IPv4,
-                'export':    {
-                    'function' 'as_is',
-                },
+                "name": "ip_v4",
+                "data_type": "ipv4",
+                "export": {
+                    "function": "as_is"
+                }
             }
         ],
-        'key':     [
-            'id'
+        "key": [
+            "id"
         ]
     },
-    'sort':        {
-        'sort_mode': SortMode.Natural,
+    "sort": {
+        "sort_mode": "natural"
     },
-    'write_mode':  WriteMode.Truncate
+    "write_mode": "truncate"
 }"""
 
 views = {}
