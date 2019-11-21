@@ -53,7 +53,7 @@ def deploy_code():
         cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         return json.dumps({'status': 'ok', 'msg': 'Deployed "' + algo_name + '" to ' + remote_server_url})
     except ValueError as e:
-        return json.dumps({'status': 'error', 'msg': str(e)})
+        return json.dumps({'status': 'error', 'msg': str(e)}), 500
 
 #    mydataset = dataiku.Dataset("REPLACE_WITH_YOUR_DATASET_NAME")
 #    mydataset_df = mydataset.get_dataframe(sampling='head', limit=500)
