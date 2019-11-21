@@ -5,7 +5,7 @@ from __future__ import print_function
 from __future__ import print_function
 from dataiku.connector import Connector
 import requests
-import cosmian
+from cosmian import cosmian
 
 # import logging
 

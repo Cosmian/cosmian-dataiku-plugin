@@ -1,7 +1,4 @@
-import dataiku
-import pandas as pd
-import logging
-import cosmian
+from cosmian import cosmian
 from flask import request
 import json
 import requests

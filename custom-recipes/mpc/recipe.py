@@ -4,7 +4,7 @@ import dataiku
 # Import the helpers for custom recipes
 from dataiku.customrecipe import *
 import logging
-import cosmian
+from cosmian import cosmian
 import requests
 
 logging.warn("****Starting IP MPC")

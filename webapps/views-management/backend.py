@@ -1,10 +1,7 @@
-import dataiku
-import pandas as pd
-import logging
-import cosmian
 from flask import request, jsonify
 import json
 import requests
+from cosmian.views import list_views as c_list_views
 
 # Example:
 # From JavaScript, you can access the defined endpoints using
@@ -28,10 +25,10 @@ def create_view(view):
         view_json = json.loads(view)
         view_name = view_json['name']
         if view_name in views:
-            return jsonify({'status': 'error', 'msg': 'create view failed: ' + view_name+ ', already exists'}), 400
+            return jsonify({'status': 'error', 'msg': 'create view failed: ' + view_name + ', already exists'}), 400
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
         views[view_name] = view
-        return jsonify({'status': 'ok', 'msg': 'Added: ' +view_name})
+        return jsonify({'status': 'ok', 'msg': 'Added: ' + view_name})
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -51,8 +48,12 @@ def update_view(view):
 
 @app.route('/views', methods=['GET'])
 def list_views():
-    print("LIST VIEWS %s" % jsonify(list(views.keys())))
-    return jsonify(list(views.keys()))
+    try:
+        c_list_views(session)
+        return jsonify({'status': 'ok', 'msg': 'Updated: ' + view_name})
+        # return jsonify(list(views.keys()))
+    except ValueError as e:
+        return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 @app.route('/views/json_schema', methods=['GET'])
@@ -90,6 +91,8 @@ def retrieve_view(view_name):
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
+
+# Temporary until Cosmian server serves schemas
 
 SAMPLE_VIEW = """{
     "name": "${NAME}",

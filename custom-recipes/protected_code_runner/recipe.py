@@ -3,9 +3,8 @@ import dataiku
 # Import the helpers for custom recipes
 from dataiku.customrecipe import *
 # import logging
-import cosmian
+from cosmian import cosmian
 import requests
-import time
 
 # an HTTP 1.1 session with keep-alive
 session = requests.Session()
