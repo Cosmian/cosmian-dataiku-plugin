@@ -7,7 +7,7 @@
     },
 
     "baseType": "STANDARD", // WARNING: once set, do not change
-    "hasBackend": "false",
+    "hasBackend": "true",
     "standardWebAppLibraries": ["jquery","dataiku"],
 
     /* The field "params" holds a list of all the params
