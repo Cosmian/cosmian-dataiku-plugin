@@ -45,7 +45,13 @@ def update_view(view):
         return json.dumps({'status': 'error', 'msg': str(e)}), 500
 
 
-@app.route('/view<string:view_name>', methods=['GET'])
+@app.route('/view/json_schema', methods=['GET'])
+def list_views():
+    # ignored for now
+    return json.dumps({})
+
+
+@app.route('/view/<string:view_name>', methods=['GET'])
 def retrieve_or_delete_view(view_name):
     override = request.headers.get_all("X-HTTP-Method-Override")
     method = "GET" if len(override) == 0 else override[0]
@@ -81,10 +87,6 @@ def list_views():
     return json.dumps(list(views.keys()))
 
 
-@app.route('/view/json_schema', methods=['GET'])
-def list_views():
-    # ignored for now
-    return json.dumps({})
 
 
 SAMPLE_VIEW = """{
