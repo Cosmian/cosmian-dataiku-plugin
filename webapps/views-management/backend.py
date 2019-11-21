@@ -82,7 +82,7 @@ def retrieve_view(view_name):
         return jsonify({'status': 'error', 'msg': 'get view failed: ' + view_name + ', does not exist'}), 404
     try:
         # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
-        return views[view_name]
+        return jsonify(views[view_name])
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
