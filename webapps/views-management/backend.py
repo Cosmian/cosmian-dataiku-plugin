@@ -4,7 +4,8 @@ from cosmian.views import \
     list_views as c_list_views, \
     retrieve_view as c_retrieve_view, \
     update_view as c_update_view, \
-    create_view as c_create_view
+    create_view as c_create_view, \
+    delete_view as c_delete_view
 from dataiku.customwebapp import get_webapp_config
 
 # Example:
@@ -67,11 +68,7 @@ def retrieve_or_delete_view(view_name):
 
 def delete_view(view_name):
     try:
-        if view_name not in views:
-            return jsonify({'status': 'error', 'msg': 'delete view failed: ' + view_name + ', does not exist'}), 404
-        # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
-        del views[view_name]
-        return jsonify({'status': 'ok', 'msg': 'Deleted: ' + view_name})
+        return jsonify(c_delete_view(session, server_url, view_name))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
