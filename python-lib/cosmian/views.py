@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 def list_views(session, server_url):
@@ -58,3 +59,25 @@ def retrieve_view(session, server_url, view_name):
         return r.json()
     except requests.ConnectionError as e:
         raise ValueError("Retrieve View: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
+
+
+def update_view(session, server_url, view):
+    headers = {
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json",
+        "Content-type": "application/json",
+        "x-http-method-override": "PUT"
+    }
+    data = json.loads(view)
+    try:
+        r = session.post(
+            url="%sview" % server_url,
+            headers=headers,
+            json=data,
+        )
+        if r.status_code != 200:
+            raise ValueError("Cosmian Server:: Error updating view: %s, status code: %s, reason :%s" % (
+                data.name, r.status_code, r.text))
+        return {'status': 'ok', 'msg': 'Updated: ' + data.name}
+    except requests.ConnectionError as e:
+        raise ValueError("Updating View: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
