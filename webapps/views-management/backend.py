@@ -57,7 +57,7 @@ def list_views():
     try:
         list = c_list_views(session, server_url)
         print("***************** ", list)
-        return jsonify(json.dumps(list))
+        return jsonify(list)
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
