@@ -76,8 +76,8 @@ def update_view(session, server_url, view):
             json=data,
         )
         if r.status_code != 200:
-            raise ValueError("Cosmian Server:: Error updating view: %s, status code: %s, reason :%s" % (
-                data.name, r.status_code, r.text))
+            raise ValueError("Cosmian Server:: Error updating view, status code: %s, reason :%s" % (
+                r.status_code, r.text))
         return {'status': 'ok', 'msg': 'Updated: ' + data.name}
     except requests.ConnectionError as e:
         print("****ERROR is there ", str(e))
