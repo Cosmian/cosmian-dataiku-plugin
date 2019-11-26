@@ -49,9 +49,7 @@ def update_view(view):
 @app.route('/views', methods=['GET'])
 def list_views():
     try:
-        c_list_views(session)
-        return jsonify({'status': 'ok', 'msg': 'Updated: ' + view_name})
-        # return jsonify(list(views.keys()))
+        return jsonify(c_list_views(session))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 

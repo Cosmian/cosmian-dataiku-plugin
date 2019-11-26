@@ -1,6 +1,4 @@
 import requests
-import json
-from urlparse import urlparse
 
 
 def list_views(session, server_url):
