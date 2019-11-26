@@ -18,7 +18,7 @@ def list_views(session, server_url):
                 r.status_code, r.text))
         return r.json()
     except requests.ConnectionError as e:
-        raise ValueError("Listi Views: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
+        raise ValueError("List Views: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
 
 
 def delete_view(session, server_url, view_name):

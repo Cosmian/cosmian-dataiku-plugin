@@ -11,6 +11,11 @@ from dataiku.customwebapp import get_webapp_config
 # an HTTP 1.1 session with keep-alive
 session = requests.Session()
 
+server_url = get_webapp_config()['server_url']
+if not server_url.endswith("/"):
+    server_url += "/"
+print("***************** ", server_url)
+
 
 @app.route('/view', methods=['POST'])
 def create_or_update_view():
@@ -50,11 +55,9 @@ def update_view(view):
 @app.route('/views', methods=['GET'])
 def list_views():
     try:
-        server_url = get_webapp_config()['server_url']
-        print("***************** ", server_url)
-        views = c_list_views(session, server_url)
-        print("***************** ", views)
-        return jsonify(json.dumps(views))
+        list = c_list_views(session, server_url)
+        print("***************** ", list)
+        return jsonify(json.dumps(list))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
