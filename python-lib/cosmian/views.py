@@ -80,4 +80,5 @@ def update_view(session, server_url, view):
                 data.name, r.status_code, r.text))
         return {'status': 'ok', 'msg': 'Updated: ' + data.name}
     except requests.ConnectionError as e:
+        print("****ERROR is there ", str(e))
         raise ValueError("Updating View: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
