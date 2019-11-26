@@ -2,6 +2,7 @@ from flask import request, jsonify
 import json
 import requests
 from cosmian.views import list_views as c_list_views
+from dataiku.customwebapp import get_webapp_config
 
 # Example:
 # From JavaScript, you can access the defined endpoints using
@@ -49,7 +50,9 @@ def update_view(view):
 @app.route('/views', methods=['GET'])
 def list_views():
     try:
-        return jsonify(c_list_views(session))
+        server_url = get_webapp_config()['server_url']
+        print("***************** ",server_url)
+        return jsonify(c_list_views(session, server_url))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
