@@ -1,7 +1,7 @@
 from flask import request, jsonify
 import json
 import requests
-from cosmian.views import list_views as c_list_views
+from cosmian.views import list_views as c_list_views, retrieve_view as c_retrieve_view
 from dataiku.customwebapp import get_webapp_config
 
 # Example:
@@ -14,7 +14,6 @@ session = requests.Session()
 server_url = get_webapp_config()['server_url']
 if not server_url.endswith("/"):
     server_url += "/"
-print("***************** ", server_url)
 
 
 @app.route('/view', methods=['POST'])
@@ -55,9 +54,7 @@ def update_view(view):
 @app.route('/views', methods=['GET'])
 def list_views():
     try:
-        list = c_list_views(session, server_url)
-        print("***************** ", list)
-        return jsonify(list)
+        return jsonify(c_list_views(session, server_url))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -90,10 +87,7 @@ def delete_view(view_name):
 
 def retrieve_view(view_name):
     try:
-        if view_name not in views:
-            return jsonify({'status': 'error', 'msg': 'get view failed: ' + view_name + ', does not exist'}), 404
-        # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
-        return jsonify(json.loads(views[view_name]))
+        return jsonify(c_retrieve_view(session, server_url, view_name))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
