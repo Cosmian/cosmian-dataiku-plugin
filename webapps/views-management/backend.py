@@ -42,6 +42,7 @@ def update_view(view):
     try:
         return jsonify(c_update_view(session, server_url, view))
     except ValueError as e:
+        print("******ERROR %s" % str(e))
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
