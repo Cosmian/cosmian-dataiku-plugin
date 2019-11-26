@@ -51,8 +51,10 @@ def update_view(view):
 def list_views():
     try:
         server_url = get_webapp_config()['server_url']
-        print("***************** ",server_url)
-        return jsonify(c_list_views(session, server_url))
+        print("***************** ", server_url)
+        views = c_list_views(session, server_url)
+        print("***************** ", views)
+        return jsonify(json.dumps(views))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
