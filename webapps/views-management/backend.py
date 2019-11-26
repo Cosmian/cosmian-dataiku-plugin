@@ -37,10 +37,11 @@ def create_view(view):
 
 
 def update_view(view):
-    try:
-        return jsonify(c_update_view(session, server_url, view))
-    except ValueError as e:
-        return jsonify({'status': 'error', 'msg': str(e)}), 500
+    return jsonify({'status': 'error', 'msg': 'TEST ERROR'}), 500
+    # try:
+    #     return jsonify(c_update_view(session, server_url, view))
+    # except ValueError as e:
+    #     return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 @app.route('/views', methods=['GET'])
