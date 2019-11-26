@@ -78,7 +78,28 @@ def update_view(session, server_url, view):
         if r.status_code != 200:
             raise ValueError("Cosmian Server:: Error updating view, status code: %s, reason :%s" % (
                 r.status_code, r.text))
-        return {'status': 'ok', 'msg': 'Updated: ' + data.name}
+        return {'status': 'ok', 'msg': 'Updated view the view'}
     except requests.ConnectionError as e:
-        print("****ERROR is there ", str(e))
         raise ValueError("Updating View: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))
+
+
+def create_view(session, server_url, view):
+    headers = {
+        "Accept-Encoding": "gzip",
+        "Accept": "application/json",
+        "Content-type": "application/json",
+        "x-http-method-override": "POST"
+    }
+    data = json.loads(view)
+    try:
+        r = session.post(
+            url="%sview" % server_url,
+            headers=headers,
+            json=data,
+        )
+        if r.status_code != 200:
+            raise ValueError("Cosmian Server:: Error creating view, status code: %s, reason :%s" % (
+                r.status_code, r.text))
+        return {'status': 'ok', 'msg': 'Created the view'}
+    except requests.ConnectionError as e:
+        raise ValueError("Creating View: failed querying Cosmian Server at: %s, error: %s" % (server_url, e))

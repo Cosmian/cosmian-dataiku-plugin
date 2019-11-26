@@ -1,7 +1,10 @@
 from flask import request, jsonify
-import json
 import requests
-from cosmian.views import list_views as c_list_views, retrieve_view as c_retrieve_view, update_view as c_update_view
+from cosmian.views import \
+    list_views as c_list_views, \
+    retrieve_view as c_retrieve_view, \
+    update_view as c_update_view, \
+    create_view as c_create_view
 from dataiku.customwebapp import get_webapp_config
 
 # Example:
@@ -27,13 +30,7 @@ def create_or_update_view():
 
 def create_view(view):
     try:
-        view_json = json.loads(view)
-        view_name = view_json['name']
-        if view_name in views:
-            return jsonify({'status': 'error', 'msg': 'create view failed: ' + view_name + ', already exists'}), 400
-        # cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
-        views[view_name] = view
-        return jsonify({'status': 'ok', 'msg': 'Added: ' + view_name})
+        return jsonify(c_create_view(session, server_url, view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -42,7 +39,6 @@ def update_view(view):
     try:
         return jsonify(c_update_view(session, server_url, view))
     except ValueError as e:
-        print("******ERROR %s" % str(e))
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
