@@ -12,8 +12,8 @@
     {
       "name": "datasets",
       "label": "Datasets",
-      "description": "Dataset to join with",
-      "arity": "UNARY",
+      "description": "Datasets to calculate on",
+      "arity": "NARY",
       "required": true,
       "acceptsDataset": true
     }
