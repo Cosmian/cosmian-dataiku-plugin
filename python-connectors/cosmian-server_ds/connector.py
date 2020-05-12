@@ -2,9 +2,9 @@
 
 # import the base class for the custom dataset
 from __future__ import print_function
-from cosmian_lib import Data
-from dataiku.connector import Connector
 import requests
+from cosmian_lib import Dataset
+from dataiku.connector import Connector
 
 # import logging
 
@@ -42,10 +42,10 @@ class CosmianDatasetConnector(Connector):
             self.server_url += "/"
         self.view_name = str(config.get("view_name"))
         self.sorted = bool(config.get("sorted"))
-        self.cosmian_data = Data(self.server_url)
+        self.dataset = Dataset(self.server_url)
         self.session = requests.Session()
-        self.handle = cosmian.get_dataset_handle(
-            self.session, self.server_url, self.view_name, self.sorted)
+        self.handle = self.dataset.get_dataset_handle(
+            self.view_name, self.sorted)
 
     def get_read_schema(self):
         """
@@ -66,8 +66,7 @@ class CosmianDatasetConnector(Connector):
 
         Supported types are: string, int, bigint, float, double, date, boolean
         """
-        cols = self.cosmian_data.get_schema(
-            self.session, self.server_url, self.handle)
+        cols = self.dataset.get_schema(self.handle)
         return {"columns": cols}
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
@@ -82,8 +81,7 @@ class CosmianDatasetConnector(Connector):
         """
         i = 0
         while i < records_limit:
-            gen = cosmian.read_next_row(
-                self.session, self.server_url, self.handle)
+            gen = self.dataset.read_next_row(self.handle)
             if gen is not None:
                 i = i + 1
                 yield gen

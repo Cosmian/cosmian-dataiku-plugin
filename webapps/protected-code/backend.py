@@ -1,7 +1,7 @@
-from cosmian import cosmian
-from flask import request
 import json
 import requests
+from cosmian_lib import Enclave
+from flask import request
 
 # Example:
 # From JavaScript, you can access the defined endpoints using
@@ -47,14 +47,8 @@ def deploy_code():
         return json.dumps({'status': 'error', 'msg': 'Please provide python code'})
 
     try:
-        cosmian.deploy_python_code(session, local_server_url, remote_server_url, algo_name, python_code)
+        Enclave(local_server_url).deploy_python_code(
+            remote_server_url, algo_name, python_code)
         return json.dumps({'status': 'ok', 'msg': 'Deployed "' + algo_name + '" to ' + remote_server_url})
     except ValueError as e:
         return json.dumps({'status': 'error', 'msg': str(e)}), 500
-
-#    mydataset = dataiku.Dataset("REPLACE_WITH_YOUR_DATASET_NAME")
-#    mydataset_df = mydataset.get_dataframe(sampling='head', limit=500)
-
-#    #Pandas dataFrames are not directly JSON serializable, use to_json()
-#    data = mydataset_df.to_json()
-#    return json.dumps({"status": "ok", "data": data})
