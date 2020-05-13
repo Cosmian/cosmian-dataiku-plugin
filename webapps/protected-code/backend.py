@@ -1,6 +1,6 @@
 import json
 import requests
-from cosmian_lib import Enclave
+from cosmian_lib import Enclave, Server
 from flask import request
 
 # Example:
@@ -47,7 +47,7 @@ def deploy_code():
         return json.dumps({'status': 'error', 'msg': 'Please provide python code'})
 
     try:
-        Enclave(local_server_url).deploy_python_code(
+        Server(local_server_url).enclave().deploy_python_code(
             remote_server_url, algo_name, python_code)
         return json.dumps({'status': 'ok', 'msg': 'Deployed "' + algo_name + '" to ' + remote_server_url})
     except ValueError as e:
