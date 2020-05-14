@@ -1,7 +1,9 @@
-from flask import request, jsonify
-import requests
-from dataiku.customwebapp import get_webapp_config
 from cosmian_lib import Server
+from dataiku.customwebapp import get_webapp_config
+import requests
+from flask import request, jsonify
+import sys
+print("PYTHON VERSION: %s" % sys.version)
 
 
 server_url = get_webapp_config()['server_url']
