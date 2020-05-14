@@ -8,3 +8,4 @@ pyenv/
 .idea
 .history/
 node_modules/
+python-lib/cosmian_lib

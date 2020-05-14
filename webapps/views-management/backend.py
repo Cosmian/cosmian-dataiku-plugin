@@ -1,23 +1,14 @@
 from flask import request, jsonify
 import requests
-from cosmian.views import \
-    list_views as c_list_views, \
-    retrieve_view as c_retrieve_view, \
-    update_view as c_update_view, \
-    create_view as c_create_view, \
-    delete_view as c_delete_view
 from dataiku.customwebapp import get_webapp_config
+from cosmian_lib import Server
 
-# Example:
-# From JavaScript, you can access the defined endpoints using
-# getWebAppBackendUrl('first_api_call')
-
-# an HTTP 1.1 session with keep-alive
-session = requests.Session()
 
 server_url = get_webapp_config()['server_url']
-if not server_url.endswith("/"):
-    server_url += "/"
+# if not server_url.endswith("/"):
+#     server_url += "/"
+server = Server(server_url)
+views = server.views()
 
 
 @app.route('/view', methods=['POST'])
@@ -31,14 +22,14 @@ def create_or_update_view():
 
 def create_view(view):
     try:
-        return jsonify(c_create_view(session, server_url, view))
+        return jsonify(views.create(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 def update_view(view):
     try:
-        return jsonify(c_update_view(session, server_url, view))
+        return jsonify(views.update(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -46,7 +37,7 @@ def update_view(view):
 @app.route('/views', methods=['GET'])
 def list_views():
     try:
-        return jsonify(c_list_views(session, server_url))
+        return jsonify(views.list())
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -68,14 +59,14 @@ def retrieve_or_delete_view(view_name):
 
 def delete_view(view_name):
     try:
-        return jsonify(c_delete_view(session, server_url, view_name))
+        return jsonify(views.delete(view_name))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 def retrieve_view(view_name):
     try:
-        return jsonify(c_retrieve_view(session, server_url, view_name))
+        return jsonify(views.retrieve(view_name))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
