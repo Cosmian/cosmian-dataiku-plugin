@@ -11,7 +11,7 @@ logging.info("Cosmian server URL: %s" % server_url)
 # if not server_url.endswith("/"):
 #     server_url += "/"
 server = Server(server_url)
-views = server.views()
+c_views = server.views()
 
 
 @app.route('/view', methods=['POST'])
@@ -25,14 +25,14 @@ def create_or_update_view():
 
 def create_view(view):
     try:
-        return jsonify(views.create(view))
+        return jsonify(c_views.create(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 def update_view(view):
     try:
-        return jsonify(views.update(view))
+        return jsonify(c_views.update(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -40,7 +40,7 @@ def update_view(view):
 @app.route('/views', methods=['GET'])
 def list_views():
     try:
-        return jsonify(views.list())
+        return jsonify(c_views.list())
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -62,14 +62,14 @@ def retrieve_or_delete_view(view_name):
 
 def delete_view(view_name):
     try:
-        return jsonify(views.delete(view_name))
+        return jsonify(c_views.delete(view_name))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
 
 def retrieve_view(view_name):
     try:
-        return jsonify(views.retrieve(view_name))
+        return jsonify(c_views.retrieve(view_name))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
@@ -142,6 +142,6 @@ SAMPLE_VIEW = """{
     "write_mode": "truncate"
 }"""
 
-views = {}
+c_views = {}
 for name in ['view-1', 'view-2', 'view-3', 'view-4', 'view-5', 'view-6']:
-    views[name] = SAMPLE_VIEW.replace("${NAME}", name)
+    c_views[name] = SAMPLE_VIEW.replace("${NAME}", name)

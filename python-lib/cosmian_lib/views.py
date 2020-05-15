@@ -6,7 +6,7 @@ class Views():
     def __init__(self, context: Context):
         self.context = context
 
-    def list(self) -> tuple:
+    def list_all(self) -> tuple:
         """
         List all the views on the server
         """
