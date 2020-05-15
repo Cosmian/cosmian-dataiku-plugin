@@ -4,12 +4,10 @@ import requests
 from flask import request, jsonify
 import sys
 import logging
-print("PYTHON VERSION: %s" % sys.version)
+logging.info("Python version: %s" % sys.version)
 
 server_url = get_webapp_config()['server_url']
 logging.info("Cosmian server URL: %s" % server_url)
-# if not server_url.endswith("/"):
-#     server_url += "/"
 server = Server(server_url)
 c_views = server.views()
 
@@ -25,6 +23,9 @@ def create_or_update_view():
 
 def create_view(view):
     try:
+        print("###########################")
+        print(type(view))
+        print(view)
         return jsonify(c_views.create(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
@@ -39,8 +40,6 @@ def update_view(view):
 
 @app.route('/views', methods=['GET'])
 def list_views():
-    print("###########################")
-    print(c_views)
     try:
         return jsonify(c_views.list_all())
     except ValueError as e:
