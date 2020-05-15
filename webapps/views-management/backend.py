@@ -28,7 +28,6 @@ def create_view(view):
         print("###########################")
         print(type(view))
         print(view)
-        json.loads(view.decode('utf-8'))
         return jsonify(c_views.create(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
