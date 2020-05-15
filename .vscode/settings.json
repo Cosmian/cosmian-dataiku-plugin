@@ -32,6 +32,7 @@
         "hashers",
         "homomorphic",
         "homomorphically",
+        "jsonify",
         "keccak",
         "openapi",
         "openssl",

@@ -25,9 +25,6 @@ def create_or_update_view():
 
 def create_view(view):
     try:
-        print("###########################")
-        print(type(view))
-        print(view)
         return jsonify(c_views.create(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
