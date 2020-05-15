@@ -39,6 +39,8 @@ def update_view(view):
 
 @app.route('/views', methods=['GET'])
 def list_views():
+    print("###########################")
+    print(c_views)
     try:
         return jsonify(c_views.list_all())
     except ValueError as e:
