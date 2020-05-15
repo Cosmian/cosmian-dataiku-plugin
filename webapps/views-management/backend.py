@@ -3,10 +3,11 @@ from dataiku.customwebapp import get_webapp_config
 import requests
 from flask import request, jsonify
 import sys
+import logging
 print("PYTHON VERSION: %s" % sys.version)
 
-
 server_url = get_webapp_config()['server_url']
+logging.debug("Server URL: %s" % server_url)
 # if not server_url.endswith("/"):
 #     server_url += "/"
 server = Server(server_url)
