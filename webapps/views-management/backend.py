@@ -7,7 +7,7 @@ import logging
 print("PYTHON VERSION: %s" % sys.version)
 
 server_url = get_webapp_config()['server_url']
-logging.debug("Server URL: %s" % server_url)
+logging.info("Cosmian server URL: %s" % server_url)
 # if not server_url.endswith("/"):
 #     server_url += "/"
 server = Server(server_url)
