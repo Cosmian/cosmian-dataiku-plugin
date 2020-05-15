@@ -4,6 +4,8 @@ import requests
 from flask import request, jsonify
 import sys
 import logging
+import json
+
 logging.info("Python version: %s" % sys.version)
 
 server_url = get_webapp_config()['server_url']
@@ -17,8 +19,8 @@ def create_or_update_view():
     override = request.headers.get_all("X-HTTP-Method-Override")
     method = "POST" if len(override) == 0 else override[0]
     if method == "POST":
-        return create_view(request.data)
-    return update_view(request.data)
+        return create_view(request.json)
+    return update_view(request.json)
 
 
 def create_view(view):
@@ -26,6 +28,7 @@ def create_view(view):
         print("###########################")
         print(type(view))
         print(view)
+        json.loads(view.decode('utf-8'))
         return jsonify(c_views.create(view))
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
