@@ -1,5 +1,5 @@
 from urllib.parse import urlparse
-from .server import Server
+from cosmian_lib import Server
 from .context import Context
 
 
