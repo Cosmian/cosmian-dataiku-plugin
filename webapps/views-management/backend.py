@@ -1,4 +1,4 @@
-from cosmian_lib import Server
+from cosmian_lib import Server, Views
 from dataiku.customwebapp import get_webapp_config
 import requests
 from flask import request, jsonify
@@ -40,7 +40,7 @@ def update_view(view):
 @app.route('/views', methods=['GET'])
 def list_views():
     try:
-        return jsonify(c_views.list())
+        return jsonify(c_views.list_all())
     except ValueError as e:
         return jsonify({'status': 'error', 'msg': str(e)}), 500
 
