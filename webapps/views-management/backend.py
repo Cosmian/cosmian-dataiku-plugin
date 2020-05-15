@@ -144,6 +144,6 @@ SAMPLE_VIEW = """{
     "write_mode": "truncate"
 }"""
 
-c_views = {}
-for name in ['view-1', 'view-2', 'view-3', 'view-4', 'view-5', 'view-6']:
-    c_views[name] = SAMPLE_VIEW.replace("${NAME}", name)
+# c_views = {}
+# for name in ['view-1', 'view-2', 'view-3', 'view-4', 'view-5', 'view-6']:
+#     c_views[name] = SAMPLE_VIEW.replace("${NAME}", name)
