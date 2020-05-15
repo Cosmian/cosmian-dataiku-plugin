@@ -9,11 +9,6 @@ from .mpc import MPC
 
 class Server():
     def __init__(self, cosmian_server_url):
-        # server can also be instantiated from an existing context
-        # but we do not want to advertise that Server.from_context() should be used
-        if isinstance(cosmian_server_url, Context):
-            self.context = cosmian_server_url
-            return
         if cosmian_server_url.endswith("/"):
             url = cosmian_server_url[:len(cosmian_server_url) - 1]
         else:
@@ -64,10 +59,3 @@ class Server():
         Access to the multi-party computation primitives
         """
         return MPC(self.context)
-
-    @classmethod
-    def from_context(cls, context: Context):
-        """
-        Instantiate a server instance from an existing context
-        """
-        return cls(context)

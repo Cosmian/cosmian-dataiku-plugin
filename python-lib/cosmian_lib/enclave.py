@@ -1,6 +1,6 @@
 from urllib.parse import urlparse
-from cosmian_lib import Server
 from .context import Context
+from .views import Views
 
 
 class Enclave():
@@ -25,7 +25,7 @@ class Enclave():
 
     def run_protected_algorithm(self, views, algo_name, output_name):
         # first delete any existing output view
-        Server.from_context(self.context).views().delete_view(output_name)
+        Views(self.context).views().delete_view(output_name)
         headers = {
             "Accept-Encoding": "gzip",
             "Accept": "application/json",
