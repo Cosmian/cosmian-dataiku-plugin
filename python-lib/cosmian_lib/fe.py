@@ -10,7 +10,7 @@ class FE():
 
     def get_join_dataset(self, views, join_type, compute_key):
         """
-        Return the dataset computed from the join of the 
+        Return the dataset computed from the join of the
         2 datsets referenced by the given views
         """
         params = {

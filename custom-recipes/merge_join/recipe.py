@@ -11,18 +11,21 @@
 # Please also see the "recipe.json" file for more information.
 
 # import the classes for accessing DSS objects from the recipe
+import logging
 import dataiku
 # Import the helpers for custom recipes
 from dataiku.customrecipe import get_input_names_for_role, get_output_names_for_role, get_recipe_config, get_recipe_resource
-import logging
 from cosmian_utils import recover_datasets_info, cosmian_schema_2_dataiku_schema
 from cosmian_lib import Server
 
-logging.warn("****RECIPE RESOURCE: %s", get_recipe_resource())
+logging.info("****MERGE JOIN recipe resource: %s", get_recipe_resource())
 
 dataset_names = get_input_names_for_role('datasets')
 datasets = [dataiku.Dataset(name) for name in dataset_names]
 url, views = recover_datasets_info(datasets)
+
+logging.info("****MERGE JOIN recipe url  : %s", url)
+logging.info("****MERGE JOIN recipe views: %s", views)
 
 # Join parameters
 recipe_config = get_recipe_config()
