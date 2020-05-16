@@ -26,7 +26,7 @@ class Dataset():
         Returns an array of values, one per column.
         Returns None when the end of the dataset is reached.
         """
-        return self.context.get("/dataset/%s/schema" % self.handle, None,
+        return self.context.get("/dataset/%s/next" % self.handle, None,
                                 error_message="dataset:: failed reading next row of dataset: %s" % self.handle,
                                 allow_404=True
                                 )
