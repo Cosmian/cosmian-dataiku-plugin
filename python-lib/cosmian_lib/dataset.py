@@ -6,7 +6,6 @@ class Dataset():
     def __init__(self, context: Context, handle: str):
         self.context = context
         self.handle = handle
-        print("instantiated dataset with handle: %s" % handle)
 
     def schema(self):
         """

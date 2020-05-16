@@ -13,5 +13,5 @@ class Datasets():
         """
         dataset_sort_path = "sorted_dataset" if sort_ds else "raw_dataset"
         handle = self.context.get("/view/%s/%s" %
-                                  (view_name, dataset_sort_path))
+                                  (view_name, dataset_sort_path))["handle"]
         return Dataset(self.context, handle)
