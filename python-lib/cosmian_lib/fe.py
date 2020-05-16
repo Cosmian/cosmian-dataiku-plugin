@@ -18,6 +18,6 @@ class FE():
             "join_type": join_type,
             "compute_key": compute_key
         }
-        handle = self.context.get("merge_join", params,
+        handle = self.context.get("/merge_join", params,
                                   "FE:: Error querying join on %s" % views)["handle"]
         return Dataset(self.context, handle)
