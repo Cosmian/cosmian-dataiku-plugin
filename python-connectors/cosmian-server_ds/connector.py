@@ -57,7 +57,7 @@ class CosmianDatasetConnector(Connector):
 
         Supported types are: string, int, bigint, float, double, date, boolean
         """
-        cols = self.dataset.get_schema()
+        cols = self.dataset.schema()
         return {"columns": cols}
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
