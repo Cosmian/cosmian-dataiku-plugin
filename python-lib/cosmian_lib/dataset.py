@@ -11,14 +11,9 @@ class Dataset():
         """
         Retrieve the schema of that dataset
         """
-        schema = self.context.get("/dataset/%s/schema" % self.handle, None,
-                                  error_message="dataset:: failed querying dataset: %s" % self.handle
-                                  )
-        response = []
-        for col in schema["columns"]:
-            response.append(
-                {"name": col["name"], "type": cosmian_type_2_dataiku_type(col["data_type"])})
-        return response
+        return self.context.get("/dataset/%s/schema" % self.handle, None,
+                                error_message="dataset:: failed querying dataset: %s" % self.handle
+                                )
 
     def read_next_row(self):
         """

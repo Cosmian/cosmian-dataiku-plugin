@@ -3,6 +3,7 @@
 # import the base class for the custom dataset
 from __future__ import print_function
 from cosmian_lib import Server
+from cosmian_utils import cosmian_schema_2_dataiku_schema
 from dataiku.connector import Connector
 
 # import logging
@@ -57,7 +58,8 @@ class CosmianDatasetConnector(Connector):
 
         Supported types are: string, int, bigint, float, double, date, boolean
         """
-        cols = self.dataset.schema()
+        schema = self.dataset.schema()
+        cols = cosmian_schema_2_dataiku_schema(schema)
         return {"columns": cols}
 
     def generate_rows(self, dataset_schema=None, dataset_partitioning=None,
