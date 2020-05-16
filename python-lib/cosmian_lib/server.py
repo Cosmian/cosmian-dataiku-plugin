@@ -4,7 +4,8 @@ from .psi import PSI
 from .datasets import Datasets
 from .enclave import Enclave
 from .fe import FE
-from .mpc import MPC
+# from .mpc import MPC
+from .mpc_old import MPC_OLD
 
 
 class Server():
@@ -54,8 +55,15 @@ class Server():
         """
         return FE(self.context)
 
-    def mpc(self) -> MPC:
+    # def mpc(self) -> MPC:
+    #     """
+    #     Access to the multi-party computation primitives
+    #     """
+    #     return MPC_OLD(self.context)
+
+    def mpc_old(self) -> MPC_OLD:
         """
         Access to the multi-party computation primitives
+        Before new API
         """
-        return MPC(self.context)
+        return MPC_OLD(self.context)

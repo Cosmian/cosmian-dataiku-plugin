@@ -2,8 +2,7 @@
 
 # import the base class for the custom dataset
 from __future__ import print_function
-import requests
-from cosmian_lib import Server, Dataset, Datasets
+from cosmian_lib import Server
 from dataiku.connector import Connector
 
 # import logging
@@ -34,7 +33,7 @@ class CosmianDatasetConnector(Connector):
         self.view_name = str(config.get("view_name"))
         self.sorted = bool(config.get("sorted"))
         self.server = Server(config.get("server_url"))
-        self.dataset = server.datasets().retrieve(
+        self.dataset = self.server.datasets().retrieve(
             self.view_name, self.sorted)
         # logging.warn("******* CONFIG: %s", config)
         # logging.warn("******* PLUGIN CONFIG: %s", plugin_config)

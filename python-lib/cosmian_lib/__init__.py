@@ -4,3 +4,4 @@ from .datasets import Datasets
 from .dataset import Dataset
 from .views import Views
 from .enclave import Enclave
+from .mpc import Mpc
