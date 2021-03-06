@@ -23,7 +23,7 @@ Go to http://localhost:11000/plugins-explore/store/
 
 -> Add Plugin Button
 
--> Fetch from Get repository
+-> Fetch from git repository
 
 
 
