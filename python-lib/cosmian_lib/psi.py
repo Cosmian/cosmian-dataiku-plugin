@@ -1,18 +1,5 @@
-# from urlparse import urlparse
-# import json
 import threading
 from .context import Context
-
-json_post_headers = {
-    "Accept-Encoding": "gzip",
-    "Accept": "application/json",
-    "Content-type": "application/json"
-}
-
-json_get_headers = {
-    "Accept-Encoding": "gzip",
-    "Accept": "application/json"
-}
 
 
 class PSI():

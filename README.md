@@ -1,13 +1,41 @@
 # Cosmian Dataiku Plugin
 
+## DSS install
+
+Follow instructions at :
+
+https://www.dataiku.com/product/get-started/linux/
 
 
-## Developing
+## DSS start
+
+`DATA_DIR` is the data directory chosen during install 
+
+    ${DATA_DIR}/bin/dss start
+
+
+## Add the Plugin to DSS
+
+Go to http://localhost:11000/plugins-explore/store/ 
+
+-> Add Plugin Button
+
+-> Fetch from Get repository
+
+
+
+## DSS plugin development
+
+Follow this [documentation](https://doc.dataiku.com/dss/latest/plugins/reference/index.html?highlight=plugin%20development)
+
+
+## Cosmian developers
 
 For simplicity the cosmian_lib must be packaged inside the plugin.
 An easy way to guarantee synchronization is to:
-    - develop changes inside the cosmian_server/python/cosmian_lib directory (i.e. the reference source)
-    - then synchronize the changes into the python-lib/ directory by running:
+
+- develop changes inside the cosmian_server/python/cosmian_lib directory (i.e. the reference source)
+- then synchronize the changes into the python-lib/ directory by running from the root of thi project:
 
         rsync -a ../cosmian_server/python/cosmian_lib python-lib --exclude=__pycache__ 
 

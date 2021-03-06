@@ -1,0 +1,41 @@
+// This file is the descriptor for the Custom code recipe protected_code_runner
+{
+  // Meta data for display purposes
+  "meta": {
+    "label": "Confidential Collaborative Computation",
+    "description": "Extract the result from a computation run on Cipher Compute",
+    "icon": "icon-eye-close"
+  },
+  "kind": "PYTHON",
+  //"selectableFromDataset": "datasets",
+  "inputRoles": [],
+  "outputRoles": [
+    {
+      "name": "output",
+      "label": "Results",
+      "description": "Results of the confidential computation",
+      "arity": "UNARY",
+      "required": true,
+      "acceptsDataset": true
+    }
+  ],
+  "params": [
+    {
+      "name": "orchestrator_url",
+      "type": "STRING",
+      "label": "URL of the orchestrator",
+      "description": "The base URL of the orchestrator server e.g. http://orchestrator.company.com",
+      "defaultValue": "",
+      "mandatory": true
+    },
+    {
+      "name": "computation_uuid",
+      "type": "STRING",
+      "label": "Computation UUID",
+      "description": "The UUID of confidential computation",
+      "defaultValue": "",
+      "mandatory": true
+    }
+  ],
+  "resourceKeys": []
+}

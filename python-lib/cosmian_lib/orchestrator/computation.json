@@ -1,0 +1,149 @@
+{
+    "uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
+    "name": "Join Common",
+    "description": null,
+    "revision": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXZpc2lvbiI6MiwidXBkYXRlZF9hdCI6IjIwMjEtMDItMDJUMTA6NTg6MjUuNTkyNzIwNzYwIn0.oA835xgaDes0eu3J3vLyE0xr5bKgGKO4jAG25_uapps",
+    "parties": [
+        {
+            "uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
+            "state": "Approved",
+            "server_name": "Bank-subsidiary1",
+            "server_address": "http://player2.cosmian.com:9000",
+            "runtime_address": "http://player2.cosmian.com:8999",
+            "description": null
+        },
+        {
+            "uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+            "state": "Approved",
+            "server_name": "Bank-subsidiary2",
+            "server_address": "http://player3.cosmian.com:9000",
+            "runtime_address": "http://player3.cosmian.com:8999",
+            "description": null
+        }
+    ],
+    "creator": {
+        "uuid": "446a5df8-79b4-4513-b0cd-532a41bea4c1",
+        "state": "Approved",
+        "server_name": "Bank-mortgage",
+        "server_address": "http://player1.cosmian.com:9000",
+        "runtime_address": "http://player1.cosmian.com:8999",
+        "description": null
+    },
+    "datasets": [
+        {
+            "uuid": "161871ab-ae87-44fa-8758-8966e3575bfc",
+            "party_uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
+            "party": {
+                "uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
+                "state": "Approved",
+                "server_name": "Bank-subsidiary1",
+                "server_address": "http://player2.cosmian.com:9000",
+                "runtime_address": "http://player2.cosmian.com:8999",
+                "description": null
+            },
+            "kind": "External",
+            "computation_uuid": "82638ec9-a91a-4f26-aac8-b536a7042032",
+            "datasource_uuid": "57c65293-a95f-4d8d-a724-26e7461faa94",
+            "datasource": null,
+            "columns": [
+                "id",
+                "has_open_credit",
+                "user_since"
+            ]
+        },
+        {
+            "uuid": "57466ae8-53d7-442f-a401-e4f2ef2cce1a",
+            "party_uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+            "party": {
+                "uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+                "state": "Approved",
+                "server_name": "Bank-subsidiary2",
+                "server_address": "http://player3.cosmian.com:9000",
+                "runtime_address": "http://player3.cosmian.com:8999",
+                "description": null
+            },
+            "kind": "External",
+            "computation_uuid": "82638ec9-a91a-4f26-aac8-b536a7042032",
+            "datasource_uuid": "104c7791-d8e3-4897-b7ef-3e5cf7a0c831",
+            "datasource": null,
+            "columns": [
+                "id",
+                "has_open_credit",
+                "total_amount"
+            ]
+        }
+    ],
+    "kind": "Internal",
+    "repository": "http://player3.cosmian.com:2500/cosmian/mpc-join.git",
+    "commit_hash": "d059d0ed96b73867a38905d5f5e7356360667a66",
+    "code_view_url": "http://player3.cosmian.com:2500/cosmian/mpc-join/src/branch/feat_csv/src/main.rs",
+    "state": "Completed",
+    "approvals": [
+        {
+            "uuid": "29a85eef-460d-4d0c-9319-7cd2c64bedd2",
+            "kind": "Internal",
+            "party": {
+                "uuid": "446a5df8-79b4-4513-b0cd-532a41bea4c1",
+                "state": "Approved",
+                "server_name": "Bank-mortgage",
+                "server_address": "http://player1.cosmian.com:9000",
+                "runtime_address": "http://player1.cosmian.com:8999",
+                "description": null
+            },
+            "user_uuid": "ab8f5241-0ded-427f-9e92-b21bebe2d2d7",
+            "user": null,
+            "computation": null,
+            "computation_uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
+            "state": "Approved",
+            "comment": null,
+            "optional": false,
+            "created_at": "2021-02-02T10:58:25.592807243",
+            "updated_at": "2021-02-02T10:58:25.592807618"
+        },
+        {
+            "uuid": "d5315293-6f45-427f-aa93-57b7b4c57a79",
+            "kind": "External",
+            "party": {
+                "uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
+                "state": "Approved",
+                "server_name": "Bank-subsidiary1",
+                "server_address": "http://player2.cosmian.com:9000",
+                "runtime_address": "http://player2.cosmian.com:8999",
+                "description": null
+            },
+            "user_uuid": "be8e1ef9-07b4-4226-9d72-af3dc9f8b674",
+            "user": null,
+            "computation": null,
+            "computation_uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
+            "state": "Approved",
+            "comment": null,
+            "optional": false,
+            "created_at": "2021-02-02T10:58:56.113742248",
+            "updated_at": "2021-02-02T11:00:51.722159154"
+        },
+        {
+            "uuid": "97679f12-ac92-48f3-bc87-2c4b58938dc7",
+            "kind": "External",
+            "party": {
+                "uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+                "state": "Approved",
+                "server_name": "Bank-subsidiary2",
+                "server_address": "http://player3.cosmian.com:9000",
+                "runtime_address": "http://player3.cosmian.com:8999",
+                "description": null
+            },
+            "user_uuid": "8ed0bf10-33a6-46ec-becf-9916a240dc33",
+            "user": null,
+            "computation": null,
+            "computation_uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
+            "state": "Approved",
+            "comment": null,
+            "optional": false,
+            "created_at": "2021-02-02T10:58:56.113744091",
+            "updated_at": "2021-02-02T11:01:42.924657906"
+        }
+    ],
+    "created_at": "2021-02-02T10:58:15.290454230",
+    "updated_at": "2021-02-02T10:58:15.290454891",
+    "created_by": "571a4ebb-442b-46e3-891c-0d1f964f907d"
+}

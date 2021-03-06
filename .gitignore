@@ -1,5 +1,6 @@
 re.json
 pyenv/
+__pycache__/
 .journal
 .mainlock
 .wlock

@@ -36,6 +36,6 @@ def cosmian_type_2_dataiku_type(ct):
         return "bigint"
     if ct == "float":
         return "double"
-    if ct == "string" or ct == "hash" or ct == "blurred" or ct == "encrypted" or ct == "fe_cmp_encrypted":
+    if ct in ("string", "hash", "blurred", "encrypted", "fe_cmp_encrypted"):
         return "string"
     return "object"

@@ -19,7 +19,7 @@ class Context():
         """
         send a DELETE request to the Cosmian server and return a json payload
         If `allow_404` is set to `True`, the method will return `None` rather than failing,
-        when the server returns a status code of 404, 
+        when the server returns a status code of 404,
         """
         return _get_delete(self.session, self.url, path, params, error_message, allow_404, is_delete=True)
 
@@ -28,7 +28,7 @@ class Context():
         Send an asynchronous DELETE request on a thread to the Cosmian server.
         and the passed file name to 'data.bin'.
         If `allow_404` is set to `True`, the method will return `None` rather than failing,
-        when the server returns a status code of 404, 
+        when the server returns a status code of 404,
         When the thread completes, it will call `callback(error, json, context)` where in case of
          - failure: `error` will be a `ValueError` and `json` will be None
          - success: `error` will be `None` and `json` will contain the json response
@@ -49,7 +49,7 @@ class Context():
         """
         send a GET request to the Cosmian server and return a json response
         If `allow_404` is set to `True`, the method will return `None` rather than failing,
-        when the server returns a status code of 404, 
+        when the server returns a status code of 404,
         """
         return _get_delete(self.session, self.url, path, params, error_message, allow_404, is_delete=False)
 
@@ -58,7 +58,7 @@ class Context():
         Send an asynchronous GET request on a thread to the Cosmian server.
         and the passed file name to 'data.bin'.
         If `allow_404` is set to `True`, the method will return `None` rather than failing,
-        when the server returns a status code of 404, 
+        when the server returns a status code of 404,
         When the thread completes, it will call `callback(error, json, context)` where in case of
          - failure: `error` will be a `ValueError` and `json` will be None
          - success: `error` will be `None` and `json` will contain the json response
@@ -198,6 +198,11 @@ class Context():
         return t
 
 
+# Connection timeout, read timeout
+# see https://requests.kennethreitz.org/en/master/user/advanced/#timeouts
+REQUEST_TIMEOUTS = (20, 120)
+
+
 def _get_delete(session: requests.Session, server_url: str, path: str, params: dict = None,
                 error_message: str = None, allow_404: bool = False, is_delete: bool = False) -> dict:
     """
@@ -218,7 +223,8 @@ def _get_delete(session: requests.Session, server_url: str, path: str, params: d
         r = http.get(
             url="%s%s" % (server_url, path),
             params=params,
-            headers=headers
+            headers=headers,
+            timeout=REQUEST_TIMEOUTS
         )
         if allow_404 and r.status_code == 404:
             return None
@@ -227,8 +233,9 @@ def _get_delete(session: requests.Session, server_url: str, path: str, params: d
                 err = "failed getting %s: " % path
             else:
                 err = error_message
+            text = r.text.encode('utf-8').decode('unicode_escape')
             raise ValueError("%s, status code: %s, reason: %s" % (
-                err, r.status_code, r.text))
+                err, r.status_code, text))
         return r.json()
     except requests.ConnectionError as e:
         raise ValueError(
@@ -270,7 +277,8 @@ def _post_put(session: requests.Session, server_url: str, path: str, json: dict,
             url="%s%s" % (server_url, path),
             params=params,
             json=json,
-            headers=headers
+            headers=headers,
+            timeout=REQUEST_TIMEOUTS
         )
         if r.status_code >= 400:
             if error_message is None:
@@ -316,14 +324,16 @@ def _download(session: requests.Session, server_url: str, path: str, data_file: 
             r = http.get(
                 url="%s%s" % (server_url, path),
                 params=params,
-                stream=True
+                stream=True,
+                timeout=REQUEST_TIMEOUTS
             )
         else:
             r = http.post(
                 url="%s%s" % (server_url, path),
                 params=params,
                 json=json,
-                stream=True
+                stream=True,
+                timeout=REQUEST_TIMEOUTS
             )
         with r:
             if r.status_code >= 400:
@@ -376,7 +386,8 @@ def _upload(session: requests.Session, server_url: str, path: str, data_file: st
             r = http.post(
                 url="%s%s" % (server_url, path),
                 files=files,
-                params=params
+                params=params,
+                timeout=REQUEST_TIMEOUTS
             )
             if r.status_code >= 400:
                 if error_message is None:

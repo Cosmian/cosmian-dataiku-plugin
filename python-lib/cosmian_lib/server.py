@@ -4,8 +4,12 @@ from .psi import PSI
 from .datasets import Datasets
 from .enclave import Enclave
 from .fe import FE
-# from .mpc import MPC
+from .fhe import FHE
+from .mpc import MPC
 from .mpc_old import MPC_OLD
+from .mcfe import MCFE
+from .dsum import DSum
+from .ckks import CKKS
 
 
 class Server():
@@ -32,6 +36,12 @@ class Server():
         """
         return Datasets(self.context)
 
+    def ckks(self) -> CKKS:
+        """
+        Access to the CKKS encryption APIs
+        """
+        return CKKS(self.context)
+
     def psi(self) -> PSI:
         """
         Access to Private Set Intersection primitives.
@@ -55,6 +65,18 @@ class Server():
         """
         return FE(self.context)
 
+    def fhe(self) -> FHE:
+        """
+        Access to the fully homomorphic encryption primitives
+        """
+        return FHE(self.context)
+
+    def mpc(self) -> MPC:
+        """
+        Access to the low level MPC API
+        """
+        return MPC(self.context)
+
     # def mpc(self) -> MPC:
     #     """
     #     Access to the multi-party computation primitives
@@ -67,3 +89,19 @@ class Server():
         Before new API
         """
         return MPC_OLD(self.context)
+
+    def dsum(self) -> DSum:
+        """
+        Access to the Distributed Sum API
+        DSum provides the abilities for multiple clients to
+        provide secret shares of a sum to a third-party; the third-party can
+        recombine all the secret shares to reveal the sum but cannot reveal any of the
+        shares.
+        """
+        return DSum(self.context)
+
+    def mcfe(self) -> MCFE:
+        """
+        Access to the (Decentralized) Multi Client Functional Encryption APIs
+        """
+        return MCFE(self.context)
