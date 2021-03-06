@@ -28,7 +28,7 @@
     {
       "name": "orchestrator_username",
       "type": "STRING",
-      "label": "orchestrator username",
+      "label": "Orchestrator username",
       "description": "The username to use to access the orchestrator",
       "defaultValue": "",
       "mandatory": true
@@ -36,7 +36,7 @@
     {
       "name": "orchestrator_password",
       "type": "PASSWORD",
-      "label": "orchestrator user password",
+      "label": "Orchestrator user password",
       "description": "The password to use to access the orchestrator",
       "defaultValue": "",
       "mandatory": true
