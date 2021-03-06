@@ -42,6 +42,7 @@ if computation_uuid == '':
 
 
 # recover results
+print("*****",orchestrator_username,orchestrator_password)
 os = Orchestrator(orchestrator_url)
 os.authentication().login(orchestrator_username, orchestrator_password)
 try:
