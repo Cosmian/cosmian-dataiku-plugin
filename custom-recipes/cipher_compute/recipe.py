@@ -71,4 +71,4 @@ output_dataset.write_schema(di_schema)
 # Stream entries and write them to the output
 with output_dataset.get_writer() as writer:
     for row in range(len(results)):
-        writer.write_row_array(row)
+        writer.write_row_array(results[row])
