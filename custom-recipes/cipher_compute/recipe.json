@@ -1,13 +1,10 @@
-// This file is the descriptor for the Custom code recipe protected_code_runner
 {
-  // Meta data for display purposes
   "meta": {
     "label": "Confidential Collaborative Computation",
     "description": "Extract the result from a computation run on Cipher Compute",
     "icon": "icon-eye-close"
   },
   "kind": "PYTHON",
-  //"selectableFromDataset": "datasets",
   "inputRoles": [],
   "outputRoles": [
     {
@@ -25,6 +22,22 @@
       "type": "STRING",
       "label": "URL of the orchestrator",
       "description": "The base URL of the orchestrator server e.g. http://orchestrator.company.com",
+      "defaultValue": "http://localhost:3000",
+      "mandatory": true
+    },
+    {
+      "name": "orchestrator_username",
+      "type": "STRING",
+      "label": "orchestrator username",
+      "description": "The username to use to access the orchestrator",
+      "defaultValue": "",
+      "mandatory": true
+    },
+    {
+      "name": "orchestrator_password",
+      "type": "PASSWORD",
+      "label": "orchestrator user password",
+      "description": "The password to use to access the orchestrator",
       "defaultValue": "",
       "mandatory": true
     },

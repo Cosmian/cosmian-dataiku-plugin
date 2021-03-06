@@ -26,8 +26,16 @@ Go to http://localhost:11000/plugins-explore/store/
 
 ## DSS plugin development
 
-Follow this [documentation](https://doc.dataiku.com/dss/latest/plugins/reference/index.html?highlight=plugin%20development)
+First register to the [Dataiku Academy](https://academy.dataiku.com/plugin-development/514705)
+and follow environment install instructions on that page
 
+Introduction also available in this [documentation](https://doc.dataiku.com/dss/latest/plugins/reference/index.html?highlight=plugin%20development)
+
+Select the created dataiku_dev_env environment when developing.
+
+Dataiku:
+
+ - [parameters types](https://doc.dataiku.com/dss/latest/plugins/reference/params.html)
 
 ## Cosmian developers
 
