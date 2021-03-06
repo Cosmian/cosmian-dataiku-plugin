@@ -54,6 +54,8 @@ try:
 finally:
     os.authentication().logout()
 
+print("***\n***\n***\nResults",results)    
+    
 if len(results) == 0:
     raise ValueError("No results")
 
