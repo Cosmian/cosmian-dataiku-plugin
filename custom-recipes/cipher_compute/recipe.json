@@ -22,7 +22,7 @@
       "type": "STRING",
       "label": "URL of the orchestrator",
       "description": "The base URL of the orchestrator server e.g. http://orchestrator.company.com",
-      "defaultValue": "http://localhost:3000",
+      "defaultValue": "http://localhost:9000",
       "mandatory": true
     },
     {

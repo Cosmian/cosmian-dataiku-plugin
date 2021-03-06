@@ -1,5 +1,8 @@
 # Cosmian Dataiku Plugin
 
+WIP - Not ready for showtime
+
+
 ## DSS install
 
 Follow instructions at :
@@ -49,7 +52,3 @@ An easy way to guarantee synchronization is to:
 
 This should be run once at first; the .env directory will help vscode pickup the library
 
-
-
-## OLD Stuff
-Font awsome 3.2.1 list: https://fontawesome.com/v3.2.1/icons/
