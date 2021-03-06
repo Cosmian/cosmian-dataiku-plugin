@@ -43,6 +43,7 @@ def test_computation_runs():
             return
         uuid = computations[0]["uuid"]
         runs = comp_api.runs(uuid).list()
+        print(runs)
         last_idx = len(runs) - 1
         assert "uuid" in runs[last_idx]
         assert "results" in runs[last_idx]

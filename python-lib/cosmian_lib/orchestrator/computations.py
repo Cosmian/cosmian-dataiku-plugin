@@ -34,6 +34,12 @@ class Computations():
         """
         return self.context.get("/computations", None, "Computations::failed listing the computations")
 
+    def retrieve(self, uuid: str) -> dict:
+        """
+        Retrieve a given computation using its UUID
+        """
+        return self.context.get(f"/computations/{uuid}", None, f"Computation Runs:: failed retrieving computation: {uuid}")
+
     # def run(self, uuid: str) -> dict:
     #     """
     #     DEPRECATED
@@ -41,8 +47,8 @@ class Computations():
     #     """
     #     return self.context.get(f"/computations/{uuid}/run", None, f"Computation Run:: failed retrieving the last run for computation {uuid}")
 
-    def runs(self, id: str) -> Runs:
+    def runs(self, uuid: str) -> Runs:
         """
         Access to the computation runs Api        
         """
-        return Runs(self.context, id)
+        return Runs(self.context, uuid)
