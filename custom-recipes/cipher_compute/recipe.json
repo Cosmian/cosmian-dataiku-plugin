@@ -2,7 +2,8 @@
   "meta": {
     "label": "Confidential Collaborative Computation",
     "description": "Extract the result from a computation run on Cipher Compute",
-    "icon": "icon-eye-close"
+    "icon": "icon-cogs",
+    "iconColor": "orange"
   },
   "kind": "PYTHON",
   "inputRoles": [],
