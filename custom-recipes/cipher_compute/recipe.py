@@ -12,6 +12,7 @@ def run_computation(comp_api: Computations, computation: dict) -> dict:
     """
     Run this computation first
     """
+    print("********", computation)
     uuid = computation["uuid"]
     revision = computation["revision"]
     comp_api.runs(uuid).launch(revision)
