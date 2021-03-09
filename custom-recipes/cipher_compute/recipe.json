@@ -14,7 +14,7 @@
       "arity": "UNARY",
       "required": false,
       "acceptsDataset": true,
-      "acceptsManagedFolder": true
+      "acceptsManagedFolder": false
     }
   ],
   "outputRoles": [
