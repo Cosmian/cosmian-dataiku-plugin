@@ -32,7 +32,7 @@ class Runs():
         Retrieve the given run of the computation
         """
         return self.context.get(f"/computations/{self.computation_uuid}/runs/{run_uuid}", None,
-                                f"Computation Runs:: failed the run {run_uuid} for computation: {self.computation_uuid}")
+                                f"Computation Runs:: failed: the run {run_uuid} for computation: {self.computation_uuid}")
 
     def launch(self, revision_id="") -> dict:
         """
@@ -63,7 +63,7 @@ class Computations():
         """
         Retrieve a given computation using its UUID
         """
-        retrieve_computation(self.context, uuid)
+        return retrieve_computation(self.context, uuid)
 
     def runs(self, computation_uuid: str) -> Runs:
         """
