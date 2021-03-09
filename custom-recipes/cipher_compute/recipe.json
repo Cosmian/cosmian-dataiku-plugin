@@ -6,6 +6,7 @@
     "iconColor": "orange"
   },
   "kind": "PYTHON",
+  "selectableFromDataset": "input",
   "inputRoles": [
     {
       "name": "input",
@@ -13,8 +14,7 @@
       "description": "The dataset used for local input if available",
       "arity": "UNARY",
       "required": false,
-      "acceptsDataset": true,
-      "acceptsManagedFolder": false
+      "acceptsDataset": true
     }
   ],
   "outputRoles": [
