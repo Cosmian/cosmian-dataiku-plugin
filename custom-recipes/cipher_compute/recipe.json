@@ -52,7 +52,7 @@
     },
     {
       "name": "run_first",
-      "type": "Boolean",
+      "type": "BOOLEAN",
       "label": "Run computation",
       "description": "Runs the computation first",
       "defaultValue": false,
