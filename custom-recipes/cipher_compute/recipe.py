@@ -6,6 +6,7 @@ from cosmian_lib.orchestrator.computations import Computations
 # import logging
 from cosmian_lib.orchestrator import Orchestrator
 import time
+from dataiku.core.project import Project
 
 
 def run_computation(comp_api: Computations, computation: dict) -> dict:
@@ -26,7 +27,7 @@ def run_computation(comp_api: Computations, computation: dict) -> dict:
     return latest
 
 
-# the output dataset name
+    # the output dataset name
 output_name = get_output_names_for_role('output')[0]
 
 # recover the parameters

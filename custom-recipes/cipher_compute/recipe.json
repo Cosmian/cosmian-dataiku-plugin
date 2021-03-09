@@ -6,7 +6,17 @@
     "iconColor": "orange"
   },
   "kind": "PYTHON",
-  "inputRoles": [],
+  "inputRoles": [
+    {
+      "name": "input",
+      "label": "Local Input (Internal)",
+      "description": "The dataset used for local input if available",
+      "arity": "UNARY",
+      "required": false,
+      "acceptsDataset": true,
+      "acceptsManagedFolder": true
+    }
+  ],
   "outputRoles": [
     {
       "name": "output",
