@@ -73,6 +73,7 @@ os.authentication().login(orchestrator_username, orchestrator_password)
 try:
     comp_api = os.computations()
     computation = comp_api.retrieve(computation_uuid)
+    print("=======", computation)
     if run_first:
         latest = run_computation(comp_api, computation)
     else:
