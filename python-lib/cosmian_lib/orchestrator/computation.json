@@ -1,149 +1,294 @@
 {
-    "uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
-    "name": "Join Common",
-    "description": null,
-    "revision": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXZpc2lvbiI6MiwidXBkYXRlZF9hdCI6IjIwMjEtMDItMDJUMTA6NTg6MjUuNTkyNzIwNzYwIn0.oA835xgaDes0eu3J3vLyE0xr5bKgGKO4jAG25_uapps",
+    "uuid": "9fb41c35-8cc7-4e8a-aa49-46fbd8b15237",
+    "name": "CATS 2.2 - Indicateurs de Performance ",
+    "revision": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXZpc2lvbiI6MiwidXBkYXRlZF9hdCI6IjIwMjEtMDMtMDhUMTI6MDA6MjcuMTE0OTk4NzEzIn0.56W7UCda_LODXCL5-ak071MVuGXctfzkVhwU5gOpBbA",
     "parties": [
         {
-            "uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
+            "uuid": "e0d6993b-6fe7-4495-8dd7-e260df707326",
             "state": "Approved",
-            "server_name": "Bank-subsidiary1",
-            "server_address": "http://player2.cosmian.com:9000",
-            "runtime_address": "http://player2.cosmian.com:8999",
-            "description": null
+            "server_name": "Player 1",
+            "server_address": "http://orchestrator_1:9001",
+            "runtime_address": "http://runtime_1:9998",
+            "description": "Player 1"
         },
         {
-            "uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+            "uuid": "96f3f4e3-c87a-4432-91ed-e335ca844027",
             "state": "Approved",
-            "server_name": "Bank-subsidiary2",
-            "server_address": "http://player3.cosmian.com:9000",
-            "runtime_address": "http://player3.cosmian.com:8999",
-            "description": null
+            "server_name": "Player 2",
+            "server_address": "http://orchestrator_2:9002",
+            "runtime_address": "http://runtime_2:9997",
+            "description": "Player 2"
         }
     ],
+    "disable_replay": false,
     "creator": {
-        "uuid": "446a5df8-79b4-4513-b0cd-532a41bea4c1",
+        "uuid": "59887867-d985-4941-a187-95f24478a0f2",
         "state": "Approved",
-        "server_name": "Bank-mortgage",
-        "server_address": "http://player1.cosmian.com:9000",
-        "runtime_address": "http://player1.cosmian.com:8999",
-        "description": null
+        "server_name": "Player 0",
+        "server_address": "http://orchestrator_0:9000",
+        "runtime_address": "http://runtime_0:9999"
     },
     "datasets": [
         {
-            "uuid": "161871ab-ae87-44fa-8758-8966e3575bfc",
-            "party_uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
-            "party": {
-                "uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
-                "state": "Approved",
-                "server_name": "Bank-subsidiary1",
-                "server_address": "http://player2.cosmian.com:9000",
-                "runtime_address": "http://player2.cosmian.com:8999",
-                "description": null
+            "uuid": "8e481da6-3a73-459e-82a9-783bc366c1c5",
+            "kind": "Internal",
+            "computation_uuid": "b1fd7dd5-c389-4b15-9b0f-d0c389ba27b2",
+            "datasource_uuid": "0b0d1cb5-ba95-482a-9fea-e2dac2206ba0",
+            "datasource": {
+                "uuid": "0b0d1cb5-ba95-482a-9fea-e2dac2206ba0",
+                "name": "kpi_data_0",
+                "kind": "Internal",
+                "source_specs": {
+                    "separator": ",",
+                    "decimal_separator": ".",
+                    "url": "file:///root/cosmian_data/player_0/data_0.csv",
+                    "columns": [
+                        {
+                            "name": "month",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c1",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c2",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c3",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c4",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c5",
+                            "data_type": "int64"
+                        }
+                    ],
+                    "index_col_name": "month",
+                    "headers_on_first_line": false
+                },
+                "created_at": "2021-03-05T16:06:16.323432589",
+                "updated_at": "2021-03-05T16:06:16.323436197"
             },
-            "kind": "External",
-            "computation_uuid": "82638ec9-a91a-4f26-aac8-b536a7042032",
-            "datasource_uuid": "57c65293-a95f-4d8d-a724-26e7461faa94",
-            "datasource": null,
             "columns": [
-                "id",
-                "has_open_credit",
-                "user_since"
+                "month",
+                "c1",
+                "c2",
+                "c3",
+                "c4",
+                "c5"
             ]
         },
         {
-            "uuid": "57466ae8-53d7-442f-a401-e4f2ef2cce1a",
-            "party_uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+            "uuid": "79671e46-7c67-4fdb-892d-6bc6ce4dfc7b",
+            "party_uuid": "e0d6993b-6fe7-4495-8dd7-e260df707326",
             "party": {
-                "uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+                "uuid": "e0d6993b-6fe7-4495-8dd7-e260df707326",
                 "state": "Approved",
-                "server_name": "Bank-subsidiary2",
-                "server_address": "http://player3.cosmian.com:9000",
-                "runtime_address": "http://player3.cosmian.com:8999",
-                "description": null
+                "server_name": "Player 1",
+                "server_address": "http://orchestrator_1:9001",
+                "runtime_address": "http://runtime_1:9998",
+                "description": "Player 1"
             },
             "kind": "External",
-            "computation_uuid": "82638ec9-a91a-4f26-aac8-b536a7042032",
-            "datasource_uuid": "104c7791-d8e3-4897-b7ef-3e5cf7a0c831",
-            "datasource": null,
+            "computation_uuid": "b1fd7dd5-c389-4b15-9b0f-d0c389ba27b2",
+            "datasource_uuid": "94f7a7f2-152a-4e1d-83b7-ffd770605102",
+            "datasource": {
+                "uuid": "94f7a7f2-152a-4e1d-83b7-ffd770605102",
+                "name": "kpi_data_1",
+                "kind": "External",
+                "party_uuid": "e0d6993b-6fe7-4495-8dd7-e260df707326",
+                "party": {
+                    "uuid": "e0d6993b-6fe7-4495-8dd7-e260df707326",
+                    "state": "Approved",
+                    "server_name": "Player 1",
+                    "server_address": "http://orchestrator_1:9001",
+                    "runtime_address": "http://runtime_1:9998",
+                    "description": "Player 1"
+                },
+                "source_specs": {
+                    "separator": ",",
+                    "decimal_separator": ".",
+                    "url": "file:///root/cosmian_data/player_1/data_1.csv",
+                    "columns": [
+                        {
+                            "name": "month",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c1",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c2",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c3",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c4",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c5",
+                            "data_type": "int64"
+                        }
+                    ],
+                    "index_col_name": "month",
+                    "headers_on_first_line": false
+                },
+                "created_at": "2021-03-05T16:12:20.733600714",
+                "updated_at": "2021-03-05T16:12:20.733601191"
+            },
             "columns": [
-                "id",
-                "has_open_credit",
-                "total_amount"
+                "month",
+                "c1",
+                "c2",
+                "c3",
+                "c4",
+                "c5"
+            ]
+        },
+        {
+            "uuid": "f2dfc01d-db72-404d-9058-3c0737635a3d",
+            "party_uuid": "96f3f4e3-c87a-4432-91ed-e335ca844027",
+            "party": {
+                "uuid": "96f3f4e3-c87a-4432-91ed-e335ca844027",
+                "state": "Approved",
+                "server_name": "Player 2",
+                "server_address": "http://orchestrator_2:9002",
+                "runtime_address": "http://runtime_2:9997",
+                "description": "Player 2"
+            },
+            "kind": "External",
+            "computation_uuid": "b1fd7dd5-c389-4b15-9b0f-d0c389ba27b2",
+            "datasource_uuid": "44af4e7a-a85d-4dbc-aba7-1d5b276e6ef8",
+            "datasource": {
+                "uuid": "44af4e7a-a85d-4dbc-aba7-1d5b276e6ef8",
+                "name": "data_2.csv",
+                "kind": "External",
+                "party_uuid": "96f3f4e3-c87a-4432-91ed-e335ca844027",
+                "party": {
+                    "uuid": "96f3f4e3-c87a-4432-91ed-e335ca844027",
+                    "state": "Approved",
+                    "server_name": "Player 2",
+                    "server_address": "http://orchestrator_2:9002",
+                    "runtime_address": "http://runtime_2:9997",
+                    "description": "Player 2"
+                },
+                "source_specs": {
+                    "separator": ",",
+                    "decimal_separator": ".",
+                    "url": "file:///root/cosmian_data/player_2/data_2.csv",
+                    "columns": [
+                        {
+                            "name": "month",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c1",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c2",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c3",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c4",
+                            "data_type": "int64"
+                        },
+                        {
+                            "name": "c5",
+                            "data_type": "int64"
+                        }
+                    ],
+                    "index_col_name": "month",
+                    "headers_on_first_line": false
+                },
+                "created_at": "2021-03-05T16:13:25.600719765",
+                "updated_at": "2021-03-05T16:13:25.600720012"
+            },
+            "columns": [
+                "month",
+                "c1",
+                "c2",
+                "c3",
+                "c4",
+                "c5"
             ]
         }
     ],
     "kind": "Internal",
-    "repository": "http://player3.cosmian.com:2500/cosmian/mpc-join.git",
-    "commit_hash": "d059d0ed96b73867a38905d5f5e7356360667a66",
-    "code_view_url": "http://player3.cosmian.com:2500/cosmian/mpc-join/src/branch/feat_csv/src/main.rs",
-    "state": "Completed",
+    "repository": "https://github.com/Cosmian/mpc_kpi.git",
+    "commit_hash": "d41a4e9a85215874ca99ffc70fbb1c58fe230752",
+    "code_view_url": "https://github.com/Cosmian/mpc_kpi/blob/main/src/main.rs",
+    "state": "Queued",
     "approvals": [
         {
-            "uuid": "29a85eef-460d-4d0c-9319-7cd2c64bedd2",
+            "uuid": "dd792513-724b-4937-978a-4c8bd444da07",
             "kind": "Internal",
             "party": {
-                "uuid": "446a5df8-79b4-4513-b0cd-532a41bea4c1",
+                "uuid": "59887867-d985-4941-a187-95f24478a0f2",
                 "state": "Approved",
-                "server_name": "Bank-mortgage",
-                "server_address": "http://player1.cosmian.com:9000",
-                "runtime_address": "http://player1.cosmian.com:8999",
-                "description": null
+                "server_name": "Player 0",
+                "server_address": "http://orchestrator_0:9000",
+                "runtime_address": "http://runtime_0:9999"
             },
-            "user_uuid": "ab8f5241-0ded-427f-9e92-b21bebe2d2d7",
-            "user": null,
-            "computation": null,
-            "computation_uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
+            "user_uuid": "fe82a941-4af8-4d26-b57c-cde9a51fd7d9",
+            "computation_uuid": "9fb41c35-8cc7-4e8a-aa49-46fbd8b15237",
             "state": "Approved",
-            "comment": null,
             "optional": false,
-            "created_at": "2021-02-02T10:58:25.592807243",
-            "updated_at": "2021-02-02T10:58:25.592807618"
+            "created_at": "2021-03-08T12:00:27.115028776",
+            "updated_at": "2021-03-08T12:00:27.115028827"
         },
         {
-            "uuid": "d5315293-6f45-427f-aa93-57b7b4c57a79",
+            "uuid": "33472e53-5696-4fc0-a207-b534822d2705",
             "kind": "External",
             "party": {
-                "uuid": "fa8e3552-a9d5-4e9e-862d-14bc46c04f82",
+                "uuid": "e0d6993b-6fe7-4495-8dd7-e260df707326",
                 "state": "Approved",
-                "server_name": "Bank-subsidiary1",
-                "server_address": "http://player2.cosmian.com:9000",
-                "runtime_address": "http://player2.cosmian.com:8999",
-                "description": null
+                "server_name": "Player 1",
+                "server_address": "http://orchestrator_1:9001",
+                "runtime_address": "http://runtime_1:9998",
+                "description": "Player 1"
             },
-            "user_uuid": "be8e1ef9-07b4-4226-9d72-af3dc9f8b674",
-            "user": null,
-            "computation": null,
-            "computation_uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
+            "user_uuid": "141494ca-3bbd-4a94-bafe-72248f67bcf8",
+            "computation_uuid": "9fb41c35-8cc7-4e8a-aa49-46fbd8b15237",
             "state": "Approved",
-            "comment": null,
             "optional": false,
-            "created_at": "2021-02-02T10:58:56.113742248",
-            "updated_at": "2021-02-02T11:00:51.722159154"
+            "created_at": "2021-03-08T12:00:29.228600141",
+            "updated_at": "2021-03-08T12:00:40.184859620"
         },
         {
-            "uuid": "97679f12-ac92-48f3-bc87-2c4b58938dc7",
+            "uuid": "9583921d-5abf-474f-adbb-ba0a31d306ca",
             "kind": "External",
             "party": {
-                "uuid": "e618da26-9f32-41ad-a11f-140eabd48093",
+                "uuid": "96f3f4e3-c87a-4432-91ed-e335ca844027",
                 "state": "Approved",
-                "server_name": "Bank-subsidiary2",
-                "server_address": "http://player3.cosmian.com:9000",
-                "runtime_address": "http://player3.cosmian.com:8999",
-                "description": null
+                "server_name": "Player 2",
+                "server_address": "http://orchestrator_2:9002",
+                "runtime_address": "http://runtime_2:9997",
+                "description": "Player 2"
             },
-            "user_uuid": "8ed0bf10-33a6-46ec-becf-9916a240dc33",
-            "user": null,
-            "computation": null,
-            "computation_uuid": "921e3a69-6771-4f7b-96b6-56bedfc07c58",
+            "user_uuid": "d4b4f27b-d2e2-4b16-8f29-c4fb4349294e",
+            "computation_uuid": "9fb41c35-8cc7-4e8a-aa49-46fbd8b15237",
             "state": "Approved",
-            "comment": null,
             "optional": false,
-            "created_at": "2021-02-02T10:58:56.113744091",
-            "updated_at": "2021-02-02T11:01:42.924657906"
+            "created_at": "2021-03-08T12:00:29.228601459",
+            "updated_at": "2021-03-08T12:00:47.440906722"
         }
     ],
-    "created_at": "2021-02-02T10:58:15.290454230",
-    "updated_at": "2021-02-02T10:58:15.290454891",
-    "created_by": "571a4ebb-442b-46e3-891c-0d1f964f907d"
+    "created_at": "2021-03-08T12:00:24.828414722",
+    "updated_at": "2021-03-08T12:00:27.115017812",
+    "created_by": "51f0967b-4e11-4055-b60d-b3730da30bdd"
 }

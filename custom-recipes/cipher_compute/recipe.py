@@ -2,9 +2,28 @@
 import dataiku
 # Import the helpers for custom recipes
 from dataiku.customrecipe import get_input_names_for_role, get_output_names_for_role, get_recipe_config
+from cosmian_lib.orchestrator.computations import Computations
 # import logging
-from cosmian_utils import cosmian_schema_2_dataiku_schema
 from cosmian_lib.orchestrator import Orchestrator
+import time
+
+
+def run_computation(comp_api: Computations, computation: dict) -> dict:
+    """
+    Run this computation first
+    """
+    uuid = computation["uuid"]
+    revision = computation["revision"]
+    comp_api.runs(uuid).launch(revision)
+    status = ""
+    while status != "finished" and status != "error":
+        latest = comp_api.runs(uuid).latest()
+        status = latest["status"]
+        time.sleep(1)
+    if status != "finished":
+        raise ValueError("The computation failed")
+    return latest
+
 
 # the output dataset name
 output_name = get_output_names_for_role('output')[0]
@@ -41,21 +60,30 @@ if computation_uuid == '':
     raise ValueError("Please provide a computation UUID")
 
 
+if 'run_first' in recipe_config:
+    run_first = recipe_config['run_first']
+else:
+    run_first = False
+
 # recover results
-print("*****",orchestrator_username,orchestrator_password)
+print("*****", orchestrator_username, orchestrator_password)
 os = Orchestrator(orchestrator_url)
 os.authentication().login(orchestrator_username, orchestrator_password)
 try:
     comp_api = os.computations()
     computation = comp_api.retrieve(computation_uuid)
-    latest = comp_api.runs(computation_uuid).latest()
+    if run_first:
+        latest = run_computation(comp_api, computation)
+    else:
+        latest = comp_api.runs(computation_uuid).latest()
     results = latest["results"]
     print(results)
 finally:
     os.authentication().logout()
 
-print("***\n***\n***\nResults",results)    
-    
+
+print("***\n***\n***\nResults", results)
+
 if len(results) == 0:
     raise ValueError("No results")
 

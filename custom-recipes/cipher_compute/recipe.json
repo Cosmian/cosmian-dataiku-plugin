@@ -49,6 +49,14 @@
       "description": "The UUID of confidential computation",
       "defaultValue": "",
       "mandatory": true
+    },
+    {
+      "name": "run_first",
+      "type": "Boolean",
+      "label": "Run computation",
+      "description": "Runs the computation first",
+      "defaultValue": false,
+      "mandatory": true
     }
   ],
   "resourceKeys": []

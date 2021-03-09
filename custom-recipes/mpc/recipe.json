@@ -1,4 +1,3 @@
-// This file is the descriptor for the Custom code recipe mpc
 {
   "meta": {
     "label": "Multi Party Computation",
@@ -70,7 +69,7 @@
       "type": "DOUBLE",
       "visibilityCondition": "model.computation == 'linear_regression_stack' || model.computation == 'linear_regression_join'"
     },
-        {
+    {
       "name": "range_end",
       "label": "Range end",
       "defaultValue": "10.0",
