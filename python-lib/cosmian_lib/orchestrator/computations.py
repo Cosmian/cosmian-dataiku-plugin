@@ -74,7 +74,7 @@ class Computation():
         return Run(self.context.get(
             f"/computations/{self.uuid}/runs/{run_uuid}",
             None,
-            f"Computation Runs:: failed: the run {run_uuid} for computation: {self.uuid}"
+            f"Computation Runs:: failed retrieving the run {run_uuid} for computation: {self.uuid}"
         ))
 
     def launch(self, revision_id="") -> 'Computation':
