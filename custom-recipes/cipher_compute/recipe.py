@@ -9,15 +9,15 @@ import time
 from dataiku.core.project import Project
 
 
-def run_computation(computation: Computation) -> Run:
+def run_computation(computation: Computation) -> str:
     """
     Run this computation first
     """
     computation.launch(computation.revision)
-    (_, status) = computation.wait_for_completion()
+    (run_uuid, status) = computation.wait_for_completion()
     if status != "finished":
         raise ValueError("The computation failed")
-    return latest
+    return run_uuid
 
 
 # the output dataset name
@@ -67,9 +67,8 @@ try:
     comp_api = os.computations()
     computation = comp_api.retrieve(computation_uuid)
     if run_first:
-        latest = run_computation(computation)
-    else:
-        latest = computation.latest_run()
+        run_computation(computation)
+    latest = computation.latest_run()
     results = latest.results
 finally:
     os.authentication().logout()

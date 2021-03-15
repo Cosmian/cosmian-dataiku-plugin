@@ -19,23 +19,26 @@ class Computation():
         self.__dict__ = computation_dict
         self.context = context
 
-    def delete(self) -> dict:
+    def delete(self):
         """
         Delete this computation
         """
-        return self.context.delete(f"/computations/{self.uuid}", None,
-                                   f"Computations:: failed deleting the computation: {self.uuid}")
+        self.context.delete(f"/computations/{self.uuid}", None,
+                            f"Computations:: failed deleting the computation: {self.uuid}")
 
-    def update(self) -> dict:
+    def update(self) -> 'Computation':
         """
         Update this computation
         """
         dic = vars(self)
         del dic["context"]
-        return self.context.put(f"/computations/{self.uuid}", dic,
-                                f"Computations:: failed updating the computation: {self.uuid}")
+        return Computation(self.context,
+                           self.context.put(
+                               f"/computations/{self.uuid}", dic,
+                               f"Computations:: failed updating the computation: {self.uuid}"
+                           ))
 
-    def duplicate(self):
+    def duplicate(self) -> 'Computation':
         """
         Duplicate the computation with the given UUID
         """
@@ -74,7 +77,7 @@ class Computation():
             f"Computation Runs:: failed: the run {run_uuid} for computation: {self.uuid}"
         ))
 
-    def launch(self, revision_id="") -> dict:
+    def launch(self, revision_id="") -> 'Computation':
         """
         (Re) Launches a computation for the given revision id or last revision if no supplied.
         If that ID is not known, the computation is read from the server first and the last revision is used.
@@ -82,8 +85,12 @@ class Computation():
         """
         if revision_id == "":
             revision_id = self.dict["revision"]
-        return self.context.post(f"/computations/{self.uuid}/queue", {"revision": revision_id},
-                                 f"Computation:: failed launching computation: {self.uuid}")
+        return Computation(self.context,
+                           self.context.post(
+                               f"/computations/{self.uuid}/queue", {
+                                   "revision": revision_id},
+                               f"Computation:: failed launching computation: {self.uuid}"
+                           ))
 
     def wait_for_completion(self) -> Tuple[str, str]:
         """
