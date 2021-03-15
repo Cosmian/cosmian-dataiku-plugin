@@ -67,8 +67,10 @@ try:
     comp_api = os.computations()
     computation = comp_api.retrieve(computation_uuid)
     if run_first:
-        run_computation(computation)
-    latest = computation.latest_run()
+        run_uuid = run_computation(computation)
+        latest = computation.retrieve_run(run_uuid)
+    else:
+        latest = computation.latest_run()
     results = latest.results
 finally:
     os.authentication().logout()
