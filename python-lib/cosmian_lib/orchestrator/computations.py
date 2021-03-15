@@ -96,8 +96,8 @@ class Computation():
         while status != "finished" and not status.startswith("error"):
             time.sleep(1)
             latest = self.latest_run()
-            status = latest["status"]
-            uuid = latest["uuid"]
+            status = latest.status
+            uuid = latest.uuid
         return (uuid, status)
 
 
