@@ -2,32 +2,25 @@
 import dataiku
 # Import the helpers for custom recipes
 from dataiku.customrecipe import get_input_names_for_role, get_output_names_for_role, get_recipe_config
-from cosmian_lib.orchestrator.computations import Computations
+from cosmian_lib import ComputationsAPI, Computation, Run
 # import logging
 from cosmian_lib.orchestrator import Orchestrator
 import time
 from dataiku.core.project import Project
 
 
-def run_computation(comp_api: Computations, computation: dict) -> dict:
+def run_computation(computation: Computation) -> Run:
     """
     Run this computation first
     """
-    print("********", computation)
-    uuid = computation["uuid"]
-    revision = computation["revision"]
-    comp_api.runs(uuid).launch(revision)
-    status = ""
-    while status != "finished" and status != "error":
-        latest = comp_api.runs(uuid).latest()
-        status = latest["status"]
-        time.sleep(1)
+    computation.launch(computation.revision)
+    (_, status) = computation.wait_for_completion()
     if status != "finished":
         raise ValueError("The computation failed")
     return latest
 
 
-    # the output dataset name
+# the output dataset name
 output_name = get_output_names_for_role('output')[0]
 
 # recover the parameters
@@ -68,38 +61,33 @@ else:
     run_first = False
 
 # recover results
-print("*****", orchestrator_username, orchestrator_password)
 os = Orchestrator(orchestrator_url)
 os.authentication().login(orchestrator_username, orchestrator_password)
 try:
     comp_api = os.computations()
     computation = comp_api.retrieve(computation_uuid)
-    print("=======", computation)
     if run_first:
-        latest = run_computation(comp_api, computation)
+        latest = run_computation(computation)
     else:
-        latest = comp_api.runs(computation_uuid).latest()
-    results = latest["results"]
-    print(results)
+        latest = computation.latest_run()
+    results = latest.results
 finally:
     os.authentication().logout()
 
 
-print("***\n***\n***\nResults", results)
-
-if len(results) == 0:
-    raise ValueError("No results")
-
-di_schema = []
-for col in range(len(results[0])):
-    di_schema.append(
-        {"name": f"c{col}", "type": "int"})
-
 # write the output schema to the dataiku output dataset
 output_dataset = dataiku.Dataset(output_name)
-output_dataset.write_schema(di_schema)
 
-# Stream entries and write them to the output
-with output_dataset.get_writer() as writer:
-    for row in range(len(results)):
-        writer.write_row_array(results[row])
+if len(results) == 0:
+    output_dataset.write_dataframe(df=None, dropAndCreate=True)
+else:
+    # Write schema
+    di_schema = []
+    for col in range(len(results[0])):
+        di_schema.append(
+            {"name": f"c{col}", "type": "int"})
+    output_dataset.write_schema(di_schema)
+    # Stream entries and write them to the output
+    with output_dataset.get_writer() as writer:
+        for row in range(len(results)):
+            writer.write_row_array(results[row])

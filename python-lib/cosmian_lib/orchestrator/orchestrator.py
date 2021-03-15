@@ -1,5 +1,5 @@
 from cosmian_lib import Context
-from .computations import Computations
+from .computations import ComputationsAPI
 from .authentication import Authentication
 
 
@@ -17,8 +17,8 @@ class Orchestrator():
         """
         return Authentication(self.context)
 
-    def computations(self) -> Computations:
+    def computations(self) -> ComputationsAPI:
         """
         Access the Computations management API
         """
-        return Computations(self.context)
+        return ComputationsAPI(self.context)
