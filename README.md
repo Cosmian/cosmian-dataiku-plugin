@@ -78,14 +78,7 @@ export DATA_DIR=~/dss && dataiku-dss-8.0.5/installer.sh -d ${DATA_DIR} -p 8080
 
 ## Add the Plugin to DSS
 
-Go to http://localhost:11000/plugins-explore/store/ 
-
--> Add Plugin Button
-
--> Fetch from git repository
-
-When asked, build the environment using PYTHON36
-
+See [first paragraphe](#installing-in-dataiku) above
 
 
 ## DSS plugin development
