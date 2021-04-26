@@ -26,7 +26,11 @@ class Authentication():
         }
         """
         hashed_pass = hashlib.sha256(password.encode())
-        return self.context.post("/auth/login", {"email": username, "password": hashed_pass}, "Login:: authentication failed")
+        return self.context.post(
+            "/auth/login", 
+            {"email": username, "password": hashed_pass.hexdigest()}, 
+            "Login:: authentication failed"
+        )
 
     def logout(self):
         """
