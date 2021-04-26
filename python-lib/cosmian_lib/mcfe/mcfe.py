@@ -99,8 +99,8 @@ class MCFE():
         Create MCFE and DMCFE LWE setup parameters.
         `clients`: the number of clients
         `message_length`: m: the number of elements in the message vector
-        `message_bound`: P: Message elements upper bound P i.e. x₁ ∈ {0,..., P-1}ᵐ where i∈{n}
-        `vectors_bound`: V: Vectors elements upper bound V i.e. yᵢ ∈ {0,..., V-1}ᵐ where i∈{n}
+        `message_bound`: P: Message elements upper bound P i.e. $x₁ ∈ {0,..., P-1}ᵐ$ where $i∈{n}$
+        `vectors_bound`: V: Vectors elements upper bound V i.e. $yᵢ ∈ {0,..., V-1}ᵐ$ where $i∈{n}$
         `n0`: ths size of the key
         """
         return Setup(clients, message_length, message_bound, vectors_bound, n0)
@@ -297,11 +297,11 @@ class MCFE():
         """
         Issue a functional key share for the `vectors` where `client` is the index of our vector as a client.
         The `fks_secret_key` must have been issued with the other clients
-        so that `∑ fks_skᵢ = 0` where `i ∈ {n}` and `n` is the number of clients.
+        so that $∑ fks_skᵢ = 0$ where $i ∈ {n}$ and $n$ is the number of clients.
         The passed `vectors` must have `number of clients` vectors of length equal to the message length.
 
-        Calculated as `fksᵢ = Enc₂(fks_skᵢ, yᵢ.sk, ᵢ, H(y))` where `i` is this client number,
-        `fks_skᵢ` is the functional key share secret key, `sk` is the secret key and `yᵢ` is the
+        Calculated as $fksᵢ = Enc₂(fks_skᵢ, yᵢ.sk, ᵢ, H(y))$ where $i$ is this client number,
+        $fks_skᵢ$ is the functional key share secret key, $sk$ is the secret key and $yᵢ$ is the
         vector for that client
         """
         return FunctionalKeyShare(

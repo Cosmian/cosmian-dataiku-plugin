@@ -68,9 +68,8 @@ try:
     computation = comp_api.retrieve(computation_uuid)
     if run_first:
         run_uuid = run_computation(computation)
-        # TODO wokaround until https://cosmian.atlassian.net/browse/CCO-159
-        # latest = computation.retrieve_run(run_uuid)
-        latest = computation.latest_run()
+        latest = computation.retrieve_run(run_uuid)
+        #latest = computation.latest_run()
     else:
         latest = computation.latest_run()
     results = latest.results

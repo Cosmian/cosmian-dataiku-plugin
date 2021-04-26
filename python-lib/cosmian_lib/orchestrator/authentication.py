@@ -1,4 +1,5 @@
-from cosmian_lib import Context
+from ..context import Context
+import hashlib
 
 
 class Authentication():
@@ -24,12 +25,11 @@ class Authentication():
             is_admin: bool,
         }
         """
-        # TODO hash password see https://cosmian.atlassian.net/browse/CCO-127
-        return self.context.post("/auth/login", {"email": username, "password": password}, "Login:: authentication failed")
+        hashed_pass = hashlib.sha256(password.encode())
+        return self.context.post("/auth/login", {"email": username, "password": hashed_pass}, "Login:: authentication failed")
 
     def logout(self):
         """
         Logout from  the orchestrator
         """
-        # TODO hash password see https://cosmian.atlassian.net/browse/CCO-127
         return self.context.post("/auth/logout", {}, "Logout:: failed")

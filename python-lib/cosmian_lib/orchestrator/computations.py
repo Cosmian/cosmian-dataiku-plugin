@@ -1,5 +1,5 @@
 from typing import List, Tuple
-from cosmian_lib import Context
+from ..context import Context
 import time
 
 
@@ -95,7 +95,7 @@ class Computation():
     def wait_for_completion(self) -> Tuple[str, str]:
         """
         Wait for the last run to complete.
-        Returns the rum uuid and the status
+        Returns the run uuid and the status
         """
         # Start by waiting for one second as the last run may not
         # be immediately available

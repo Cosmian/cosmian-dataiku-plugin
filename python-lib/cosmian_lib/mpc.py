@@ -1,5 +1,5 @@
 from .context import Context
-
+import time
 
 class MpcExecution():
     def __init__(self, context):
@@ -27,6 +27,10 @@ class MpcExecution():
         """
         MPC(self.context).stop()
         self.context = None
+
+
+MPC_LEADER_PLAYERS_QUEUED =  "PlayersQueued"
+MPC_PLAYER_FINISHED =  "Finished"
 
 
 class MPC():
@@ -128,7 +132,7 @@ class MPC():
                                    error_message="Mpc::failed to remove mpc queue entry"
                                    )
 
-    def queue(self, program, data, players, computation_id=None, output_view=None) -> MpcExecution:
+    def queue(self, mpc_program, players, computation_id=None, output_view=None) -> int:
         """
         Enqueue a computation and send out requests to the other players to accept
         the computation.
@@ -140,12 +144,12 @@ class MPC():
                 'modp': '146994499793943626591367124308987067351',
             },
             'players': players,
-            'my_index': 0,
+            'player_number': 0,
         }
 
         payload = {
-            "program": program,
-            "data": data,
+            "mpc_program": mpc_program,
+            # "data": data,
             "output_view": output_view,
             "setup": setup
         }
@@ -159,7 +163,7 @@ class MPC():
                                      error_message="Mpc::failed to enqueue program"
                                      )
 
-    def accept(self, computation_id, input_data, output_view=None) -> MpcExecution:
+    def accept(self, computation_id, input_data, output_view=None):
         """
         Accept the computation with the given id to be run whenever the system
         is ready.
@@ -174,3 +178,133 @@ class MPC():
         return self.context.post(f"/mpc/accept", payload,
                                  error_message="Mpc::failed to accept program"
                                  )
+
+    def get_leader_computation(self,computation_id):
+        """
+        Returns the status of the computation and of the players
+        as seen from the leader. Returns 404 if this player is not the
+        leader for that computation
+        """
+        return self.context.get(f"/mpc/leader/{computation_id}",
+                                error_message="Mpc::failed getting the computation from the leader"
+                                )
+
+    def wait_for_leader_status(self, leader_computation_id: str, state:str , seconds: int = 60):
+        """
+        Wait for the leader to reach a certain state
+        before returning
+
+        The parameter `seconds` set the maximim waiting time and defaults to 60
+        A ValueError is raised in case of timeout
+        """
+        msg = f"waiting max {seconds} seconds for leader status '{state}' on computation {leader_computation_id}"
+        print(msg)
+        timeout = seconds
+        while True:
+            st = self.get_leader_computation(leader_computation_id)['state']
+            if st == state or state in st :
+                st = str(st).replace("\\n", "\n")
+                print(f"... done in {seconds-timeout} seconds with status {st}")
+                return
+            if timeout ==  0:
+                msg = f"Timout {msg}, status is {self.get_leader_computation(leader_computation_id)['state']}".replace("\\n", "\n")
+                print(msg)
+                raise ValueError(msg)
+            timeout -= 1
+            time.sleep(1)
+
+
+    def wait_for_player_status(self, computation_id: str, state: str, seconds: int = 60) ->str:
+        """
+        Wait for the player to reach a certain state
+        before returning
+
+        The parameter `seconds` set the maximim waiting time and defaults to 60
+        A ValueError is raised in case of timeout
+        """
+        msg = f"waiting max {seconds} seconds for player status '{state}' on computation {computation_id}"
+        print(msg)
+        timeout = seconds
+        while True:
+            st = self.status()['queue'][computation_id]['state']
+            if st == state or (isinstance(st, dict) and state in st) :
+                n_str = str(st).replace("\\n", "\n")
+                print(f"... done in {seconds-timeout} seconds with status {n_str}")
+                if isinstance(st, dict):
+                    return st[state]
+                return None
+            if timeout ==  0:
+                msg = f"Timout {msg}, status is {self.status()['queue'][computation_id]['state']}".replace("\\n", "\n")
+                print(msg)
+                raise ValueError(msg)
+            timeout -= 1
+            time.sleep(1)
+
+def mpc_quick_run(
+    git_url: str,
+    commit_hash: str,
+    data = [[],[],[]],
+    mpc_runtimes = [
+        {
+            'server_name': 'localhost',
+            'rest_port': 10000,
+        },
+        {
+            'server_name': 'localhost',
+            'rest_port': 10001,
+        },
+        {
+            'server_name': 'localhost',
+            'rest_port': 10002,
+        },
+    ]
+):
+    """
+    A utility to quickly run a computation on a set of MPC runtimes
+
+    This is useful to quickly test an MPC program from the command line 
+    without going through the orchestrator UIs.
+
+    Tge `data` parameter is a list of input data tables' one per participant.
+    It defaults to a list of 3 empty input data tables 
+
+    The `mpc_runtimes` parameter defaults to a list of 
+    {
+        'server_name': SERVER_NAME,
+        'rest_port': REST_PORT,
+    }
+    which are those of the 3 participants of the CipherCompute EAP developer version
+    see: https://github.com/Cosmian/CipherCompute
+
+    """
+    servers = [MPC(Context(f"http://{rt['server_name']}:{rt['rest_port']}")) for rt in mpc_runtimes]
+    computation_id = "quick_run"
+    try:
+        program = {
+            'repository': git_url,
+            'revision': commit_hash,
+        }
+        # use participant 0 as the leader
+        servers[0].queue(program, mpc_runtimes, computation_id)
+        servers[0].wait_for_leader_status(computation_id,state=MPC_LEADER_PLAYERS_QUEUED)
+        for index, server in enumerate(servers):
+            server.accept(computation_id, data[index])
+        servers[0].wait_for_player_status(computation_id,state=MPC_PLAYER_FINISHED)
+
+        status = servers[0].status()['queue'][computation_id]
+        return {
+            'debug_output': status['debug_output'],
+            'data': [server.results(computation_id) for server in servers]
+        }
+    except ValueError as e:
+        raise e
+    except BaseException as e:
+        status = servers[0].status()['queue'][computation_id]
+        print(status['debug_output'])
+        raise e
+    finally:
+        for server in servers:
+            try:
+                server.dequeue(computation_id)
+            finally:
+                pass

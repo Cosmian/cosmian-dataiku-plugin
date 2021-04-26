@@ -1,4 +1,4 @@
-from cosmian_lib import Context
+from ..context import Context
 from .computations import ComputationsAPI
 from .authentication import Authentication
 
