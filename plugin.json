@@ -4,29 +4,29 @@
     // This must be globally unique, and only contain A-Za-z0-9_-
     // BEWARE: Changing this value is a dangerous operation and
     // needs manual administrator intervention to fix directory names
-    "id" : "cosmian-server",
-
+    "id": "cosmian-server",
     // Version. It is highly recommended to use Semantic Versioning
-    "version" : "0.0.1",
-
-
+    "version": "1.1.1",
     // Meta data for display purposes
-    "meta" : {
+    "meta": {
         // Name of this plugin that appears in the interface.
-        "label" : "Cosmian Confidential Server",
-
-        "description" : "Handles confidential computations on a Cosmian server",
-        "author" : "Bruno Grieder",
-
+        "label": "Cosmian Confidential Servers",
+        "description": "Handles confidential computations on Cosmian servers",
+        "author": "Bruno Grieder",
         // The icon of a plugin must be one of the FontAwesome 3.1 icons
-        "icon" : "icon-lock",
-
-        "licenseInfo" : "Apache Software License",
-
+        "icon": "icon-lock",
+        "licenseInfo": "Apache Software License",
         // URL where the user can learn more about the plugin
-        "url" : "https://www.cosmian.com",
-
+        "url": "https://www.cosmian.com",
         // List of tags for filtering the list of plugins
-        "tags" : ["encrypt", "encryption", "encrypted","secure","trusted","MPC","FHE"]
+        "tags": [
+            "encrypt",
+            "encryption",
+            "encrypted",
+            "secure",
+            "trusted",
+            "MPC",
+            "FHE"
+        ]
     }
 }

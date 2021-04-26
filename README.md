@@ -1,6 +1,21 @@
 # Cosmian Dataiku Plugin
 
-WIP - Not ready for showtime
+This plugin facilitates the Integration between Dataiku and the Cosmian CipherCompute and ZeroTrust servers.
+
+## Installing in Dataiku
+
+Please see paragraphs below on installing Dataiku DSS 8 (this plugin is compatible with DSS 9).
+
+Go to Applications -> Plugins -> Add Plugins --> Fetch from Git repository
+
+![dss_plugins](./dss_plugins.png)
+
+Then enter the HTTPS Clone URL of this repository
+
+Use `v1.1.1` for CipherCompute v1.1.1, v1.1.2
+
+![plugin_url](./plugin_url.png)
+
 
 ## Installing Python 3.6
 
@@ -52,8 +67,6 @@ tar xzf dataiku-dss-8.0.5.tar.gz
 export DATA_DIR=~/dss && dataiku-dss-8.0.5/installer.sh -d ${DATA_DIR} -p 8080
 
 ```
-
-
 
 
 ## DSS start
